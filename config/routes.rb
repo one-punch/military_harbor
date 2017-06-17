@@ -4,6 +4,8 @@ Rails.application.routes.draw do
 
   get '/signup', to: 'users#new'
 
+  get 'p-:id-:name' => 'products#show', :id => /\d+/, as: :product, :format => :html
+
   resources :users
 
   namespace :admin do
