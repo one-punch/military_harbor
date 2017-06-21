@@ -10,7 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170617033925) do
+ActiveRecord::Schema.define(version: 20170621033600) do
+
+  create_table "attachments", force: :cascade do |t|
+    t.integer "source_id", null: false
+    t.string "source_type", null: false
+    t.string "token"
+    t.string "file", null: false
+    t.string "file_name"
+    t.integer "file_size"
+    t.string "file_type"
+    t.string "role"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "categories", force: :cascade do |t|
     t.string "name"

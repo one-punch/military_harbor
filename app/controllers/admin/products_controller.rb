@@ -5,11 +5,20 @@ class Admin::ProductsController < Admin::ApplicationController
   end
 
   def show
+    @product = Product.find params[:id]
+  end
 
+  def new
+    @product = Product.new
   end
 
   def create
+    @product = Product.new product_params
+    if @product.save
 
+    else
+
+    end
   end
 
   def edit
@@ -22,6 +31,12 @@ class Admin::ProductsController < Admin::ApplicationController
 
   def delete
 
+  end
+
+  private
+
+  def product_params
+    params.require(:product).permit(:name, :sku, :description, :price, :purchase_price, :active)
   end
 
 end

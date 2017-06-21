@@ -58,4 +58,6 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'ancestry'
-gem 'kaminari'
+gem 'kaminari', '~> 1.0.1'
+gem 'carrierwave', '~> 1.1'
+gem 'mini_magick', '~> 3.8.1'
