@@ -15,7 +15,7 @@ class Admin::ProductsController < Admin::ApplicationController
   def create
     @product = Product.new product_params
     if @product.save
-
+      redirect_to action: :images, product_id: @product.id
     else
 
     end
@@ -31,6 +31,14 @@ class Admin::ProductsController < Admin::ApplicationController
 
   def delete
 
+  end
+
+  def images
+    @product = Product.find params[:product_id]
+  end
+
+  def upload
+    render json: {ok: 1}.to_json
   end
 
   private

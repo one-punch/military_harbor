@@ -1,0 +1,85 @@
+<!-- <input id="input-repl-2" name="inputrepl2[]" type="file" class="file-loading" accept="image/*" multiple>
+<script>
+$("#input-repl-2").fileinput({
+    uploadUrl: "/file-upload-batch/2",
+    autoReplace: true,
+    maxFileCount: 5,
+    allowedFileExtensions: ["jpg", "png", "gif"]
+});
+</script>
+ -->
+
+<div class="container-fluid">
+  <div class="row">
+      <div class="col-lg-12">
+          <h1 class="page-header">Manager Product Images</h1>
+      </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-6">
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <tbody>
+            <tr>
+              <td>Name</td>
+              <td><%= @product.name %></td>
+            </tr>
+            <tr>
+              <td>Price</td>
+              <td><%= @product.price %></td>
+            </tr>
+            <tr>
+              <td>Display</td>
+              <td><%= @product.active %></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+    <div class="col-lg-6">
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <tbody>
+            <tr>
+              <td>Sku</td>
+              <td><%= @product.sku %></td>
+            </tr>
+            <tr>
+              <td>Purchase Price</td>
+              <td><%= @product.purchase_price %></td>
+            </tr>
+            <tr>
+              <td></td>
+              <td></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-12">
+      <p>
+        <%= @product.description %>
+      </p>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-12">
+      <input id="file-uploader" name="images[]" type="file" class="file-loading" accept="image/*" multiple>
+    </div>
+  </div>
+</div>
+
+<script>
+$("#file-uploader").fileinput({
+    uploadUrl: "<%= admin_product_upload_path(product_id: @product.id) %>",
+    autoReplace: false,
+    maxFileCount: 5,
+    allowedFileExtensions: ["jpg", "png", "gif"]
+});
+</script>

@@ -16,7 +16,8 @@ Rails.application.routes.draw do
     root to: 'home#index', as: 'root'
 
     resources :products do
-
+      get "/images" => "products#images", as: :images
+      post "/images-upload-batch" => "products#upload", as: :upload
     end
   end
 end

@@ -15,7 +15,6 @@ ActiveRecord::Schema.define(version: 20170621033600) do
   create_table "attachments", force: :cascade do |t|
     t.integer "source_id", null: false
     t.string "source_type", null: false
-    t.string "token"
     t.string "file", null: false
     t.string "file_name"
     t.integer "file_size"

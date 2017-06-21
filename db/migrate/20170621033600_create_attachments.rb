@@ -3,7 +3,6 @@ class CreateAttachments < ActiveRecord::Migration[5.1]
     create_table :attachments do |t|
       t.integer  :source_id,   null: false
       t.string   :source_type, null: false
-      t.string   :token
       t.string   :file, null: false
       t.string   :file_name
       t.integer  :file_size
