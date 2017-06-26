@@ -70,7 +70,7 @@ $("#input-repl-2").fileinput({
 
   <div class="row">
     <div class="col-lg-12">
-      <input id="file-uploader" name="images[]" type="file" class="file-loading" accept="image/*" multiple>
+      <input id="file-uploader" name="product[images][]" type="file" class="file-loading" accept="image/*" multiple>
     </div>
   </div>
 </div>
@@ -80,6 +80,33 @@ $("#file-uploader").fileinput({
     uploadUrl: "<%= admin_product_upload_path(product_id: @product.id) %>",
     autoReplace: false,
     maxFileCount: 5,
-    allowedFileExtensions: ["jpg", "png", "gif"]
+    allowedFileExtensions: ["jpg", "png", "gif"],
+    initialPreview: [
+      "<img src='/images/desert.jpg' class='file-preview-image' alt='Desert' title='Desert'>",
+      "<img src='/images/jellyfish.jpg' class='file-preview-image' alt='Jelly Fish' title='Jelly Fish'>",
+    ],
+    initialPreviewConfig: [
+        {
+            caption: 'desert.jpg',
+            width: '120px',
+            url: '/localhost/avatar/delete',
+            key: 100,
+            extra: {id: 100}
+        },
+        {
+            caption: 'jellyfish.jpg',
+            width: '120px',
+            url: '/localhost/avatar/delete',
+            key: 101,
+            frameClass: 'my-custom-frame-css',
+            frameAttr: {
+                style: 'height:80px',
+                title: 'My Custom Title',
+            },
+            extra: function() {
+                return {id: $("#id").val()};
+            },
+        }
+    ]
 });
 </script>

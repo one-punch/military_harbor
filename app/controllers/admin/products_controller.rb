@@ -38,7 +38,15 @@ class Admin::ProductsController < Admin::ApplicationController
   end
 
   def upload
-    render json: {ok: 1}.to_json
+    @product = Product.find params[:product_id]
+    @errors = []
+    params[:product][:images].each do |img_file|
+      img = @product.images.build(file: img_file)
+      unless img.save
+        @errors << img.errors.full_messages.join("; ")
+      end
+    end
+    @product.images.reload
   end
 
   private
