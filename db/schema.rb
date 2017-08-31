@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170621033600) do
+ActiveRecord::Schema.define(version: 20170831140452) do
 
   create_table "attachments", force: :cascade do |t|
     t.integer "source_id", null: false
@@ -40,6 +40,22 @@ ActiveRecord::Schema.define(version: 20170621033600) do
     t.boolean "active", default: true
     t.decimal "price", precision: 8, scale: 2, default: "0.0"
     t.decimal "purchase_price", precision: 8, scale: 2, default: "0.0"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "parent_id"
+  end
+
+  create_table "properties", force: :cascade do |t|
+    t.integer "product_id", null: false
+    t.integer "property_group_id", null: false
+    t.string "key"
+    t.string "value"
+    t.integer "position", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "property_groups", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

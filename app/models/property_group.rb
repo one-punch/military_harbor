@@ -1,0 +1,2 @@
+class PropertyGroup < ApplicationRecord
+end
