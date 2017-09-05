@@ -1,19 +1,11 @@
-class Product < ApplicationRecord
+class Product < PrimeryProduct
 
-  has_many :images, as: :source, dependent: :destroy, autosave: true, class_name: 'Attachment'
+  default_scope {where("products.parent_id IS NULL")}
+
   has_many :property_groups
-  has_many :properties
 
-  validates :price, numericality: true
-  validates :purchase_price, numericality: true, allow_blank: true
+  has_many :variants, class_name: 'Variant', foreign_key: 'parent_id', dependent: :destroy
 
-
-  def master?
-    parent_id.blank?
-  end
-
-  def sku?
-    parent_id.present?
-  end
+  scope :root, -> { where(parent_id: nil) }
 
 end
