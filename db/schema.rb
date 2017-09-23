@@ -46,8 +46,7 @@ ActiveRecord::Schema.define(version: 20170831140452) do
   end
 
   create_table "properties", force: :cascade do |t|
-    t.integer "product_id", null: false
-    t.integer "property_group_id", null: false
+    t.integer "variant_id", null: false
     t.string "key"
     t.string "value"
     t.integer "position", default: 0

@@ -1,0 +1,10 @@
+<div class="container-fluid">
+  <div class="row">
+      <div class="col-lg-12">
+          <h1 class="page-header">Create Product Variants</h1>
+      </div>
+  </div>
+
+<%= render partial: "form", locals: {product: @variant, url: create_variant_admin_product_path(@product.id), method: :POST} %>
+
+</div>

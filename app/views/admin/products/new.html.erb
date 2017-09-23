@@ -5,45 +5,7 @@
       </div>
   </div>
 
-<%= form_for(@product, url: admin_products_path, method: :POST) do |f| %>
-  <div class="row">
-    <div class="col-lg-6 col-sm-12">
-      <div class="form-group">
-        <%= f.label :name %>
-        <%= f.text_field :name, placeholder: "input name", class: "form-control" %>
-      </div>
-      <div class="form-group">
-        <%= f.label :price %>
-        <%= f.number_field :price, min: 0.00, step: 0.05, placeholder: "input selling price", class: "form-control" %>
-      </div>
-      <div class="form-group">
-        <%= f.label :display %>
-        <%= f.check_box :active %>
-      </div>
-    </div>
-    <div class="col-lg-6 col-sm-12">
-      <div class="form-group">
-        <%= f.label :sku %>
-        <%= f.text_field :sku, placeholder: "input product model", class: "form-control" %>
-      </div>
-      <div class="form-group">
-        <%= f.label :purchase_price %>
-        <%= f.number_field :purchase_price, min: 0.00, step: 0.05, placeholder: "input purchase price", class: "form-control" %>
-      </div>
-    </div>
-    <div class="col-lg-12 col-sm-12">
-      <div class="form-group">
-        <%= f.label :description %>
-        <%= f.text_area(:description, cols: 20, rows: 40)%>
-      </div>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-lg-11">
-      <button type="submit" class="pull-right btn btn-primary">Submit</button>
-    </div>
-  </div>
+<%= render partial: "form", locals: {product: @product, url: admin_products_path, method: :POST} %>
 
 
-<% end %>
+</div>

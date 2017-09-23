@@ -7,12 +7,12 @@ class PrimeryProduct < ApplicationRecord
   validates :price, numericality: true
   validates :purchase_price, numericality: true, allow_blank: true
 
-  def master?
+  def is_master?
     parent_id.blank?
   end
 
-  def sku?
-    parent_id.present?
+  def is_sku?
+    !is_master?
   end
 
 end
