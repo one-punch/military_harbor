@@ -1,0 +1,14 @@
+<div class="row">
+  <div class="col-lg-12 col-md-12">
+    <label>Variants: </label>
+    <ul class="list-inline">
+      <% product.variants.each_with_index do |variant, idx| %>
+        <li>
+          <%= link_to product_path(variant.id, variant.name), class: "#{ selected.id == variant.id ? 'selected' : '' }" do %>
+           <img src="<%= variant.default_image(:thumb) %>" style=" max-width: 50px" class="img-thumbnail img-responsive">
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</div>

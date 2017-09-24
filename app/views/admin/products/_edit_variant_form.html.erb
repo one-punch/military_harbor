@@ -1,0 +1,57 @@
+<div class="col-lg-12 col-sm-12">
+  <div class="row clearfix">
+    <div class="col-md-12 column">
+        <table class="table table-bordered table-hover" id="tab_logic">
+          <thead>
+            <tr >
+              <th class="text-center">
+                Name
+              </th>
+              <th class="text-center">
+                Value
+              </th>
+              <th class="text-center">
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <% variant.properties.each_with_index do |property, idx| %>
+              <tr id='addr<%= idx %>' data-id="<%= property.id %>">
+                <td>
+                <input type="hidden" name="properties[][id]" value="<%= property.id%>">
+                <input type="text" name='properties[][key]'  placeholder='Variant Name' value="<%= property.key %>" class="form-control"/>
+                </td>
+                <td>
+                <input type="text" name='properties[][value]' placeholder='Variant Value' value="<%= property.value %>" class="form-control"/>
+                </td>
+                <td>
+                  <%= link_to("Delete", delete_property_admin_product_path(variant.id, property.id), method: :DELETE, "data-confirm" => 'Are you sure?', class: "btn btn-warning") %>
+                </td>
+              </tr>
+            <% end %>
+            <tr id='addr<%= variant.properties.size %>'></tr>
+          </tbody>
+        </table>
+    </div>
+  </div>
+    <a id="add_row" class="btn btn-default pull-left">Add Row</a>
+    <a id='delete_row' class="pull-right btn btn-default">Delete Row</a>
+</div>
+
+
+<script type="text/javascript">
+$(document).ready(function(){
+  var i=<%= variant.properties.size %>;
+  $("#add_row").click(function(){
+      $('#addr'+i).html("<td><input name='properties[][key]' type='text' placeholder='Variant Name' class='form-control input-md'  /> </td><td><input  name='properties[][value]' type='text' placeholder='Variant Value'  class='form-control input-md'></td><td></td>");
+      $('#tab_logic').append('<tr id="addr'+(i+1)+'"></tr>');
+      i++;
+  });
+  $("#delete_row").click(function(){
+    if(i>1 && !$("#addr"+(i-1)).data("id")){
+      $("#addr"+(i-1)).html('');
+      i--;
+    }
+  });
+});
+</script>

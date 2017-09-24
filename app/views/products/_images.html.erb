@@ -1,0 +1,63 @@
+<div class="thumbnail">
+    <div class="col-md-12 hidden-sm hidden-xs" id="slider-thumbs">
+
+    <!-- thumb navigation carousel items -->
+  <ul class="list-inline">
+    <% product.images.each_with_index do |image, idx| %>
+      <li>
+        <a id="carousel-selector-<%= idx %>" <%= idx == 0 ? 'class="selected"' : '' %>>
+         <img src="<%= image.file.url(:thumb) %>" class="img-thumbnail img-responsive">
+        </a>
+      </li>
+    <% end %>
+  </ul>
+</div>
+
+<!-- main slider carousel -->
+<div class="row">
+  <div class="col-md-12" id="slider">
+
+    <div class="col-md-12" id="carousel-bounding-box">
+      <div id="image-slider" class="carousel slide">
+          <!-- main slider carousel items -->
+          <div class="carousel-inner">
+            <% product.images.each_with_index do |image, idx| %>
+              <div class="<%= idx == 0 ? 'active' : '' %> item" data-slide-number="<%= idx %>">
+                  <img src="<%= image.file_url %>" class="img-responsive">
+              </div>
+            <% end %>
+          </div>
+          <!-- main slider carousel nav controls -->
+          <a class="carousel-control left" href="#image-slider" data-slide="prev">‹</a>
+
+          <a class="carousel-control right" href="#image-slider" data-slide="next">›</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+<!--/main slider carousel-->
+
+<script type="text/javascript">
+$('#image-slider').carousel({
+    interval: 4000
+});
+
+// handles the carousel thumbnails
+$('[id^=carousel-selector-]').click( function(){
+  var id_selector = $(this).attr("id");
+  var id = id_selector.substr(id_selector.lastIndexOf('-') + 1);
+  id = parseInt(id);
+  $('#image-slider').carousel(id);
+  $('[id^=carousel-selector-]').removeClass('selected');
+  $(this).addClass('selected');
+});
+
+// when the carousel slides, auto update
+$('#image-slider').on('slid', function (e) {
+  var id = $('.item.active').data('slide-number');
+  id = parseInt(id);
+  $('[id^=carousel-selector-]').removeClass('selected');
+  $('[id=carousel-selector-'+id+']').addClass('selected');
+});
+</script>

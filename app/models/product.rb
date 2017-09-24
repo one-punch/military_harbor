@@ -6,4 +6,7 @@ class Product < PrimeryProduct
 
   scope :root, -> { where(parent_id: nil) }
 
+  def has_variant?
+    variants.exists?
+  end
 end

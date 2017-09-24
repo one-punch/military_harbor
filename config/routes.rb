@@ -30,6 +30,10 @@ Rails.application.routes.draw do
 
         patch "/variant/:variant_id" => "products#update_variant", as: :update_variant
 
+        delete "/variant/:variant_id" => "products#delete_variant", as: :delete_variant
+
+        delete "/property/:property_id" => "products#delete_property", as: :delete_property
+
       end
     end
   end

@@ -13,3 +13,17 @@
  *= require_tree .
  *= require_self
  */
+
+
+.selected img {
+    opacity:0.5;
+}
+
+div#slider-thumbs ul {
+  height:85px;
+  white-space:nowrap;
+  overflow-y:hidden;
+  overflow-x:auto;
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+}

@@ -9,14 +9,6 @@
         <%= f.label :price %>
         <%= f.number_field :price, min: 0.00, step: 0.05, placeholder: "input selling price", class: "form-control" %>
       </div>
-      <% if f.object.is_a?(Variant) %>
-        <div class="form-group">
-          <%= f.fields_for :property do |p| %>
-            <%= p.label "Variant Key" %>
-            <%= p.text_field :key, placeholder: "input variant type", class: "form-control"  %>
-          <% end %>
-        </div>
-      <% end %>
       <div class="form-group">
         <%= f.label :display %>
         <%= f.check_box :active %>
@@ -31,22 +23,23 @@
         <%= f.label :purchase_price %>
         <%= f.number_field :purchase_price, min: 0.00, step: 0.05, placeholder: "input purchase price", class: "form-control" %>
       </div>
-      <% if f.object.is_a?(Variant) %>
-        <div class="form-group">
-          <%= f.fields_for :property do |p| %>
-            <%= p.label "Variant Value" %>
-            <%= p.text_field :value, placeholder: "input variant value", class: "form-control"  %>
-          <% end %>
-        </div>
-      <% end %>
     </div>
+
+    <% if f.object.new_record? && f.object.is_a?(Variant) %>
+      <%= render partial: "variant_form" %>
+    <% elsif !f.object.new_record? && f.object.is_a?(Variant) %>
+      <%= render partial: "edit_variant_form", locals: {variant: f.object} %>
+    <% end %>
+    <div class="space-6"></div>
     <div class="col-lg-12 col-sm-12">
       <div class="form-group">
         <%= f.label :description %>
-        <%= f.text_area(:description, cols: 20, rows: 40)%>
+        <%= f.text_area(:description, cols: 100, rows: 20, class: "col-sm-12 col-lg-12")%>
       </div>
     </div>
   </div>
+
+  <div class="space-6"></div>
 
   <div class="row">
     <div class="col-lg-11">
@@ -54,5 +47,6 @@
     </div>
   </div>
 
-
 <% end %>
+
+

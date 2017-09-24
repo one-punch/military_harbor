@@ -44,18 +44,35 @@
               <td>Purchase Price</td>
               <td><%= @product.purchase_price %></td>
             </tr>
-            <% if @product.is_sku? %>
-              <tr>
-                <td><%= @product.key %></td>
-                <td><%= @product.value %></td>
-              </tr>
-            <% end %>
+
           </tbody>
         </table>
       </div>
     </div>
   </div>
 
+<% if @product.is_sku? %>
+  <div class="row">
+    <div class="col-lg-12">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Variant Name</th>
+            <th>Variant Value</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @product.properties.each do |property| %>
+            <tr>
+              <td><%= property.key %></td>
+              <td><%= property.value %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+<% end %>
   <div class="row">
     <div class="col-lg-12">
       <p>

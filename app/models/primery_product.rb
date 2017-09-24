@@ -15,4 +15,18 @@ class PrimeryProduct < ApplicationRecord
     !is_master?
   end
 
+  def currency_price
+    "$#{'%.2f' % price}"
+  end
+
+  def allow_checkout?
+    (is_master? && !Variant.where(parent_id: id).exists?) || is_sku?
+  end
+
+  def default_image(format)
+    if images.first.present?
+      images.first.file_url(format)
+    end
+  end
+
 end

@@ -1,0 +1,48 @@
+<div class="col-lg-12 col-sm-12">
+  <div class="row clearfix">
+    <div class="col-md-12 column">
+        <table class="table table-bordered table-hover" id="tab_logic">
+          <thead>
+            <tr >
+              <th class="text-center">
+                Name
+              </th>
+              <th class="text-center">
+                Value
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr id='addr0'>
+              <td>
+              <input type="text" name='properties[][key]'  placeholder='Variant Name' class="form-control"/>
+              </td>
+              <td>
+              <input type="text" name='properties[][value]' placeholder='Variant Value' class="form-control"/>
+              </td>
+            </tr>
+            <tr id='addr1'></tr>
+          </tbody>
+        </table>
+    </div>
+  </div>
+    <a id="add_row" class="btn btn-default pull-left">Add Row</a><a id='delete_row' class="pull-right btn btn-default">Delete Row</a>
+</div>
+
+
+<script type="text/javascript">
+$(document).ready(function(){
+  var i=1;
+  $("#add_row").click(function(){
+      $('#addr'+i).html("<td><input name='properties[][key]' type='text' placeholder='Variant Name' class='form-control input-md'  /> </td><td><input  name='properties[][value]' type='text' placeholder='Variant Value'  class='form-control input-md'></td>");
+      $('#tab_logic').append('<tr id="addr'+(i+1)+'"></tr>');
+      i++;
+  });
+  $("#delete_row").click(function(){
+    if(i>1){
+      $("#addr"+(i-1)).html('');
+      i--;
+    }
+  });
+});
+</script>
