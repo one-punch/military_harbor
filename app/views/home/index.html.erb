@@ -38,13 +38,17 @@
 
 
     <div class="row">
-      <% 6.times do |n| %>
+      <% @products.each do |product| %>
         <div class="col-sm-4 col-lg-4 col-md-4">
           <div class="thumbnail">
             <!-- <img src="" alt=""> -->
+            <%= image_tag(product.default_image(:thumb)) %>
             <div class="caption">
-              <h4 class="pull-right">$21.99</h4>
-              <h4><a href="#">Product</a>
+              <h4 class="pull-right">
+                <%= product.currency_price %>
+              </h4>
+              <h4>
+                <%= link_to product.name, product_path(product.id, product.name) %>
               </h4>
               <p>See more snippets like this online store item at</p>
             </div>
