@@ -55,6 +55,9 @@ ActiveRecord::Schema.define(version: 20170831140452) do
   end
 
   create_table "property_groups", force: :cascade do |t|
+    t.integer "product_id", null: false
+    t.string "name", null: false
+    t.integer "position", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
