@@ -67,9 +67,7 @@ class Admin::ProductsController < Admin::ApplicationController
     ActiveRecord::Base.transaction do
       begin
         @variant.save!
-        binding.pry
         property_params[:properties].each do |pro_param|
-          binding.pry
           @variant.properties.create! pro_param.except(:id)
         end
       rescue exception => e
