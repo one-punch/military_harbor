@@ -13,7 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require popper/popper.min.js
-//= require bootstrap-sprockets
+//= require bootstrap
 //= require rails-ujs
 //= require turbolinks
 //= require_tree .
