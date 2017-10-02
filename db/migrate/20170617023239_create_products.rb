@@ -7,6 +7,8 @@ class CreateProducts < ActiveRecord::Migration[5.1]
       t.boolean :active, default: true
       t.decimal :price,             precision: 8, scale: 2, default: 0.0
       t.decimal :purchase_price,    precision: 8, scale: 2, default: 0.0
+      t.integer :category_id
+      t.integer :parent_id
       t.timestamps
     end
   end

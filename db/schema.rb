@@ -40,9 +40,10 @@ ActiveRecord::Schema.define(version: 20170831140452) do
     t.boolean "active", default: true
     t.decimal "price", precision: 8, scale: 2, default: "0.0"
     t.decimal "purchase_price", precision: 8, scale: 2, default: "0.0"
+    t.integer "category_id"
+    t.integer "parent_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "parent_id"
   end
 
   create_table "properties", force: :cascade do |t|

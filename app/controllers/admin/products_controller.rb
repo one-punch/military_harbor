@@ -155,11 +155,11 @@ class Admin::ProductsController < Admin::ApplicationController
   private
 
   def product_params
-    params.require(:product).permit(:name, :sku, :description, :price, :purchase_price, :active)
+    params.require(:product).permit(:name, :sku, :description, :price, :purchase_price, :active, :category_id)
   end
 
   def variant_params
-    params.require(:variant).permit(:name, :sku, :description, :price, :purchase_price, :active)
+    params.require(:variant).permit(:name, :sku, :description, :price, :purchase_price, :active, :category_id)
   end
 
   def property_params

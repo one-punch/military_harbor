@@ -1,0 +1,30 @@
+<h1 class="page-header">Category List</h1>
+
+<pull class="pull-right">
+  <%= link_to 'New Category', new_admin_category_path, class: 'btn btn-primary' %>
+</pull>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Level</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @categoires.each do |category| %>
+      <tr>
+        <td>
+          <%= category.name %>
+        </td>
+        <td>
+          <%= category.level %>
+        </td>
+        <td>
+          <%= link_to 'Edit', edit_admin_category_path(category) %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
