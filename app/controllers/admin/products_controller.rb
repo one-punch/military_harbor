@@ -30,6 +30,7 @@ class Admin::ProductsController < Admin::ApplicationController
   def update
     @product = Product.find params[:id]
     if @product.update_attributes product_params
+      @product.variants.each { |variant| variant.update(category_id: @product.category_id) }
       flash[:success] = "update success"
       redirect_to action: :edit, id: @product.id
     else
@@ -64,6 +65,7 @@ class Admin::ProductsController < Admin::ApplicationController
       return redirect_to :back
     end
     @variant = @product.variants.build variant_params
+    @variant.category_id = @product.category_id
     ActiveRecord::Base.transaction do
       begin
         @variant.save!

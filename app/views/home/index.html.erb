@@ -10,7 +10,6 @@
         We will Update our website at this year. If you cannot visit, or place orders, please write email to me directly: militaryharbor (at) hotmail (dot) com. And tell me all you need in the email. Thanks for understand.
       </h3>
       <p>Items with '' label will be free shipping service! Check them now.</p>
-      <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a></p>
     </div>
 
     <div class="row">
@@ -22,11 +21,11 @@
             <% end %>
 
             <div class="caption">
-              <h4 class="pull-right">
-                <%= product.currency_price %>
-              </h4>
               <h4>
                 <%= link_to product.name, product_path(product.id, product.name) %>
+              </h4>
+              <h4 class="pull-right">
+                <%= product.currency_price %>
               </h4>
               <p>See more snippets like this online store item at</p>
             </div>

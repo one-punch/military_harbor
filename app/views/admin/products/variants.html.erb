@@ -1,70 +1,59 @@
-<div class="container-fluid">
-  <div class="row">
-      <div class="col-lg-10">
-          <h1 class="page-header">Manager Product Variants</h1>
-      </div>
-      <div class="col-lg-2">
-        <%= link_to new_variant_admin_product_path do %>
-          <span class="glyphicon glyphicon-pencil"  aria-hidden="true"></span>
-        <% end %>
-      </div>
+<div class="page-header">
+  <div class="pull-right">
+    <%= link_to 'Add Variant', new_variant_admin_product_path, class: 'btn btn-primary'%>
   </div>
-
-  <div class="row">
-    <div class="col-lg-12">
-      <div class="table-responsive">
-        <table class="table">
-          <thead>
+  <h1>Manager Product Variants</h1>
+</div>
+<div class="row">
+  <div class="col-lg-12">
+    <div class="table-responsive">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Display</th>
+            <th>Sku</th>
+            <th>Purchase Price</th>
+            <th>Variant</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @product.variants.each do |variant| %>
             <tr>
-              <th>#</th>
-              <th>Name</th>
-              <th>Price</th>
-              <th>Display</th>
-              <th>Sku</th>
-              <th>Purchase Price</th>
-              <th>Variant</th>
-              <th></th>
+              <th scope="row"><%= variant.id %></th>
+              <th><%= variant.name %></th>
+              <td><%= variant.price %></td>
+              <td><%= variant.active %></td>
+              <td><%= variant.sku %></td>
+              <td><%= variant.purchase_price %></td>
+
+              <td>
+                <% variant.properties.each do |property| %>
+                  <table class="table">
+                    <tbody>
+                      <tr>
+                        <td><%= property.key %></td>
+                        <td><%= property.value %></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                <% end %>
+              </td>
+              <td>
+                <%= link_to edit_admin_product_path(variant.id) do %>
+                  <span class="glyphicon glyphicon-pencil"  aria-hidden="true"></span>
+                <% end %>
+                <%= link_to edit_variant_admin_product_path(@product.id, variant.id) do %>
+                  <span class="glyphicon glyphicon-trash"  aria-hidden="true"></span>
+                <% end %>
+              </td>
             </tr>
-          </thead>
-          <tbody>
-            <% @product.variants.each do |variant| %>
-              <tr>
-                <th scope="row"><%= variant.id %></th>
-                <th><%= variant.name %></th>
-                <td><%= variant.price %></td>
-                <td><%= variant.active %></td>
-                <td><%= variant.sku %></td>
-                <td><%= variant.purchase_price %></td>
-
-                <td>
-                  <% variant.properties.each do |property| %>
-                    <table class="table">
-                      <tbody>
-                        <tr>
-                          <td><%= property.key %></td>
-                          <td><%= property.value %></td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  <% end %>
-                </td>
-                <td>
-                  <%= link_to edit_admin_product_path(variant.id) do %>
-                    <span class="glyphicon glyphicon-pencil"  aria-hidden="true"></span>
-                  <% end %>
-                  <%= link_to edit_variant_admin_product_path(@product.id, variant.id) do %>
-                    <span class="glyphicon glyphicon-trash"  aria-hidden="true"></span>
-                  <% end %>
-                </td>
-              </tr>
-            <% end %>
-          </tbody>
-        </table>
-      </div>
+          <% end %>
+        </tbody>
+      </table>
     </div>
-
-
   </div>
-
-
 </div>
