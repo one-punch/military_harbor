@@ -12,7 +12,7 @@ Rails.application.routes.draw do
 
   resources :users
 
-  resources :cart_items, only: [:create, :destroy]
+  resources :cart_items, only: [:create, :update, :destroy]
 
   get '/cart', to: 'cart_items#index'
 

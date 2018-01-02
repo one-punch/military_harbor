@@ -25,7 +25,9 @@ class PrimeryProduct < ApplicationRecord
   end
 
   def default_image(format)
-    if images.first.present?
+    if is_sku? && images.blank?
+      Product.find(parent_id).images.first.file_url(format)
+    else
       images.first.file_url(format)
     end
   end

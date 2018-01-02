@@ -10,4 +10,8 @@ class Cart < ApplicationRecord
     end
     item
   end
+
+  def subtotal
+    cart_items.map(&:subtotal).sum
+  end
 end

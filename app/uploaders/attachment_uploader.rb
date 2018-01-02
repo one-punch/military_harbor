@@ -19,6 +19,10 @@ class AttachmentUploader < CarrierWave::Uploader::Base
     process resize_and_pad: [200, 200]
   end
 
+  version :small, if: :image? do
+    process resize_and_pad: [75, 75]
+  end
+
   def filename
      "#{secure_token(10)}.#{file.extension}" if original_filename.present?
   end
