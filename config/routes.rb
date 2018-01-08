@@ -14,7 +14,11 @@ Rails.application.routes.draw do
 
   resources :cart_items, only: [:create, :update, :destroy]
 
+  resources :orders
+
   get '/cart', to: 'cart_items#index'
+  get '/checkout', to: 'orders#new'
+
 
   namespace :admin do
     root to: 'home#index', as: 'root'
