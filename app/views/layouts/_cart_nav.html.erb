@@ -1,0 +1,22 @@
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <span class="glyphicon glyphicon-shopping-cart"></span> <%= current_cart.quantity %> - Items<span class="caret"></span>
+</a>
+<ul class="dropdown-menu dropdown-cart" role="menu">
+  <% current_cart.cart_items.each do |item| %>
+    <li>
+      <span class="item">
+        <span class="item-left">
+          <%= image_tag item.product.default_image(:small) %>
+          <span class="item-info">
+            <span><%= item.product.name %></span>
+            <span><%= item.product.currency_price %></span>
+          </span>
+        </span>
+      </span>
+    </li>
+  <% end %>
+  <li class="divider"></li>
+  <li>
+    <%= link_to 'View Cart', cart_path, class: 'text-center' %>
+  </li>
+</ul>

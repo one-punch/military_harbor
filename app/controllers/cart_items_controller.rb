@@ -16,15 +16,24 @@ class CartItemsController < ApplicationController
 
   def update
     if @item.update quantity_params
-      flash[:success] = "编辑成功"
       redirect_to cart_path
+    end
+  end
+
+  def destroy
+    @item = current_cart.cart_items.find(params[:id])
+    @item.destroy
+
+    respond_to do |format|
+      format.html { redirect_to cart_path }
+      format.js
     end
   end
 
   private
 
   def find_item
-    @item = current_cart.find(params[:id]) if params[:id]
+    @item = current_cart.cart_items.find(params[:id]) if params[:id]
   end
 
   def item_params

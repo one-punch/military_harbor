@@ -4,7 +4,7 @@ class Cart < ApplicationRecord
   def add_item params
     item = cart_items.find_by(product_id: params[:product_id])
     if item
-      item.quantity += params[:quantity]
+      item.quantity += params[:quantity].to_i
     else
       item = cart_items.build params
     end
@@ -13,5 +13,9 @@ class Cart < ApplicationRecord
 
   def subtotal
     cart_items.map(&:subtotal).sum
+  end
+
+  def quantity
+    cart_items.map(&:quantity).sum
   end
 end
