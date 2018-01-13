@@ -81,10 +81,10 @@
             <span class="glyphicon glyphicon-shopping-cart"></span> Continue Shopping
           <% end %>
         </td>
-          <td>
-          <button type="button" class="btn btn-success">
-              Checkout <span class="glyphicon glyphicon-play"></span>
-          </button>
+        <td>
+          <%= link_to checkout_path, class: 'btn btn-success' do %>
+            Checkout <span class="glyphicon glyphicon-play"></span>
+          <% end %>
         </td>
       </tr>
     </tbody>

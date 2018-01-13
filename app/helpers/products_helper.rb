@@ -14,7 +14,7 @@ module ProductsHelper
       else
         variants = product.variants
         options = options_for_select(variants.map {|x| ["#{varirant_property_name(x)}", x.id, {data: {variant: product_path(x.id, x.name)}}]})
-        select_tag('variants', options, class: 'form-control', include_blank: 'All')
+        select_tag('variants', options, class: 'form-control', include_blank: 'Select')
       end
     end
   end
@@ -24,6 +24,20 @@ module ProductsHelper
       product.images.present? ? product.images : product.parent.images
     else
       product.images
+    end
+  end
+
+  def product_breadcrumb product
+    content_tag(:ol, class: 'breadcrumb') do
+      concat(content_tag(:li) do
+        link_to 'Home', root_path
+      end)
+      product.category.path.map do |category|
+        concat(content_tag(:li) do
+          link_to category.name, ''
+        end)
+      end
+      concat(content_tag(:li, product.name, class: 'active'))
     end
   end
 end
