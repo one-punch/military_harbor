@@ -1,5 +1,5 @@
 <!-- sidebar -->
-<%= form_for(products_path, method: :get) do %>
+<%= form_tag(products_path, method: :get) do %>
   <%= text_field_tag :q, nil, class: 'form-control', placeholder: 'Search...' %>
 <% end %>
 <nav>
