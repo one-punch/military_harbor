@@ -7,8 +7,7 @@
 
 <div class="row">
   <div class="col-md-3">
-      <p class="lead">Categories</p>
-      <%= render 'layouts/sidebar' %>
+    <%= render 'layouts/sidebar' %>
   </div>
 
   <div class="col-md-9">
@@ -41,14 +40,16 @@
           <label>Quantity</label>
           <%= f.number_field :quantity, value: 1, class: 'form-control', min: 1 %>
 
-          <div class="row">
-            <div class="col-md-6">
-              <%= f.submit 'Add To Cart', class: "btn btn-primary btn-product" %>
+          <% if @product.allow_checkout? %>
+            <div class="row">
+              <div class="col-md-6">
+                <%= f.submit 'Add To Cart', class: "btn btn-primary btn-product" %>
+              </div>
+              <div class="col-md-6">
+                <%= link_to 'Buy Now', '', class: 'btn btn-success btn-product' %>
+              </div>
             </div>
-            <div class="col-md-6">
-              <%= link_to 'Buy Now', '', class: 'btn btn-success btn-product' %>
-            </div>
-          </div>
+          <% end %>
         <% end %>
       </div>
     </div>

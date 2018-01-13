@@ -1,6 +1,5 @@
 <div class="row">
   <div class="col-md-3">
-    <p class="lead">Categories</p>
     <%= render 'layouts/sidebar' %>
   </div>
 
@@ -15,21 +14,7 @@
     <div class="row">
       <% @products.each do |product| %>
         <div class="col-sm-4 col-lg-4 col-md-4">
-          <div class="thumbnail">
-            <%= link_to product_path(product.id, product.name) do %>
-              <%= image_tag(product.default_image(:thumb)) %>
-            <% end %>
-
-            <div class="caption">
-              <h4>
-                <%= link_to product.name, product_path(product.id, product.name) %>
-              </h4>
-              <h4 class="pull-right">
-                <%= product.currency_price %>
-              </h4>
-              <p>See more snippets like this online store item at</p>
-            </div>
-          </div>
+          <%= render 'products/product', product: product %>
         </div>
       <% end %>
     </div>

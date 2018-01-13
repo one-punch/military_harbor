@@ -16,6 +16,8 @@ Rails.application.routes.draw do
 
   resources :orders
 
+  resources :products, only: [:index]
+
   get '/cart', to: 'cart_items#index'
   get '/checkout', to: 'orders#new'
 

@@ -1,4 +1,7 @@
 <!-- sidebar -->
+<%= form_for(products_path, method: :get) do %>
+  <%= text_field_tag :q, nil, class: 'form-control', placeholder: 'Search...' %>
+<% end %>
 <nav>
   <ul class="menu-sidebar nav nav-list">
     <% Category.roots.each do |category| %>
