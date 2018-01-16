@@ -10,13 +10,15 @@
     <div class="row">
       <div class="col-md-6">
         <!-- images -->
-        <div class="thumbnail product-image">
-          <%= image_tag product_images(@product).first.file.url(:thumb) %>
+        <div class="thumbnail">
+          <%= image_tag product_images(@product).first.file.url(:thumb), class: 'product-image' %>
         </div>
         <div class="row">
           <% product_images(@product).each do |image| %>
             <div class="col-md-2">
-              <div class="thumbnail"><%= image_tag image.file.url(:thumb) %></div>
+              <a class="thumbnail">
+                <%= image_tag image.file.url(:thumb), class: 'item-image' %>
+              </a>
             </div>
           <% end %>
         </div>
@@ -57,5 +59,9 @@
     $('select#variants').change(function () {
       window.location.replace($(this).find(':selected').data('variant'))
     });
+
+    $('.item-image').mouseover(function(){
+      $('.product-image').attr('src', $(this).attr("src"))
+    })
   })
 </script>

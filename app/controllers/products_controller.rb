@@ -15,7 +15,5 @@ class ProductsController < ApplicationController
     @product = _product.is_master? ? Product.find(params[:id]) : Variant.find(params[:id])
   end
 
-  private
-
 
 end
