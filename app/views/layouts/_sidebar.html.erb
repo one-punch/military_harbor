@@ -6,7 +6,7 @@
   <ul class="menu-sidebar nav nav-list">
     <% Category.roots.each do |category| %>
       <li class="dropdown">
-        <a class="accordion-heading" data-toggle="collapse" data-target="#submenu-<%= category.id %>">
+        <a class="accordion-heading" data-toggle="collapse" data-target="#submenu-<%= category.id %>" data-url="<%= products_path(category_id: category.id) %>">
           <span class="nav-header-primary">
             <%= category.name %>
             <% if category.has_children? %>
@@ -21,7 +21,7 @@
           <ul class="menu-sidebar nav nav-list collapse" id="submenu-<%= category.id %>">
             <% category.children.each do |sub_category| %>
               <li class="dropdown">
-                <a class="accordion-heading" data-toggle="collapse">
+                <a class="accordion-heading" data-toggle="collapse" data-url="<%= products_path(category_id: sub_category.id) %>">
                   - <%= sub_category.name%>
                 </a>
               </li>
@@ -46,10 +46,14 @@
 
 <script>
 $(function () {
-  $('ul.nav li.dropdown').hover(function(event) {
+  $('ul.menu-sidebar li.dropdown').hover(function(event) {
     $(this).find('.menu-sidebar').stop(true, true).fadeIn();
   }, function(event) {
     $(this).find('.menu-sidebar').stop(true, true).fadeOut();
   });
+
+  $('ul.menu-sidebar li.dropdown a').click(function(){
+    window.location.replace($(this).data('url'))
+  })
 })
 </script>

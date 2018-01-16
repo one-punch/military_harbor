@@ -8,6 +8,8 @@ class PrimeryProduct < ApplicationRecord
   validates :price, numericality: true
   validates :purchase_price, numericality: true, allow_blank: true
 
+  scope :active, -> { where(parent_id: nil) }
+
   def is_master?
     parent_id.blank?
   end
@@ -29,6 +31,16 @@ class PrimeryProduct < ApplicationRecord
       Product.find(parent_id).images.first.file_url(format)
     else
       images.first.file_url(format)
+    end
+  end
+
+  def self.find_by_category category_id
+    category = Category.find(category_id)
+
+    if category.has_children?
+      active.where(category_id: category.child_ids)
+    else
+      active.where(category_id: category_id)
     end
   end
 

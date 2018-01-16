@@ -34,7 +34,7 @@ module ProductsHelper
       end)
       product.category.path.map do |category|
         concat(content_tag(:li) do
-          link_to category.name, ''
+          link_to category.name, products_path(category_id: category.id)
         end)
       end
       concat(content_tag(:li, product.name, class: 'active'))
