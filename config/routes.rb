@@ -12,6 +12,9 @@ Rails.application.routes.draw do
 
   resources :users
 
+  get '/profile',  to: 'users#profile'
+  get '/settings', to: 'users#settings'
+
   resources :cart_items, only: [:create, :update, :destroy]
 
   resources :orders

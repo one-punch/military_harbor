@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :find_user, only: [:show, :edit, :update]
-  before_action :logged_in_user, only: [:edit, :update]
+  before_action :logged_in_user, only: [:edit, :update, :profile]
   before_action :correct_user, only: [:edit, :update]
 
   def new
@@ -20,6 +20,18 @@ class UsersController < ApplicationController
 
   def show
 
+  end
+
+  def profile
+    @user = current_user
+
+    render :show
+  end
+
+  def settings
+    @user = current_user
+
+    render :edit
   end
 
   def edit
