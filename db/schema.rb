@@ -46,6 +46,7 @@ ActiveRecord::Schema.define(version: 20180119160157) do
 
   create_table "order_items", force: :cascade do |t|
     t.decimal "price", precision: 8, scale: 2, default: "0.0"
+    t.integer "quantity"
     t.integer "product_id"
     t.integer "order_id"
   end

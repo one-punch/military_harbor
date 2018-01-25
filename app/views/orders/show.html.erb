@@ -1,0 +1,85 @@
+<div class="row">
+  <div class="col-md-3">
+    <%= render 'users/sidebar' %>
+  </div>
+  <div class="col-md-9">
+    <h1>
+      Order # <%= @order.id %>
+    </h1>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <div class="pull-right">
+          <span class="label label-primary">
+            <%= @order.status.humanize %>
+          </span>
+        </div>
+        # <%= @order.id %>
+        <%= @order.created_at.strftime("%m/%d/%Y") %>
+      </div>
+
+      <div class="panel-body">
+        <address>
+          <strong><%= @order.full_name %></strong><br>
+          <%= @order.country %><br>
+          <%= @order.street %><br>
+          <%= @order.zip %><br>
+          Phone: <%= @order.phone %><br>
+          Email: <a href="mailto:#"><%= @order.email %></a>
+        </address>
+      </div>
+
+      <table class="table">
+        <% @order.order_items.each do |item| %>
+          <tr>
+            <td class="col-sm-8 col-md-6 cart-item-image">
+              <div class="media">
+                <div class="media-left">
+                  <%= link_to product_path(item.product.id, item.product.name) do %>
+                    <%= image_tag(item.product.default_image(:small), class: "media-object") %>
+                  <% end %>
+                </div>
+                <div class="media-body">
+                  <h5>
+                    <%= link_to item.product.name, product_path(item.product.id, item.product.name) %>
+                  </h5>
+                  <h5 class="media-heading">
+                    sku <%= item.product.sku %>
+                  </h5>
+                </div>
+              </div>
+            </td>
+            <td class="col-sm-1 col-md-1" style="text-align: center">
+              <%= item.quantity %>
+            </td>
+            <td class="col-sm-1 col-md-1 text-center">
+              <strong><%= number_to_currency item.price %></strong>
+            </td>
+            <td class="col-sm-1 col-md-1 text-center">
+              <strong><%= number_to_currency item.subtotal %></strong>
+            </td>
+          </tr>
+        <% end %>
+        <tr>
+          <td></td>
+          <td></td>
+          <td><h5>Subtotal</h5></td>
+          <td class="text-right">
+            <h5><strong><%= number_to_currency @order.subtotal %></strong></h5>
+          </td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td><h5>Estimated shipping</h5></td>
+          <td class="text-right"><h5><strong>$0.53</strong></h5></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td><h3>Total</h3></td>
+          <td class="text-right"><h3><strong>$100.53</strong></h3></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>

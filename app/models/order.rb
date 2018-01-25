@@ -5,6 +5,8 @@ class Order < ApplicationRecord
 
   enum status: [:wait_payment, :paid, :pending, :shipping, :shipped]
 
+  enum paty: [:paypal, :western_nion]
+
   validates :first_name, presence: true, length: { maximum: 50 }
   validates :last_name, presence: true, length: { maximum: 50 }
 
@@ -16,4 +18,12 @@ class Order < ApplicationRecord
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :email, presence: true, length: { maximum: 255 },
                     format: { with: VALID_EMAIL_REGEX }
+
+  def full_name
+    "#{first_name} #{last_name}"
+  end
+
+  def subtotal
+    order_items.map(&:subtotal).sum
+  end
 end

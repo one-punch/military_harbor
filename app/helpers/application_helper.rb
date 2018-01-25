@@ -24,4 +24,8 @@ module ApplicationHelper
       }
     end.compact
   end
+
+  def nav_active name
+    action_name == name ? 'active' : ''
+  end
 end

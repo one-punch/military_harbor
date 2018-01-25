@@ -1,4 +1,4 @@
-<ul class="nav nav-pills nav-stacked nav-pills-stacked-example">
+<ul class="nav nav-pills nav-stacked nav-pills-stacked-example side-nav">
   <li role="presentation">
     <%= link_to 'Profile', profile_path %>
   </li>
@@ -7,6 +7,17 @@
   </li>
 
   <li>
-    <%= link_to 'Orders' %>
+    <%= link_to 'Orders', orders_path %>
   </li>
 </ul>
+
+<script>
+  $(function() {
+    $('.side-nav > li > a').each(function(){
+      var pathname = window.location.pathname;
+      if (pathname.includes($(this).attr('href'))) {
+        $(this).parent('li').addClass('active')
+      }
+    })
+  })
+</script>

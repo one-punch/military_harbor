@@ -1,0 +1,57 @@
+<div class="row">
+  <div class="col-md-3">
+    <%= render 'users/sidebar' %>
+  </div>
+
+  <div class="col-md-9">
+    <h1>Orders</h1>
+    <% @orders.each do |order| %>
+      <div class="panel panel-default">
+
+        <div class="panel-heading">
+          <div class="pull-right">
+            <%= link_to 'View', order_path(order.id) %>
+          </div>
+          # <%= order.id %>
+          <%= order.created_at.strftime("%m/%d/%Y") %>
+          <span class="label label-primary">
+            <%= order.status.humanize %>
+          </span>
+        </div>
+
+        <table class="table">
+          <% order.order_items.each do |item| %>
+            <tr>
+              <td class="col-sm-8 col-md-6 cart-item-image">
+                <div class="media">
+                  <div class="media-left">
+                    <%= link_to product_path(item.product.id, item.product.name) do %>
+                      <%= image_tag(item.product.default_image(:small), class: "media-object") %>
+                    <% end %>
+                  </div>
+                  <div class="media-body">
+                    <h5>
+                      <%= link_to item.product.name, product_path(item.product.id, item.product.name) %>
+                    </h5>
+                    <h5 class="media-heading">
+                      sku <%= item.product.sku %>
+                    </h5>
+                  </div>
+                </div>
+              </td>
+              <td class="col-sm-1 col-md-1" style="text-align: center">
+                <%= item.quantity %>
+              </td>
+              <td class="col-sm-1 col-md-1 text-center">
+                <strong><%= number_to_currency item.price %></strong>
+              </td>
+              <td class="col-sm-1 col-md-1 text-center">
+                <strong><%= number_to_currency item.subtotal %></strong>
+              </td>
+            </tr>
+          <% end %>
+        </table>
+      </div>
+    <% end %>
+  </div>
+</div>
