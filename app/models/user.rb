@@ -39,6 +39,19 @@ class User < ApplicationRecord
     BCrypt::Password.new(remember_digest).is_password?(remember_token)
   end
 
+  def product_quantity
+    orders.map(&:quantity).sum
+  end
+
+  def order_total
+    orders.map(&:subtotal).sum
+  end
+
+  def last_order_at
+    return '暂无消费' unless orders.last
+    orders.last.created_at.strftime("%Y-%m-%d")
+  end
+
   private
 
     def downcase_email

@@ -1,0 +1,38 @@
+<h1 class="page-header">用户</h1>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>用户名</th>
+      <th>订单数</th>
+      <th>购买产品数</th>
+      <th>总消费额</th>
+      <th>注册日期</th>
+      <th>最近一次消费日期</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td>
+          <%= user.name %>
+        </td>
+        <td>
+          <%= user.orders.count %>
+        </td>
+        <td>
+          <%= user.product_quantity %>
+        </td>
+        <td>
+          <%= user.order_total %>
+        </td>
+        <td>
+          <%= user.created_at.strftime("%Y-%m-%d") %>
+        </td>
+        <td>
+          <%= user.last_order_at %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
