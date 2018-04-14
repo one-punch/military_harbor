@@ -30,4 +30,13 @@ class Order < ApplicationRecord
   def quantity
     order_items.map(&:quantity).sum
   end
+
+  def order_number
+    10000 + id
+  end
+
+  def status_humanize
+    status.humanize
+  end
+
 end
