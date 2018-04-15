@@ -52,6 +52,7 @@ Rails.application.routes.draw do
 
     resources :users
     resources :orders
+    resources :shippers
     resources :categories
   end
 end

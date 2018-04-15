@@ -8,24 +8,36 @@
     <div class="col-md-3">
       <%= text_field_tag :id, params[:id], placeholder: '订单号', class: "form-control" %>
     </div>
-    <div class="col-md-2">
+    <div class="col-md-3">
       <%= text_field_tag :user, params[:user], placeholder: '客户', class: "form-control" %>
     </div>
-    <div class="col-md-2">
-      <%= select_tag :ship, options_for_select([]), prompt: "运输方式", class: 'form-control'  %>
+    <div class="col-md-3">
+      <%= text_field_tag :user, params[:user], placeholder: '国家/地区', class: "form-control" %>
     </div>
-    <div class="col-md-2">
+  </div>
+  <br>
+
+  <div class="row">
+    <div class="col-md-3">
       <%= select_tag :status,
       options_for_select(Order.statuses.map {|k, v| [k.humanize, v]}, params[:status]),
       prompt: "状态", class: 'form-control'  %>
     </div>
-  </div>
-  <br>
-  <pull class="pull-right">
+    <div class="col-md-3">
+      <%= select_tag :ship, options_for_select([]), prompt: "运输方式", class: 'form-control'  %>
+    </div>
+    <div class="col-md-3">
+      <%= text_field_tag :id, params[:id], placeholder: '运单号', class: "form-control" %>
+    </div>
+    <div class="col-md-3">
+      <pull class="pull-right">
     <%= submit_tag '搜索', class: 'btn btn-primary' %>
     <%= link_to '重置', admin_orders_path, class: 'btn btn-default' %>
     <button type="button" class="btn btn-default">导出</button>
   </pull>
+    </div>
+  </div>
+
 
 <% end %>
 
@@ -35,6 +47,7 @@
       <th>日期</th>
       <th>订单号</th>
       <th>客户</th>
+      <th>国家/地区</th>
       <th>订单总额</th>
       <th>运费</th>
       <th>运输方式</th>
@@ -53,6 +66,9 @@
         </td>
         <td>
           <%= order.user.name  %>
+        </td>
+        <td>
+          <%= order.country %>
         </td>
         <td>
           <%= order.subtotal %>

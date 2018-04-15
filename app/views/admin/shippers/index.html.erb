@@ -1,0 +1,26 @@
+<h1 class="page-header">承运商管理</h1>
+
+<div class="pull-right">
+  <%= link_to '添加承运商', new_admin_shipper_path, class: 'btn btn-primary' %>
+</div>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>名称</th>
+      <th>操作</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @shippers.each do |shipper| %>
+      <tr>
+        <td>
+          <%= shipper.name %>
+        </td>
+        <td>
+          <%= link_to '编辑', edit_admin_shipper_path(shipper), class: 'btn btn-default btn-xs' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

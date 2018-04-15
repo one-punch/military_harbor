@@ -3,7 +3,7 @@ class Order < ApplicationRecord
   has_many :order_items
   belongs_to :user
 
-  enum status: [:wait_payment, :paid, :pending, :shipping, :shipped]
+  enum status: [:wait_payment, :paid, :shipped, :cancel]
 
   enum paty: [:paypal, :western_nion]
 
