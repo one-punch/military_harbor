@@ -57,11 +57,15 @@ ActiveRecord::Schema.define(version: 20180415110817) do
     t.string "email"
     t.string "phone"
     t.string "country"
+    t.string "province"
+    t.string "city"
     t.string "street"
     t.string "zip"
     t.integer "pay"
     t.string "pay_number"
     t.integer "status"
+    t.integer "shipper_id"
+    t.string "shipping_number"
     t.text "description"
     t.integer "user_id"
     t.datetime "created_at", null: false
@@ -100,6 +104,7 @@ ActiveRecord::Schema.define(version: 20180415110817) do
 
   create_table "shippers", force: :cascade do |t|
     t.string "name"
+    t.string "url"
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

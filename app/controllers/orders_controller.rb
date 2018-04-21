@@ -51,6 +51,8 @@ class OrdersController < ApplicationController
                                   :email,
                                   :phone,
                                   :country,
+                                  :province,
+                                  :city,
                                   :zip,
                                   :street,
                                   :description,

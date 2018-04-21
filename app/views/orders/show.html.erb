@@ -18,14 +18,28 @@
       </div>
 
       <div class="panel-body">
-        <address>
-          <strong><%= @order.full_name %></strong><br>
-          <%= @order.country %><br>
-          <%= @order.street %><br>
-          <%= @order.zip %><br>
-          Phone: <%= @order.phone %><br>
-          Email: <a href="mailto:#"><%= @order.email %></a>
-        </address>
+        <div class="row">
+          <div class="col-md-6">
+            <address>
+              <strong><%= @order.full_name %></strong><br>
+              <%= @order.country %><br>
+              <%= @order.street %><br>
+              <%= @order.zip %><br>
+              Phone: <%= @order.phone %><br>
+              Email: <a href="mailto:#"><%= @order.email %></a>
+            </address>
+          </div>
+          <div class="col-md-6">
+            <dl>
+              <dt>Payment</dt>
+              <dd><%= @order.pay.humanize %></dd>
+              <dt>Shipper</dt>
+              <dd><%= @order.shipper.name %></dd>
+              <dt>Shipping Number</dt>
+              <dd><%= @order.shipping_number %></dd>
+            </dl>
+          </div>
+        </div>
       </div>
 
       <table class="table">

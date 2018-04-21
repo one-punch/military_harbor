@@ -37,6 +37,21 @@ class Admin::OrdersController < Admin::ApplicationController
   end
 
   def order_params
-    params.require(:order).permit(:status)
+    params.require(:order).permit(:first_name,
+                                  :last_name,
+                                  :email,
+                                  :phone,
+                                  :country,
+                                  :province,
+                                  :city,
+                                  :zip,
+                                  :street,
+                                  :description,
+                                  :pay,
+                                  :pay_number,
+                                  :shipper_id,
+                                  :shipping_number,
+                                  :status,
+                                  )
   end
 end

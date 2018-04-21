@@ -109,65 +109,81 @@
           </div> -->
           <div class="list-group-item">
             <div class="list-group-item-heading">
-                <div class="row">
-                  <div class="col-xs-3">
-                    <div class="radio">
-                      <%= label_tag :address do %>
-                        <%= radio_button_tag 'order[address]', 1, checked: true %>
-                        New address
-                      <% end %>
-                    </div>
-                  </div>
-                  <div class="col-xs-9">
-                    <div class="form-group">
-                      <%= f.label :first_name %>
-                      <%= f.text_field :first_name, class: 'form-control form-control-large',
-                        placeholder: 'Enter first name' %>
-                    </div>
-
-                    <div class="form-group">
-                      <%= f.label :last_name %>
-                      <%= f.text_field :last_name, class: 'form-control form-control-large',
-                        placeholder: 'Enter last name' %>
-                    </div>
-
-                    <div class="form-group">
-                      <%= f.label :email %>
-                      <%= f.text_field :email, class: 'form-control form-control-large',
-                        placeholder: 'Enter email' %>
-                    </div>
-
-                    <div class="form-group">
-                      <%= f.label :phone %>
-                      <%= f.text_field :phone, class: 'form-control form-control-large',
-                        placeholder: 'Enter phone number' %>
-                    </div>
-
-                    <div class="row">
-                      <div class="col-xs-3">
-                        <div class="form-group">
-                          <%= f.label :country %>
-                          <%= f.text_field :country, class: 'form-control form-control-large',
-                              placeholder: 'Enter country' %>
-                        </div>
-                      </div>
-
-                      <div class="col-xs-3">
-                        <div class="form-group">
-                          <%= f.label :zip, 'ZIP Code' %>
-                          <%= f.text_field :zip, class: 'form-control form-control-large',
-                              placeholder: 'Enter zip' %>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="form-group">
-                      <%= f.label :street %>
-                      <%= f.text_field :street, class: 'form-control form-control-large',
-                        placeholder: 'Enter address' %>
-                    </div>
+              <div class="row">
+                <div class="col-xs-3">
+                  <div class="radio">
+                    <%= label_tag :address do %>
+                      <%= radio_button_tag 'order[address]', 1, checked: true %>
+                      New address
+                    <% end %>
                   </div>
                 </div>
+                <div class="col-xs-9">
+                  <div class="form-group">
+                    <%= f.label :first_name %>
+                    <%= f.text_field :first_name, class: 'form-control form-control-large',
+                      placeholder: 'Enter first name' %>
+                  </div>
+
+                  <div class="form-group">
+                    <%= f.label :last_name %>
+                    <%= f.text_field :last_name, class: 'form-control form-control-large',
+                      placeholder: 'Enter last name' %>
+                  </div>
+
+                  <div class="form-group">
+                    <%= f.label :email %>
+                    <%= f.text_field :email, class: 'form-control form-control-large',
+                      placeholder: 'Enter email' %>
+                  </div>
+
+                  <div class="form-group">
+                    <%= f.label :phone %>
+                    <%= f.text_field :phone, class: 'form-control form-control-large',
+                      placeholder: 'Enter phone number' %>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-xs-3">
+                      <div class="form-group">
+                        <%= f.label :country, 'Country or Region' %>
+                        <%= f.text_field :country, class: 'form-control form-control-large',
+                            placeholder: 'Enter country or region' %>
+                      </div>
+                    </div>
+
+                    <div class="col-xs-3">
+                      <div class="form-group">
+                        <%= f.label :province, 'State' %>
+                        <%= f.text_field :province, class: 'form-control form-control-large',
+                            placeholder: 'Enter state or province' %>
+                      </div>
+                    </div>
+
+                    <div class="col-xs-3">
+                      <div class="form-group">
+                        <%= f.label :city %>
+                        <%= f.text_field :city, class: 'form-control form-control-large',
+                            placeholder: 'Enter city' %>
+                      </div>
+                    </div>
+
+                    <div class="col-xs-3">
+                      <div class="form-group">
+                        <%= f.label :zip, 'ZIP' %>
+                        <%= f.text_field :zip, class: 'form-control form-control-large',
+                            placeholder: 'Enter zip' %>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <%= f.label :street %>
+                    <%= f.text_field :street, class: 'form-control form-control-large',
+                      placeholder: 'Enter address' %>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>

@@ -40,6 +40,6 @@ class Admin::ShippersController < Admin::ApplicationController
   end
 
   def shipper_params
-    params.require(:shipper).permit(:name, :description)
+    params.require(:shipper).permit(:name, :url, :description)
   end
 end

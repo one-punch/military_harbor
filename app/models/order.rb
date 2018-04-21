@@ -2,10 +2,11 @@ class Order < ApplicationRecord
 
   has_many :order_items
   belongs_to :user
+  belongs_to :shipper
 
   enum status: [:wait_payment, :paid, :shipped, :cancel]
 
-  enum paty: [:paypal, :western_nion]
+  enum pay: [:paypal, :western_nion]
 
   validates :first_name, presence: true, length: { maximum: 50 }
   validates :last_name, presence: true, length: { maximum: 50 }
