@@ -240,7 +240,7 @@
                 <div class="row radio">
                   <div class="col-xs-3">
                     <%= f.label :pay do %>
-                      <%= f.radio_button :pay, 0, checked: true %>
+                      <%= f.radio_button :pay, :paypal, checked: true %>
                       Paypal
                     <% end %>
                   </div>
@@ -260,7 +260,7 @@
                 <div class="row radio">
                   <div class="col-xs-3">
                     <%= f.label :pay do %>
-                      <%= f.radio_button :pay, 1 %>
+                      <%= f.radio_button :pay, :western_nion %>
                       Western Union
                     <% end %>
                   </div>

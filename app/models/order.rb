@@ -2,7 +2,7 @@ class Order < ApplicationRecord
 
   has_many :order_items
   belongs_to :user
-  belongs_to :shipper
+  belongs_to :shipper, optional: true
 
   enum status: [:wait_payment, :paid, :shipped, :cancel]
 

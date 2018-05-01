@@ -30,14 +30,16 @@
             </address>
           </div>
           <div class="col-md-6">
-            <dl>
-              <dt>Payment</dt>
-              <dd><%= @order.pay.humanize %></dd>
-              <dt>Shipper</dt>
-              <dd><%= @order.shipper.name %></dd>
-              <dt>Shipping Number</dt>
-              <dd><%= @order.shipping_number %></dd>
-            </dl>
+            <% if @order.shipper %>
+              <dl>
+                <dt>Payment</dt>
+                <dd><%= @order.pay.humanize %></dd>
+                <dt>Shipper</dt>
+                <dd><%= @order.shipper.name %></dd>
+                <dt>Shipping Number</dt>
+                <dd><%= @order.shipping_number %></dd>
+              </dl>
+            <% end %>
           </div>
         </div>
       </div>

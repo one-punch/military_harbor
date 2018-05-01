@@ -37,7 +37,7 @@ class OrdersController < ApplicationController
 
     if order_saved
       flash[:success] = "The order was successful"
-      redirect_to root_path
+      redirect_to @order
     else
       render 'new'
     end
