@@ -18,6 +18,14 @@ class PrimeryProduct < ApplicationRecord
     !is_master?
   end
 
+  def entity
+    is_sku? ? Variant.find(id) : Product.find(id)
+  end
+
+  def title
+    entity.name
+  end
+
   def currency_price
     "$#{'%.2f' % price}"
   end

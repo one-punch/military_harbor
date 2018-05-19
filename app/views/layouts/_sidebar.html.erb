@@ -4,6 +4,9 @@
 <% end %>
 <nav>
   <ul class="menu-sidebar nav nav-list">
+    <li class="category-side">
+      <a href="">Category</a>
+    </li>
     <% Category.roots.each do |category| %>
       <li class="dropdown">
         <a class="accordion-heading" data-toggle="collapse" data-target="#submenu-<%= category.id %>" data-url="<%= products_path(category_id: category.id) %>">
@@ -33,6 +36,7 @@
   </ul>
 </nav>
 
+
 <style>
   .menu-sidebar {
     background-color: #eeeeee;
@@ -45,15 +49,15 @@
 </style>
 
 <script>
-$(function () {
-  $('ul.menu-sidebar li.dropdown').hover(function(event) {
-    $(this).find('.menu-sidebar').stop(true, true).fadeIn();
-  }, function(event) {
-    $(this).find('.menu-sidebar').stop(true, true).fadeOut();
-  });
+  $(function () {
+    $('ul.menu-sidebar li.dropdown').hover(function(event) {
+      $(this).find('.menu-sidebar').stop(true, true).fadeIn();
+    }, function(event) {
+      $(this).find('.menu-sidebar').stop(true, true).fadeOut();
+    });
 
-  $('ul.menu-sidebar li.dropdown a').click(function(){
-    window.location.replace($(this).data('url'))
+    $('ul.menu-sidebar li.dropdown a').click(function(){
+      window.location.replace($(this).data('url'))
+    })
   })
-})
 </script>

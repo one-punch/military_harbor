@@ -1,6 +1,20 @@
 <ol class="breadcrumb">
   <li><%= link_to 'Home', root_path %></li>
-  <li class="active">Products</li>
+  <% if @category %>
+    <% @category.ancestors.each do |ancestor| %>
+      <li>
+        <%= link_to ancestor.name, products_path(category_id: ancestor.id) %>
+      </li>
+    <% end %>
+    <li class="active">
+      <%= @category.name %>
+    </li>
+  <% else %>
+    <li class="active">
+      Products
+    </li>
+  <% end %>
+
 </ol>
 
 <div class="row">
@@ -9,10 +23,32 @@
   </div>
 
   <div class="col-md-9">
-    <% @products.each do |product| %>
-      <div class="col-sm-4 col-lg-4 col-md-4">
-        <%= render 'products/product', product: product %>
+    <% if @category && @category.has_children? %>
+      <div class="sub-category">
+        <div class="row">
+          <% Category.find(params[:category_id]).children.each do |category| %>
+            <% if category.products.any? %>
+              <div class="col-sm-3 col-lg-3 col-md-3">
+                <%= link_to category.name, products_path(category_id: category.id) %>
+              </div>
+            <% end %>
+          <% end %>
+        </div>
       </div>
+    <% end %>
+    <br>
+    <% @products.each do |product| %>
+      <% if @category %>
+        <div class="col-sm-4 col-lg-4 col-md-4">
+          <%= render 'products/product', product: product %>
+        </div>
+      <% else %>
+        <% if product.allow_checkout? %>
+          <div class="col-sm-4 col-lg-4 col-md-4">
+            <%= render 'products/product', product: product %>
+          </div>
+        <% end %>
+      <% end %>
     <% end %>
   </div>
 </div>

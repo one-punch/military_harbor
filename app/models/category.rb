@@ -1,5 +1,6 @@
 class Category < ApplicationRecord
   has_ancestry
+  has_many :products
 
   def level
     self.depth + 1

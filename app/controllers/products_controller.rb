@@ -1,10 +1,12 @@
 class ProductsController < ApplicationController
 
   def index
-    @products = if params[:category_id]
-      Product.find_by_category(params[:category_id])
+    if params[:category_id]
+      @products = PrimeryProduct.find_by_category(params[:category_id])
+                                .where(active: true, parent_id: nil)
+      @category = Category.find(params[:category_id])
     else
-      Product.where(active: true)
+      @products = PrimeryProduct.where(active: true)
     end
     @products = @products.where('lower(name) LIKE ? ', "%#{params[:q].downcase}%") if params[:q]
     @products = @products.page(params[:page])
