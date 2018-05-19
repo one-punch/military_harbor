@@ -6,6 +6,31 @@
     <h1>
       Order # <%= @order.id %>
     </h1>
+
+    <% if @order.wait_payment?%>
+      <div class="alert alert-info" role="alert">
+        <% if @order.paypal? %>
+          <p>
+            Please login in your paypal, and send the payment to: <strong>XXXX@XXX.com</strong>
+          </p>
+          <p>
+            Please type your transaction code: 123456 into the payment’s remark. After you paid, please tell us your paypal transfer number: ___________. (EX.: Usually that will be combined by letters and digital numbers, like: 11A22222BC33333D) In this way, can find your payment very fast, won’t waste your time. Thanks.
+          </p>
+          <p>
+            If you didn’t send the money after you place the order over 24 hours, we will also send an invoice to you. Please pay in 72 hours. Otherwise, your order will automatically cancelled. Thanks for understand.
+          </p>
+        <% else %>
+          This is our Western Union account information:
+          <ul class="list-unstyled">
+            <li>First name: <strong>QU</strong></li>
+            <li>Last name: <strong>YUAN</strong></li>
+            <li>City: <strong>Shanghai</strong></li>
+            <li>Country: <strong>China</strong></li>
+          </ul>
+          Please upload your Western Union sheet at ride side after you send the money. Make sure that sheet contain: Your name, MTCN number, transfer code and the final value. Thanks. When we pick up the money, will send out your parcel soon.
+        <% end %>
+      </div>
+    <% end %>
     <div class="panel panel-default">
       <div class="panel-heading">
         <div class="pull-right">
