@@ -4,9 +4,6 @@
 <% end %>
 <nav>
   <ul class="menu-sidebar nav nav-list">
-    <li class="category-side">
-      <a href="">Category</a>
-    </li>
     <% Category.roots.each do |category| %>
       <li class="dropdown">
         <a class="accordion-heading" data-toggle="collapse" data-target="#submenu-<%= category.id %>" data-url="<%= products_path(category_id: category.id) %>">
