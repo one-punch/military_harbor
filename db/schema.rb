@@ -12,7 +12,7 @@
 
 ActiveRecord::Schema.define(version: 20180415110817) do
 
-  create_table "attachments", force: :cascade do |t|
+  create_table "attachments", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer "source_id", null: false
     t.string "source_type", null: false
     t.string "file", null: false
@@ -24,18 +24,18 @@ ActiveRecord::Schema.define(version: 20180415110817) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "cart_items", force: :cascade do |t|
+  create_table "cart_items", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer "quantity", default: 1
     t.integer "product_id"
     t.integer "cart_id"
   end
 
-  create_table "carts", force: :cascade do |t|
+  create_table "carts", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "categories", force: :cascade do |t|
+  create_table "categories", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name"
     t.boolean "active", default: true
     t.integer "ancestry_depth"
@@ -44,14 +44,14 @@ ActiveRecord::Schema.define(version: 20180415110817) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "order_items", force: :cascade do |t|
+  create_table "order_items", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.decimal "price", precision: 8, scale: 2, default: "0.0"
     t.integer "quantity"
     t.integer "product_id"
     t.integer "order_id"
   end
 
-  create_table "orders", force: :cascade do |t|
+  create_table "orders", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "first_name"
     t.string "last_name"
     t.string "email"
@@ -72,7 +72,7 @@ ActiveRecord::Schema.define(version: 20180415110817) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "products", force: :cascade do |t|
+  create_table "products", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name"
     t.string "sku"
     t.text "description"
@@ -85,7 +85,7 @@ ActiveRecord::Schema.define(version: 20180415110817) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "properties", force: :cascade do |t|
+  create_table "properties", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer "variant_id", null: false
     t.string "key"
     t.string "value"
@@ -94,7 +94,7 @@ ActiveRecord::Schema.define(version: 20180415110817) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "property_groups", force: :cascade do |t|
+  create_table "property_groups", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer "product_id", null: false
     t.string "name", null: false
     t.integer "position", default: 0
@@ -102,7 +102,7 @@ ActiveRecord::Schema.define(version: 20180415110817) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "shippers", force: :cascade do |t|
+  create_table "shippers", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name"
     t.string "url"
     t.text "description"
@@ -110,7 +110,7 @@ ActiveRecord::Schema.define(version: 20180415110817) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "users", force: :cascade do |t|
+  create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name"
     t.string "email"
     t.string "password_digest"

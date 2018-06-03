@@ -137,6 +137,7 @@ GEM
     mini_portile2 (2.2.0)
     minitest (5.10.2)
     multi_json (1.12.1)
+    mysql2 (0.3.20)
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
     net-ssh (4.1.0)
@@ -257,6 +258,7 @@ DEPENDENCIES
   kaminari (~> 1.0.1)
   listen (>= 3.0.5, < 3.2)
   mini_magick (~> 3.8.1)
+  mysql2
   pry-nav
   pry-rails
   pry-remote
