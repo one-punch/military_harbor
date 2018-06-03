@@ -7,6 +7,6 @@ class Category < ApplicationRecord
   end
 
   def self.leaves
-    self.all.select { |catgory| catgory.is_childless? }
+    self.select { |catgory| catgory.is_childless? }
   end
 end
