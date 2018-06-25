@@ -54,5 +54,6 @@ Rails.application.routes.draw do
     resources :orders
     resources :shippers
     resources :categories
+    resources :product_details
   end
 end

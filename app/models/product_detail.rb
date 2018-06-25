@@ -1,0 +1,3 @@
+class ProductDetail < ApplicationRecord
+
+end

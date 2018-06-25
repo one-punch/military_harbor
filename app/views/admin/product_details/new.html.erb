@@ -1,0 +1,7 @@
+<h1 class="page-header">新建商品信息模板</h1>
+
+<div class="row">
+  <%= form_for(@product_detail, url: admin_product_details_path) do |f| %>
+    <%= render 'form', f: f %>
+  <% end %>
+</div>
