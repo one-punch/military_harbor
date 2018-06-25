@@ -7,3 +7,4 @@
 //= require bootstrap-fileinput/js/fileinput.min.js
 //= require bootstrap
 //= require bootstrap-fileinput/themes/fa/theme.js
+//= require simditor

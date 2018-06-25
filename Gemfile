@@ -1,4 +1,5 @@
-source 'https://rubygems.org'
+#source 'https://rubygems.org'
+source 'https://gems.ruby-china.com'
 
 git_source(:github) do |repo_name|
   repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
@@ -40,10 +41,14 @@ gem 'bootstrap-sass', '~> 3.3', '>= 3.3.7'
 gem 'jquery-rails'
 
 gem 'ancestry'
+
 gem 'kaminari', '~> 1.0.1'
+
 gem 'carrierwave', '~> 1.1'
 gem 'mini_magick', '~> 3.8.1'
 
+
+gem 'simditor'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
