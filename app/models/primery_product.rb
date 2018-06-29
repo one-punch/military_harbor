@@ -4,6 +4,7 @@ class PrimeryProduct < ApplicationRecord
 
   has_many :images, as: :source, dependent: :destroy, autosave: true, class_name: 'Attachment'
   belongs_to :category
+  belongs_to :product_detail, optional: true
 
   validates :price, numericality: true
   validates :purchase_price, numericality: true, allow_blank: true
@@ -40,6 +41,10 @@ class PrimeryProduct < ApplicationRecord
     else
       images.first.file_url(format)
     end
+  end
+
+  def detail_content
+    description.present? ? description : product_detail.description
   end
 
   def self.find_by_category category_id
