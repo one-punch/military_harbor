@@ -7,22 +7,22 @@
 <table class="table">
   <thead>
     <tr>
-      <th>Name</th>
-      <th>Level</th>
-      <th>Action</th>
+      <th>名称</th>
+      <th>层级</th>
+      <th>操作</th>
     </tr>
   </thead>
   <tbody>
     <% @categoires.each do |category| %>
       <tr>
         <td>
-          <%= category.name %>
+          <%= category.path.map(&:name).join(" > ") %>
         </td>
         <td>
           <%= category.level %>
         </td>
         <td>
-          <%= link_to 'Edit', edit_admin_category_path(category) %>
+          <%= link_to '编辑', edit_admin_category_path(category) %>
         </td>
       </tr>
     <% end %>
