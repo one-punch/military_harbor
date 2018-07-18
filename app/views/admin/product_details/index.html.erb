@@ -7,6 +7,7 @@
 <table class="table">
   <thead>
     <tr>
+      <th>ID</th>
       <th>名称</th>
       <th>操作</th>
     </tr>
@@ -14,6 +15,9 @@
   <tbody>
     <% @product_details.each do |product_detail| %>
       <tr>
+        <td>
+          <%= product_detail.id %>
+        </td>
         <td>
           <%= product_detail.name %>
         </td>
@@ -24,3 +28,8 @@
     <% end %>
   </tbody>
 </table>
+
+<div class="pull-right">
+  <%= paginate @product_details %>
+</div>
+

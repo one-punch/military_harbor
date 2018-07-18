@@ -7,6 +7,7 @@
 <table class="table">
   <thead>
     <tr>
+      <th>ID</th>
       <th>名称</th>
       <th>层级</th>
       <th>操作</th>
@@ -15,6 +16,9 @@
   <tbody>
     <% @categoires.each do |category| %>
       <tr>
+        <td>
+          <%= category.id %>
+        </td>
         <td>
           <%= category.path.map(&:name).join(" > ") %>
         </td>
