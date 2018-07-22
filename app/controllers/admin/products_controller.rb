@@ -109,10 +109,6 @@ class Admin::ProductsController < Admin::ApplicationController
     redirect_to action: :edit, id: @variant.id
   end
 
-  def pictures
-
-  end
-
   def images
     _product = PrimeryProduct.find params[:product_id]
     @product = _product.is_master? ? Product.find(params[:product_id]) : Variant.find(params[:product_id])

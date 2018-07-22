@@ -33,7 +33,6 @@ Rails.application.routes.draw do
       post "/images-upload-batch" => "products#upload", as: :upload
 
       member do
-        get "/pictures" => "products#pictures", as: :pictures
         post "/images/:image_id" => "products#images_delete", as: :delete_images
         get "/variants" => "products#variants", as: :variants
         get "/variants/new" => "products#new_variant", as: :new_variant
