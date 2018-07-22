@@ -19,14 +19,6 @@ module ProductsHelper
     end
   end
 
-  def product_images product
-    if product.is_sku?
-      product.images.present? ? product.images : product.parent.images
-    else
-      product.images
-    end
-  end
-
   def product_breadcrumb product
     content_tag(:ol, class: 'breadcrumb') do
       concat(content_tag(:li) do

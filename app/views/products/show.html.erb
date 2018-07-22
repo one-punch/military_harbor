@@ -11,13 +11,13 @@
       <div class="col-md-6">
         <!-- images -->
         <div class="thumbnail">
-          <%= image_tag product_images(@product).first.file.url(:thumb), class: 'product-image' %>
+          <%= image_tag @product.default_image, class: 'product-image' %>
         </div>
         <div class="row">
-          <% product_images(@product).each do |image| %>
+          <% @product.product_images.each do |image| %>
             <div class="col-md-2">
               <a class="thumbnail">
-                <%= image_tag image.file.url(:thumb), class: 'item-image' %>
+                <%= image_tag image, class: 'item-image' %>
               </a>
             </div>
           <% end %>
@@ -51,14 +51,16 @@
       </div>
     </div>
 
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h3 class="panel-title">Description</h3>
+    <% if @product.detail_content.present? %>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Description</h3>
+        </div>
+        <div class="panel-body">
+          <%= @product.detail_content.html_safe %>
+        </div>
       </div>
-      <div class="panel-body">
-        <%= @product.detail_content.html_safe %>
-      </div>
-    </div>
+    <% end %>
   </div>
 </div>
 

@@ -3,6 +3,8 @@ class PrimeryProduct < ApplicationRecord
   self.table_name = :products
 
   has_many :images, as: :source, dependent: :destroy, autosave: true, class_name: 'Attachment'
+  has_many :pictures, as: :imageable
+  accepts_nested_attributes_for :pictures, :reject_if => lambda { |a| a['name'].blank? }, :allow_destroy => true
   belongs_to :category
   belongs_to :product_detail, optional: true
 
@@ -35,16 +37,26 @@ class PrimeryProduct < ApplicationRecord
     (is_master? && !Variant.where(parent_id: id).exists?) || is_sku?
   end
 
-  def default_image(format)
-    if is_sku? && images.blank?
-      Product.find(parent_id).images.first.file_url(format)
+  def default_images format=:thumb
+    return images.map {|i| i.file_url(format) } if images.any?
+    pictures.map {|p| p.url }
+  end
+
+  def product_images(format=:thumb)
+    if is_sku?
+      default_images(format).any? ? default_images(format) : Product.find(parent_id).default_images
     else
-      images.first.file_url(format)
+      default_images(format)
     end
   end
 
+  def default_image(format=:thumb)
+    product_images(format).first || "#{Picture::BASE_URL}/image/PCS.jpg"
+  end
+
   def detail_content
-    description.present? ? description : product_detail.description
+    return description if description.present?
+    return product_detail.description if product_detail.present?
   end
 
   def self.find_by_category category_id

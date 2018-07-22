@@ -10,6 +10,7 @@ class Admin::ProductsController < Admin::ApplicationController
 
   def new
     @product = Product.new
+    @product.pictures.build
   end
 
   def create
@@ -108,6 +109,10 @@ class Admin::ProductsController < Admin::ApplicationController
     redirect_to action: :edit, id: @variant.id
   end
 
+  def pictures
+
+  end
+
   def images
     _product = PrimeryProduct.find params[:product_id]
     @product = _product.is_master? ? Product.find(params[:product_id]) : Variant.find(params[:product_id])
@@ -157,11 +162,13 @@ class Admin::ProductsController < Admin::ApplicationController
   private
 
   def product_params
-    params.require(:product).permit(:name, :sku, :description, :price, :purchase_price, :weight, :active, :category_id, :product_detail_id)
+    params.require(:product).permit(:name, :sku, :description, :price, :purchase_price, :weight, :active, :category_id, :product_detail_id,
+                                   pictures_attributes: [:id, :name, :_destroy])
   end
 
   def variant_params
-    params.require(:variant).permit(:name, :sku, :description, :price, :purchase_price, :weight, :active, :category_id, :product_detail_id)
+    params.require(:product).permit(:name, :sku, :description, :price, :purchase_price, :weight, :active, :category_id, :product_detail_id,
+                                   pictures_attributes: [:id, :name, :_destroy])
   end
 
   def property_params

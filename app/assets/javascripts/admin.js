@@ -8,3 +8,4 @@
 //= require bootstrap
 //= require bootstrap-fileinput/themes/fa/theme.js
 //= require simditor
+
