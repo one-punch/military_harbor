@@ -8,6 +8,7 @@ class PrimeryProduct < ApplicationRecord
   belongs_to :category
   belongs_to :product_detail, optional: true
 
+  validates :sku, uniqueness: true
   validates :price, numericality: true
   validates :purchase_price, numericality: true, allow_blank: true
 

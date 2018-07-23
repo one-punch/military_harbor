@@ -32,6 +32,10 @@ Rails.application.routes.draw do
       get "/images" => "products#images", as: :images
       post "/images-upload-batch" => "products#upload", as: :upload
 
+      collection do
+        post :import
+      end
+
       member do
         post "/images/:image_id" => "products#images_delete", as: :delete_images
         get "/variants" => "products#variants", as: :variants

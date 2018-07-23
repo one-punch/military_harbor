@@ -109,6 +109,16 @@ class Admin::ProductsController < Admin::ApplicationController
     redirect_to action: :edit, id: @variant.id
   end
 
+  def import
+    if params[:file]
+      Product.import(params[:file])
+      flash[:success] = "导入商品成功"
+    else
+      flash[:danger] = "请选择上传文件"
+    end
+    redirect_to admin_products_path
+  end
+
   def images
     _product = PrimeryProduct.find params[:product_id]
     @product = _product.is_master? ? Product.find(params[:product_id]) : Variant.find(params[:product_id])
@@ -159,12 +169,12 @@ class Admin::ProductsController < Admin::ApplicationController
 
   def product_params
     params.require(:product).permit(:name, :sku, :description, :price, :purchase_price, :weight, :active, :category_id, :product_detail_id,
-                                   pictures_attributes: [:id, :name, :_destroy])
+                                    pictures_attributes: [:id, :name, :_destroy])
   end
 
   def variant_params
     params.require(:product).permit(:name, :sku, :description, :price, :purchase_price, :weight, :active, :category_id, :product_detail_id,
-                                   pictures_attributes: [:id, :name, :_destroy])
+                                    pictures_attributes: [:id, :name, :_destroy])
   end
 
   def property_params
