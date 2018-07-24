@@ -51,28 +51,31 @@
       </div>
     </div>
 
-    <% if @product.detail_content.present? %>
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h3 class="panel-title">Description</h3>
-        </div>
-        <div class="panel-body">
-          <%= @product.detail_content.html_safe %>
-        </div>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Description</h3>
       </div>
-    <% end %>
+      <div class="panel-body">
+        <% if @product.description %>
+          <%= @product.description.html_safe %>
+        <% end %>
+        <% if @product.detail_content %>
+          <%= @product.detail_content.html_safe %>
+        <% end %>
+      </div>
+    </div>
   </div>
 </div>
 
 
 <script>
-$(function () {
-  $('select#variants').change(function () {
-  window.location.replace($(this).find(':selected').data('variant'))
-});
+  $(function () {
+    $('select#variants').change(function () {
+      window.location.replace($(this).find(':selected').data('variant'))
+    });
 
-  $('.item-image').mouseover(function(){
-  $('.product-image').attr('src', $(this).attr("src"))
-})
-})
+    $('.item-image').mouseover(function(){
+      $('.product-image').attr('src', $(this).attr("src"))
+    })
+  })
 </script>

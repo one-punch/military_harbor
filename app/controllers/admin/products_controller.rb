@@ -2,6 +2,7 @@ class Admin::ProductsController < Admin::ApplicationController
 
   def index
     @products = Product.page(params[:page])
+    @products = @products.where('lower(name) LIKE ? ', "%#{params[:q].downcase}%").or(@products.where('lower(sku) LIKE ? ', "%#{params[:q].downcase}%")) if params[:q]
   end
 
   def show

@@ -16,19 +16,19 @@ class Product < PrimeryProduct
           property_params = row["property"].split(";").map {|x| ["key", "value"].zip(x.split(":").map(&:strip)).to_h}
           sku = property_params.map{|x| x.values}.sort.to_h.values.unshift(row["sku"]).join('-')
           variant = Variant.find_by(sku: sku) || product.variants.new
-          variant.attributes = row.to_hash.slice(*accessible_attributes)
+          variant.attributes = row.to_hash.slice(*accessible_attributes).map { |k,v| [k,v.strip] }.to_h
           variant.sku = sku
           variant.save!
           property_params.each do |pro_param|
             variant.properties.create(pro_param)
           end
-          row["images"].split(";").each {|x| variant.pictures.create(name: x) } if row["images"].present?
+          row["images"].split(";").each {|x| variant.pictures.create(name: x.strip) } if row["images"].present?
         end
       else
         product = find_by(sku: row["sku"]) || new
-        product.attributes = row.to_hash.slice(*accessible_attributes)
+        product.attributes = row.to_hash.slice(*accessible_attributes).map { |k,v| [k,v.strip] }.to_h
         product.save!
-        row["images"].split(";").each {|x| product.pictures.create(name: x) } if row["images"].present?
+        row["images"].split(";").each {|x| product.pictures.create(name: x.strip) } if row["images"].present?
       end
     end
   end

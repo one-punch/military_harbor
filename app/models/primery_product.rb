@@ -56,8 +56,7 @@ class PrimeryProduct < ApplicationRecord
   end
 
   def detail_content
-    return description if description.present?
-    return product_detail.description if product_detail.present?
+    product_detail.description if product_detail.present?
   end
 
   def self.find_by_category category_id
