@@ -55,12 +55,22 @@ img.product-item {
   color: #333;
 }
 
-.thumbnail a>img.product-iamge{
+.product-thumbnail {
   display: block;
-  width: 260px;
-  height: 390px;
-  margin-left: auto;
-  margin-right: auto;
+  padding: 4px;
+  margin-bottom: 20px;
+  line-height: 1.42857143;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  -webkit-transition: border 0.2s ease-in-out;
+  -o-transition: border 0.2s ease-in-out;
+  transition: border 0.2s ease-in-out;
+}
+
+img.product-iamge{
+  width: 210px;
+  height: 318px;
 }
 
 footer {
