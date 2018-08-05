@@ -27,7 +27,7 @@
       <pull class="pull-right">
       <%= submit_tag '搜索', class: 'btn btn-primary' %>
       <%= link_to '重置', admin_products_path, class: 'btn btn-default' %>
-      <button type="button" class="btn btn-default">导出</button>
+      <%= link_to '导出', admin_products_path(request.parameters.merge(format: "csv")), class: 'btn btn-default' %>
       </pull>
     </div>
   </div>

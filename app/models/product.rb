@@ -7,16 +7,18 @@ class Product < PrimeryProduct
 
   scope :root, -> { where(parent_id: nil) }
 
+  ACCESSIBLE_FILEDS = %w(name sku price weight description category_id product_detail_id)
+  MULTI_FILEDS = %w(properties pictures)
+
   def self.import file
-    accessible_attributes = %w(name sku price weight description category_id product_detail_id)
     CSV.foreach(file.path, headers: true) do |row|
-      if row["property"]
+      if row["properties"].present?
         product = find_by(sku: row["sku"])
-        if product
-          property_params = row["property"].split(";").map {|x| ["key", "value"].zip(x.split(":").map(&:strip)).to_h}
-          sku = property_params.map{|x| x.values}.sort.to_h.values.unshift(row["sku"]).join('-')
-          variant = Variant.find_by(sku: sku) || product.variants.new
-          variant.attributes = row.to_hash.slice(*accessible_attributes).map { |k,v| [k,v.strip] }.to_h
+        variant = Variant.find_by(sku: row["sku"]) || (product ? product.variants.new : nil)
+        if variant.present?
+          property_params = row["properties"].split(";").map {|x| ["key", "value"].zip(x.split(":").map(&:strip)).to_h}
+          sku = row['sku'] == variant.parent.sku ? property_params.map{|x| x.values}.sort.to_h.values.unshift(row["sku"]).join('-') : row['sku']
+          variant.attributes = row.to_hash.slice(*ACCESSIBLE_FILEDS).map { |k,v| [k,v.strip] }.to_h
           variant.sku = sku
           variant.save!
           property_params.each do |pro_param|
@@ -26,11 +28,47 @@ class Product < PrimeryProduct
         end
       else
         product = find_by(sku: row["sku"]) || new
-        product.attributes = row.to_hash.slice(*accessible_attributes).map { |k,v| [k,v.strip] }.to_h
+        product.attributes = row.to_hash.slice(*ACCESSIBLE_FILEDS).map { |k,v| [k,v.strip] }.to_h
         product.save!
         row["images"].split(";").each {|x| product.pictures.create(name: x.strip) } if row["images"].present?
       end
     end
+  end
+
+  def self.export options = {}
+    headers = ACCESSIBLE_FILEDS + %w(properties images)
+    CSV.generate(options) do |csv|
+      csv << headers
+      all.each do |product|
+        csv << export_product(product)
+        if product.has_variant?
+          product.variants.each do |variant|
+            csv << export_product(variant)
+          end
+        end
+      end
+    end
+  end
+
+  def self.export_product product
+    row = product.attributes.values_at(*ACCESSIBLE_FILEDS)
+
+    MULTI_FILEDS.each do |field|
+      row << if product.respond_to?(field)
+               item = product.send(field)
+               if item.present?
+                 case field
+                 when 'properties'
+                   product.send(field).map {|x| "#{x.key}:#{x.value}" }.join(";")
+                 else
+                   product.send(field).map(&:name).join(";")
+                 end
+               end
+      else
+        ''
+      end
+    end
+    row
   end
 
   def has_variant?

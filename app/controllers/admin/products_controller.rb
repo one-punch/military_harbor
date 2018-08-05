@@ -3,6 +3,11 @@ class Admin::ProductsController < Admin::ApplicationController
   def index
     @products = Product.page(params[:page])
     @products = @products.where('lower(name) LIKE ? ', "%#{params[:q].downcase}%").or(@products.where('lower(sku) LIKE ? ', "%#{params[:q].downcase}%")) if params[:q]
+
+    respond_to do |format|
+      format.html
+      format.csv { send_data @products.export, filename: 'products.csv' }
+    end
   end
 
   def show

@@ -1,19 +1,17 @@
 <div class="thumbnail">
   <%= link_to product_path(product.id, product.name) do %>
-    <%= image_tag(product.default_image(:thumb)) %>
+    <%= image_tag(product.default_image(:thumb), class: 'product-item') %>
   <% end %>
 
   <div class="caption">
-    <h4>
-      <%= link_to product.name, product_path(product.id, product.name) %>
-    </h4>
+    <%= link_to product.name, product_path(product.id, product.name) %>
     <h4 class="pull-right">
       <%= product.currency_price %>
     </h4>
     <p>
-      <% if product.is_sku? %>
-        <%= product.entity.property_info %>
-      <% end %>
+    <% if product.is_sku? %>
+      <%= product.entity.property_info %>
+    <% end %>
     </p>
   </div>
 </div>
