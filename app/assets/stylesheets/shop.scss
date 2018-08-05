@@ -40,11 +40,6 @@ img.product-item {
   height: 318px;
 }
 
-img.product-image {
-  width: 260px;
-  height: 390px;
-}
-
 .ratings {
   padding-right: 10px;
   padding-left: 10px;
@@ -60,10 +55,10 @@ img.product-image {
   color: #333;
 }
 
-.product-thumbnail a>img {
+.thumbnail a>img.product-iamge{
   display: block;
-  max-width: 100%;
-  height: 320px;
+  width: 260px;
+  height: 390px;
   margin-left: auto;
   margin-right: auto;
 }
