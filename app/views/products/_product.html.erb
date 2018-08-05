@@ -1,6 +1,6 @@
 <div class="product-thumbnail">
   <%= link_to product_path(product.id, product.name) do %>
-    <%= image_tag(product.default_image(:thumb), class: 'product-item') %>
+    <%= image_tag(product.default_image(:thumb), width:'210', height: '318') %>
   <% end %>
 
   <div class="caption">
