@@ -18,7 +18,7 @@ class Product < PrimeryProduct
         if variant.present?
           property_params = row["properties"].split(";").map {|x| ["key", "value"].zip(x.split(":").map(&:strip)).to_h}
           sku = row['sku'] == variant.parent.sku ? property_params.map{|x| x.values}.sort.to_h.values.unshift(row["sku"]).join('-') : row['sku']
-          variant.attributes = row.to_hash.slice(*ACCESSIBLE_FILEDS).map { |k,v| [k,v.strip] }.to_h
+          variant.attributes = row.to_hash.slice(*ACCESSIBLE_FILEDS).map { |k,v| [k,v.to_s.strip] }.to_h
           variant.sku = sku
           variant.save!
           property_params.each do |pro_param|
@@ -28,7 +28,7 @@ class Product < PrimeryProduct
         end
       else
         product = find_by(sku: row["sku"]) || new
-        product.attributes = row.to_hash.slice(*ACCESSIBLE_FILEDS).map { |k,v| [k,v.strip] }.to_h
+        product.attributes = row.to_hash.slice(*ACCESSIBLE_FILEDS).map { |k,v| [k, v.to_s.strip] }.to_h
         product.save!
         row["images"].split(";").each {|x| product.pictures.create(name: x.strip) } if row["images"].present?
       end

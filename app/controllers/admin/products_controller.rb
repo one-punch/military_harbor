@@ -41,7 +41,7 @@ class Admin::ProductsController < Admin::ApplicationController
       flash[:success] = "update success"
       redirect_to action: :edit, id: @product.id
     else
-      flash[:error] = @product.errors.full_messages.join("; ")
+      flash.now[:danger] = @product.errors.full_messages.join("; ")
       render :edit
     end
   end
@@ -73,46 +73,23 @@ class Admin::ProductsController < Admin::ApplicationController
     end
     @variant = @product.variants.build variant_params
     @variant.category_id = @product.category_id
-    ActiveRecord::Base.transaction do
-      begin
-        @variant.save!
-        property_params[:properties].each do |pro_param|
-          @variant.properties.create! pro_param.except(:id)
-        end
-      rescue exception => e
-        flash[:error] = e.message
-        raise ActiveRecord::Rollback
-      end
+    if @variant.save
+      flash[:success] = "创建成功"
+      redirect_to edit_admin_product_path(@variant.id)
+    else
+      flash.now[:danger] = @variant.errors.full_messages.join("; ")
     end
-    flash[:success] = "Create success"
-    redirect_to action: :images, product_id: @variant.id
-  rescue Exception => e
-    render :new_variant
   end
 
   def update_variant
     @product = Product.find params[:id]
     @variant = @product.variants.find params[:variant_id]
-    ActiveRecord::Base.transaction do
-      begin
-        property_params[:properties].each do |pro_param|
-          if pro_param[:id].present?
-            _property = @variant.properties.find pro_param[:id]
-            _property.update_attributes(pro_param.except(:id))
-          else
-            @variant.properties.create! pro_param.except(:id)
-          end
-        end
-        @variant.update_attributes(variant_params)
-      rescue Exception => e
-        flash[:error] = e.message
-        raise ActiveRecord::Rollback
-      end
+    if @variant.update_attributes variant_params
+      flash[:success] = "编辑成功"
+      redirect_to edit_admin_product_path(@variant.id)
+    else
+      flash.now[:danger] = @variant.errors.full_messages.join("; ")
     end
-    flash[:success] = "Update success"
-    redirect_to action: :edit, id: @variant.id
-  rescue Exception => e
-    redirect_to action: :edit, id: @variant.id
   end
 
   def import
@@ -179,8 +156,9 @@ class Admin::ProductsController < Admin::ApplicationController
   end
 
   def variant_params
-    params.require(:product).permit(:name, :sku, :description, :price, :purchase_price, :weight, :active, :category_id, :product_detail_id,
-                                    pictures_attributes: [:id, :name, :_destroy])
+    params.require(:variant).permit(:name, :sku, :description, :price, :purchase_price, :weight, :active, :category_id, :product_detail_id,
+                                    pictures_attributes: [:id, :name, :_destroy],
+                                    properties_attributes: [:id, :key, :value, :_destroy])
   end
 
   def property_params

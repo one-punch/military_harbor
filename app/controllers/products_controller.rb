@@ -2,9 +2,8 @@ class ProductsController < ApplicationController
 
   def index
     if params[:category_id]
-      @products = PrimeryProduct.find_by_category(params[:category_id])
-                                .where(active: true, parent_id: nil)
       @category = Category.find(params[:category_id])
+      @products = PrimeryProduct.where(active: true, parent_id: nil, category_id: [@category.subtree_ids])
     else
       @products = PrimeryProduct.where(active: true)
     end

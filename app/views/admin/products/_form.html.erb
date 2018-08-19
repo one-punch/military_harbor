@@ -3,17 +3,15 @@
     <div class="col-lg-6 col-sm-12">
       <div class="form-group">
         <%= f.label :name, '名称' %>
-        <%= f.text_field :name, placeholder: "input name", value: product_name(product), class: "form-control" %>
+        <%= f.text_field :name, value: product_name(product), placeholder: "input name", class: "form-control" %>
       </div>
       <div class="form-group">
         <%= f.label :price, '销售价格' %>
-        <%= f.number_field :price, min: 0.00, step: 0.05, placeholder: "input selling price",
-          value: product_price(product), class: "form-control" %>
+        <%= f.number_field :price, min: 0.00, step: 0.05, placeholder: "input selling price", class: "form-control" %>
       </div>
       <div class="form-group">
         <%= f.label :weight, '重量' %>
-        <%= f.number_field :weight, min: 0.00, step: 0.05, placeholder: "input selling price",
-          value: product_weight(product), class: "form-control" %>
+        <%= f.number_field :weight, min: 0.00, step: 0.05, placeholder: "input selling price", class: "form-control" %>
       </div>
       <div class="form-group">
         <%= f.label :display, '是否销售' %>
@@ -23,7 +21,7 @@
     <div class="col-lg-6 col-sm-12">
       <div class="form-group">
         <%= f.label :sku %>
-        <%= f.text_field :sku, placeholder: "input product model", value: product.sku,class: "form-control" %>
+        <%= f.text_field :sku, value: product_sku(product), placeholder: "input product model", class: "form-control" %>
       </div>
       <div class="form-group">
         <%= f.label :purchase_price, '采购价格' %>
@@ -51,11 +49,17 @@
       </div>
     </div>
 
-    <% if f.object.new_record? && f.object.is_a?(Variant) %>
-      <%= render partial: "variant_form" %>
-    <% elsif !f.object.new_record? && f.object.is_a?(Variant) %>
-      <%= render partial: "edit_variant_form", locals: {variant: f.object} %>
+    <% if f.object.is_a?(Variant) %>
+      <div class="col-lg-12 col-sm-12">
+        <div class="form-group">
+          <%= f.fields_for :properties do |builder| %>
+            <%= render 'property_fields', f: builder %>
+          <% end %>
+          <p class='add-field'><%= link_to_add_fields "添加属性", f, :properties, class: 'btn btn-success' %></p>
+        </div>
+      </div>
     <% end %>
+
     <div class="space-6"></div>
     <div class="col-lg-12 col-sm-12">
       <div class="form-group">
@@ -80,17 +84,4 @@
     textarea: $('#product-editor')
     //optional options
   });
-
-  function add_fields(link, association, content) {
-    console.log($(link).parent())
-    var new_id = new Date().getTime();
-    var regexp = new RegExp("new_" + association, "g");
-    $(link).parent().before(content.replace(regexp, new_id));
-  }
-
-  function remove_fields(link) {
-    console.log($(link).prev().attr('id'))
-    $(link).prev("input[type=hidden]").val("1");
-    $(link).closest(".fields").hide();
-  }
 </script>

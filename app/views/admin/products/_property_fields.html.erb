@@ -1,0 +1,18 @@
+<div class='fields'>
+  <%= f.label :name, '属性' %>
+  <div class='row'>
+    <div class='col-md-5'>
+      <div class="form-group">
+        <%= f.text_field :key, placeholder: "名", class: "form-control" %>
+      </div>
+    </div>
+    <div class='col-md-5'>
+      <div class="form-group">
+        <%= f.text_field :value, placeholder: "值", class: "form-control" %>
+      </div>
+    </div>
+    <div class='col-md-2'>
+      <%= link_to_remove_fields "remove", f, class: 'btn btn-danger' %>
+    </div>
+  </div>
+</div>
