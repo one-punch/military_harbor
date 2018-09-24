@@ -15,6 +15,9 @@ class CreateOrders < ActiveRecord::Migration[5.1]
       t.integer :status
       t.integer :shipper_id
       t.string :shipping_number
+      t.decimal :subtotal, precision: 8, scale: 2, default: 0.0
+      t.decimal :shipping_total, precision: 8, scale: 2, default: 0.0
+      t.decimal :total, precision: 8, scale: 2, default: 0.0
       t.text :description
 
       t.integer :user_id

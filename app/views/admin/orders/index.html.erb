@@ -48,8 +48,9 @@
       <th>订单号</th>
       <th>客户</th>
       <th>国家/地区</th>
-      <th>订单总额</th>
+      <th>商品总额</th>
       <th>运费</th>
+      <th>合计</th>
       <th>运输方式</th>
       <th>状态</th>
       <th>操作</th>
@@ -71,10 +72,13 @@
           <%= order.country %>
         </td>
         <td>
-          <%= order.subtotal %>
+          <%= number_to_currency order.subtotal %>
         </td>
         <td>
-
+          <%= number_to_currency order.shipping_total %>
+        </td>
+        <td>
+          <%= number_to_currency order.total %>
         </td>
         <td>
 

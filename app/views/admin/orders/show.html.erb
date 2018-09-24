@@ -140,14 +140,14 @@
     <tr>
       <td></td>
       <td></td>
-      <td><h5>Estimated shipping</h5></td>
-      <td class="text-right"><h5><strong>$0.53</strong></h5></td>
+      <td><h5>Shipping total</h5></td>
+      <td class="text-right"><h5><strong><%= number_to_currency @order.shipping_total %></strong></h5></td>
     </tr>
     <tr>
       <td></td>
       <td></td>
       <td><h3>Total</h3></td>
-      <td class="text-right"><h3><strong>$100.53</strong></h3></td>
+      <td class="text-right"><h3><strong><%= number_to_currency @order.total %></strong></h3></td>
     </tr>
   </table>
 </div>

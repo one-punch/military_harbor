@@ -24,10 +24,6 @@ class Order < ApplicationRecord
     "#{first_name} #{last_name}"
   end
 
-  def subtotal
-    order_items.map(&:subtotal).sum
-  end
-
   def quantity
     order_items.map(&:quantity).sum
   end
