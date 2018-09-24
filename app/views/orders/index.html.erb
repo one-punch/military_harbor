@@ -26,7 +26,7 @@
                 <div class="media">
                   <div class="media-left">
                     <%= link_to product_path(item.product.id, item.product.name) do %>
-                      <%= image_tag(item.product.default_image(:small), class: "media-object") %>
+                      <%= image_tag(item.product.default_image(:small), class: "media-object item-small") %>
                     <% end %>
                   </div>
                   <div class="media-body">
