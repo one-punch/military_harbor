@@ -5,4 +5,8 @@ class CartItem < ApplicationRecord
   def subtotal
     product.price * quantity
   end
+
+  def weight
+    product.weight * quantity
+  end
 end
