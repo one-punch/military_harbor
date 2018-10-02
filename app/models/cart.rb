@@ -32,7 +32,7 @@ class Cart < ApplicationRecord
     else
       total = 30
       incre = (weight - 1.1) / 0.5
-      incre.to_i / 5 + 30
+      incre.to_i * 5 + 30
     end
   end
 
