@@ -8,11 +8,11 @@ module ProductsHelper
     html = capture { label_tag 'variants' }
     html << capture do
       if product.is_sku?
-        variants = product.parent.variants
+        variants = product.parent.sorted_variants
         options = options_for_select(variants.map {|x| ["#{varirant_property_name(x)}", x.id, {data: {variant: product_path(x.id, x.name)}}]}, product.id)
         select_tag('variants', options, class: 'form-control')
       else
-        variants = product.variants
+        variants = product.sorted_variants
         options = options_for_select(variants.map {|x| ["#{varirant_property_name(x)}", x.id, {data: {variant: product_path(x.id, x.name)}}]})
         select_tag('variants', options, class: 'form-control', include_blank: 'Select')
       end

@@ -75,4 +75,8 @@ class Product < PrimeryProduct
     variants.exists?
   end
 
+  def sorted_variants
+    variants.sort_by { |variant| variant.sort_value }
+  end
+
 end
