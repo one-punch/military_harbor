@@ -1,12 +1,13 @@
-<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+<div class="panel-group" id="accordion<%= categories.first.id %>" role="tablist" aria-multiselectable="true">
   <% categories.each do |category| %>
     <div class="panel panel-default">
       <div class="panel-heading" role="tab" id="heading<%= category.id %>">
         <h4 class="panel-title">
-          <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse<%= category.id%>" aria-expanded="true" aria-controls="collapse<%= category.id %>">
+          <a role="button" data-toggle="collapse" data-parent="#accordion<%= categories.first.id %>" href="#collapse<%= category.id%>" aria-expanded="true" aria-controls="collapse<%= category.id %>" id="">
             <%= category.id %> <%= category.path.map(&:name).join(" > ") %>
           </a>
           <div class="pull-right">
+            <span class="label label-info"><%= category.children.size %></span>
             <%= link_to '编辑', edit_admin_category_path(category), class: 'btn btn-default btn-xs' %>
           </div>
         </h4>
