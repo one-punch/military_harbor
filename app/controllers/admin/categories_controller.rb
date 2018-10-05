@@ -40,9 +40,6 @@ class Admin::CategoriesController < Admin::ApplicationController
 
   def sort
     ids = sort_params[:ids].scan(/\d/)
-    ids.each_with_index do |id, index|
-      Category.update_all({position: index+1}, {id: id})
-    end
 
     render body: nil
   end
