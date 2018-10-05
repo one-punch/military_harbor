@@ -2,6 +2,10 @@ class Category < ApplicationRecord
   has_ancestry
   has_many :products
 
+  default_scope { order(:position) }
+
+  scope :actived, -> { where(active: true) }
+
   def level
     self.depth + 1
   end

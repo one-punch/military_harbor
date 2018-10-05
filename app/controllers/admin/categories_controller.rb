@@ -39,7 +39,12 @@ class Admin::CategoriesController < Admin::ApplicationController
   end
 
   def sort
-    ids = sort_params[:ids].scan(/\d/)
+    ids = sort_params[:ids].scan(/\d+/)
+    ids.each_with_index do |id, index|
+      category = Category.find(id)
+      category.position = index + 1
+      category.save
+    end
 
     render body: nil
   end
@@ -51,10 +56,10 @@ class Admin::CategoriesController < Admin::ApplicationController
   end
 
   def category_params
-    params.require(:category).permit(:name, :parent_id)
+    params.require(:category).permit(:name, :active, :parent_id)
   end
 
   def sort_params
-    params.require(:category).permit(:parent_id, :ids)
+    params.require(:category).permit(:ids)
   end
 end

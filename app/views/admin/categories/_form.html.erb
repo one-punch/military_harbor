@@ -5,6 +5,14 @@
 </div>
 
 <div class="form-group">
+<div class="checkbox">
+    <label>
+      <%= f.check_box :active %> 是否显示
+    </label>
+  </div>
+</div>
+
+<div class="form-group">
   <%= f.label '选择分类级别' %>
   <%= f.select :parent_id,
     options_for_select(Category.select {|category| category.products.blank? }.map {|category|[category.path.map(&:name).join(" > "), category.id]}.unshift(['一级类目', nil]), @category.parent_id),
