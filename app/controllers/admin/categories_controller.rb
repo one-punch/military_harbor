@@ -3,7 +3,7 @@ class Admin::CategoriesController < Admin::ApplicationController
 
 
   def index
-    @categoires = Category.page(params[:page])
+    @categories = Category.page(params[:page])
   end
 
   def show
