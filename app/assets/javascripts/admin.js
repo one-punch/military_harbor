@@ -1,4 +1,5 @@
 //= require jquery
+//= require jquery-ui
 //= require rails-ujs
 //= require turbolinks
 //= require bootstrap-fileinput/js/plugins/piexif.js

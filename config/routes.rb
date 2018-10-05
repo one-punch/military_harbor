@@ -57,7 +57,9 @@ Rails.application.routes.draw do
     resources :users
     resources :orders
     resources :shippers
-    resources :categories
+    resources :categories do
+      collection { put :sort }
+    end
     resources :product_details
   end
 end

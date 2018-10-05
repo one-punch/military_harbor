@@ -1,9 +1,10 @@
-<div class="panel-group" id="accordion<%= categories.first.id %>" role="tablist" aria-multiselectable="true">
+<div class="panel-group category-collapse" id="accordion<%= categories.first.parent_id %>" role="tablist" aria-multiselectable="true"
+  data-update-url="<%= sort_admin_categories_url %>">
   <% categories.each do |category| %>
-    <div class="panel panel-default">
+    <div class="panel panel-default" id="category_<%= category.id %>">
       <div class="panel-heading" role="tab" id="heading<%= category.id %>">
         <h4 class="panel-title">
-          <a role="button" data-toggle="collapse" data-parent="#accordion<%= categories.first.id %>" href="#collapse<%= category.id%>" aria-expanded="true" aria-controls="collapse<%= category.id %>" id="">
+          <a role="button" data-toggle="collapse" data-parent="#accordion<%= categories.first.parent_id %>" href="#collapse<%= category.id%>" aria-expanded="true" aria-controls="collapse<%= category.id %>">
             <%= category.id %> <%= category.path.map(&:name).join(" > ") %>
           </a>
           <div class="pull-right">
@@ -22,3 +23,20 @@
     </div>
   <% end %>
 </div>
+
+<script>
+  $('.category-collapse').sortable({
+    update: function  () {
+      $.ajax({
+        url: $(this).data('update-url'),
+        method: 'PUT',
+        data: {
+          category: {
+            parent_id: $(this).attr('id').split('accordion')[1],
+            ids: $(this).sortable('serialize', {key: 'category'})
+          }
+        }
+      })
+    }
+  })
+</script>
