@@ -25,8 +25,8 @@
       </div>
 
       <div class="col-md-6">
-        <%= form_for(current_cart.cart_items.new) do |f| %>
-          <%= f.hidden_field(:product_id, value: @product.id) %>
+        <%= form_tag(cart_items_path) do %>
+          <%= hidden_field_tag('cart_item[product_id]', @product.id) %>
           <h3><%= @product.currency_price %></h3>
 
           <span>Store Item Number: <%= @product.sku %></span>
@@ -35,12 +35,12 @@
           <%= varirants_selector @product %>
 
           <label>Quantity</label>
-          <%= f.number_field :quantity, value: 1, class: 'form-control', min: 1 %>
+          <%= number_field_tag 'cart_item[quantity]', 1, class: 'form-control', min: 1, max: 20 %>
 
           <% if @product.allow_checkout? %>
             <div class="row">
               <div class="col-md-6">
-                <%= f.submit 'Add To Cart', class: "btn btn-primary btn-product" %>
+                <%= submit_tag 'Add To Cart', class: "btn btn-primary btn-product" %>
               </div>
               <div class="col-md-6">
                 <%= link_to 'Buy Now', '', class: 'btn btn-success btn-product' %>
