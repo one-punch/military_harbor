@@ -30,8 +30,13 @@ class Variant < PrimeryProduct
   end
 
   def sort_value
-    return 0 unless size
-    @sort_value ||= size.upcase.each_char.map {|x| x.to_i > 0 ? x.to_i : SIZE_MAPPING[x]}.reduce(:*)
+    @sort_value ||= if size.nil?
+                      0
+                    elsif size == size.to_i.to_s
+                      size.to_i
+                    else
+                      size.upcase.each_char.map {|x| x.to_i > 0 ? x.to_i : SIZE_MAPPING[x]}.reduce(:*)
+                    end
   end
 
   def size
