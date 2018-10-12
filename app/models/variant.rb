@@ -17,10 +17,6 @@ class Variant < PrimeryProduct
     properties.map { |property| property.value }.join(' ')
   end
 
-  def name
-    "#{super} #{property_name}"
-  end
-
   def property_info
     properties.map { |property| "#{property.key}: #{property.value}" }.join(' ')
   end
