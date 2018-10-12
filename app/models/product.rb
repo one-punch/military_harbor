@@ -75,8 +75,12 @@ class Product < PrimeryProduct
     variants.exists?
   end
 
+  def actived_variants
+    variants.where(active: true)
+  end
+
   def sorted_variants
-    variants.sort_by { |variant| variant.sort_value }
+    actived_variants.sort_by { |variant| variant.sort_value }
   end
 
 end
