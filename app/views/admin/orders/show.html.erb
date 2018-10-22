@@ -14,61 +14,70 @@
 
   <div class="panel-body">
     <%= form_for(@order, url: admin_order_path) do |f| %>
-      <div class="form-group">
-        <%= f.label :first_name %>
-        <%= f.text_field :first_name, class: 'form-control form-control-large',
-          placeholder: 'Enter first name' %>
-      </div>
+      <div class="row">
+        <div class="col-xs-3">
+          <div class="form-group">
+            <%= f.label :first_name %>
+            <%= f.text_field :first_name, class: 'form-control form-control-large',
+              placeholder: 'Enter first name' %>
+        </div>
+        </div>
 
-      <div class="form-group">
-        <%= f.label :last_name %>
-        <%= f.text_field :last_name, class: 'form-control form-control-large',
-          placeholder: 'Enter last name' %>
-      </div>
+        <div class="col-xs-3">
+          <div class="form-group">
+            <%= f.label :last_name %>
+            <%= f.text_field :last_name, class: 'form-control form-control-large',
+              placeholder: 'Enter last name' %>
+        </div>
+        </div>
 
-      <div class="form-group">
-        <%= f.label :email %>
-        <%= f.text_field :email, class: 'form-control form-control-large',
-          placeholder: 'Enter email' %>
-      </div>
+        <div class="col-xs-3">
+          <div class="form-group">
+            <%= f.label :email %>
+            <%= f.text_field :email, class: 'form-control form-control-large',
+              placeholder: 'Enter email' %>
+        </div>
+        </div>
 
-      <div class="form-group">
-        <%= f.label :phone %>
-        <%= f.text_field :phone, class: 'form-control form-control-large',
-          placeholder: 'Enter phone number' %>
+        <div class="col-xs-3">
+          <div class="form-group">
+            <%= f.label :phone %>
+            <%= f.text_field :phone, class: 'form-control form-control-large',
+              placeholder: 'Enter phone number' %>
+        </div>
+        </div>
       </div>
-
       <div class="row">
         <div class="col-xs-3">
           <div class="form-group">
             <%= f.label :country, 'Country or Region' %>
             <%= f.text_field :country, class: 'form-control form-control-large',
-                placeholder: 'Enter country or region' %>
-          </div>
+              placeholder: 'Enter country or region' %>
+        </div>
         </div>
 
         <div class="col-xs-3">
           <div class="form-group">
             <%= f.label :province, 'State' %>
             <%= f.text_field :province, class: 'form-control form-control-large',
-                placeholder: 'Enter state or province' %>
-          </div>
+              placeholder: 'Enter state or province' %>
+        </div>
         </div>
 
         <div class="col-xs-3">
           <div class="form-group">
             <%= f.label :city %>
             <%= f.text_field :city, class: 'form-control form-control-large',
-                placeholder: 'Enter city' %>
-          </div>
+              placeholder: 'Enter city' %>
+        </div>
         </div>
 
         <div class="col-xs-3">
           <div class="form-group">
             <%= f.label :zip, 'ZIP' %>
             <%= f.text_field :zip, class: 'form-control form-control-large',
-                placeholder: 'Enter zip' %>
-          </div>
+              placeholder: 'Enter zip' %>
+        </div>
         </div>
       </div>
 
@@ -76,26 +85,26 @@
         <%= f.label :street %>
         <%= f.text_field :street, class: 'form-control form-control-large',
           placeholder: 'Enter address' %>
-      </div>
+    </div>
 
-      <div class="row">
-        <div class="col-xs-6">
-          <%= f.label :shipper_id, 'Shipper' %>
-          <%= f.select :shipper_id, options_for_select(Shipper.all.map {|shipper| [shipper.name, shipper.id]}), {}, class: "form-control" %>
-        </div>
-        <div class="col-xs-6">
-          <div class="form-group">
-            <%= f.label :shipping_number %>
-            <%= f.text_field :shipping_number, class: 'form-control form-control-large',
-                placeholder: 'Shipping Number' %>
-          </div>
-        </div>
+    <div class="row">
+      <div class="col-xs-6">
+        <%= f.label :shipper_id, 'Shipper' %>
+        <%= f.select :shipper_id, options_for_select(Shipper.all.map {|shipper| [shipper.name, shipper.id]}), {}, class: "form-control" %>
       </div>
+      <div class="col-xs-6">
+        <div class="form-group">
+          <%= f.label :shipping_number %>
+          <%= f.text_field :shipping_number, class: 'form-control form-control-large',
+            placeholder: 'Shipping Number' %>
+      </div>
+      </div>
+    </div>
 
-      <div class="pull-right">
-        <%= f.submit '保存', class: 'btn btn-primary' %>
-      </div>
-    <% end %>
+    <div class="pull-right">
+      <%= f.submit '保存', class: 'btn btn-primary' %>
+    </div>
+  <% end %>
   </div>
 
   <table class="table">
@@ -114,7 +123,7 @@
               </h5>
               <h5 class="media-heading">
                 sku <%= item.product.sku %>
-              </h5>
+            </h5>
             </div>
           </div>
         </td>
