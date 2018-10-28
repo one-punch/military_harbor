@@ -8,7 +8,7 @@ class ProductsController < ApplicationController
       @products = PrimeryProduct.where(active: true)
     end
     @products = @products.where('lower(name) LIKE ? ', "%#{params[:q].downcase}%").or(@products.where('lower(sku) LIKE ? ', "%#{params[:q].downcase}%")) if params[:q]
-    @products = @products.page(params[:page]).per(27)
+    @products = @products.page(params[:page]).per(24)
   end
 
   def show
