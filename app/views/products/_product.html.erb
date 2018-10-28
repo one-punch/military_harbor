@@ -5,6 +5,7 @@
 
   <div class="caption">
     <%= link_to product.name, product_path(product.id, product.name) %>
+    <p><%= product.sku %></p>
     <h4 class="pull-right">
       <%= product.currency_price %>
     </h4>
