@@ -8,12 +8,12 @@ class Category < ApplicationRecord
 
   scope :actived, -> { where(active: true) }
 
-  def level
-    self.depth + 1
-  end
-
   def self.leaves
     self.select { |catgory| catgory.is_childless? }
+  end
+
+  def level
+    self.depth + 1
   end
 
   def product_items
