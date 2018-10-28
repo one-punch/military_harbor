@@ -12,6 +12,7 @@ class Admin::CategoriesController < Admin::ApplicationController
 
   def new
     @category = Category.new
+    @category.pictures.build
   end
 
   def create
@@ -26,7 +27,7 @@ class Admin::CategoriesController < Admin::ApplicationController
   end
 
   def edit
-
+    @category.pictures.build if @category.pictures.blank?
   end
 
   def update
@@ -56,7 +57,7 @@ class Admin::CategoriesController < Admin::ApplicationController
   end
 
   def category_params
-    params.require(:category).permit(:name, :active, :parent_id)
+    params.require(:category).permit(:name, :active, :parent_id, pictures_attributes: [:id, :name, :_destroy])
   end
 
   def sort_params

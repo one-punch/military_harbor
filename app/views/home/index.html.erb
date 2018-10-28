@@ -4,12 +4,41 @@
   </div>
 
   <div class="col-md-9">
-    <div class="jumbotron">
-      <h3>
-        Military Harbor
-      </h3>
-      <p>Items with '' label will be free shipping service! Check them now.</p>
+    <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+      <!-- Indicators -->
+      <ol class="carousel-indicators">
+        <% Category.roots.each_with_index do |category, index| %>
+          <% if category.pictures.any? %>
+            <li data-target="#carousel-example-generic" data-slide-to="<%= index %>" class="<%= index == 0 ? 'active' : ''%>"></li>
+          <% end %>
+        <% end %>
+      </ol>
+
+      <!-- Wrapper for slides -->
+      <div class="carousel-inner" role="listbox">
+        <% Category.roots.each_with_index do |category, index| %>
+          <% if category.pictures.any? %>
+            <div class="item <%= index == 0 ? 'active' : ''%>">
+              <%= link_to products_path(category_id: category.id) do %>
+                <%= image_tag category.pictures.first.url %>
+              <% end %>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+
+      <!-- Controls -->
+      <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+      </a>
+      <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+      </a>
     </div>
+
+    </br>
 
     <div class="row">
       <% @products.each do |product| %>
@@ -20,3 +49,8 @@
     </div>
   </div>
 </div>
+
+<script>
+  $('.carousel').carousel()
+</script>
+

@@ -1,6 +1,8 @@
 class Category < ApplicationRecord
   has_ancestry
   has_many :products
+  has_many :pictures, as: :imageable
+  accepts_nested_attributes_for :pictures, :reject_if => lambda { |a| a['name'].blank? }, :allow_destroy => true
 
   default_scope { order(:position) }
 
