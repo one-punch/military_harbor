@@ -28,3 +28,5 @@ public/uploads
 /config/database.yml
 
 *.swp
+
+.env
