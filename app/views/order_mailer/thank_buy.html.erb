@@ -1,7 +1,7 @@
 Dear <%= "#{@order.first_name} #{@order.last_name}" %>
 
 <p>Thank you for purchase from our Website.</p>
-<p>Please note: we will send the invoice to your email address: <%= @user.email %></p>
+<p>Please note: we will send the invoice to your paypal email address: <%= @user.email %></p>
 <p>Or, you can also send the payment to our paypal: <%= ENV["INVOICE_MAIL"] %><p>
 <p>Then, after you paid, we will change your order status to: Paid. Before that, the status will be 'Wait payment'. Thanks for understand.</p>
 
@@ -11,8 +11,8 @@ Dear <%= "#{@order.first_name} #{@order.last_name}" %>
 <p>CITY: SHANGHAI</p>
 <p>COUNTRY: CHINA</p>
 
-<strong>After you sent the money. please:</strong>
-<p>1. shot a photo of the payment sheet to us.</p>
+<p>After you sent the money. please:<p>
+<p>1. shot a photo of the payment sheet to <%= ENV["INVOICE_MAIL"] %></p>
 <p>2. if the payment sheet didn't show enough information to us, please at least tell us: your FIRST NAME, LAST name, MTC number, Address, and most important is the VALUE (not the money you paid to Western Union, but the NET MONEY.)</p>
 
 <p>* because of time equation, maybe we need some hours to check it.</p>
