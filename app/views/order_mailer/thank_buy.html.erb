@@ -1,0 +1,58 @@
+Dear <%= "#{@order.first_name} #{@order.last_name}" %>
+
+<p>Thank you for purchase from our Website.</p>
+<p>Please note: we will send the invoice to your email address: <%= @user.email %></p>
+<p>Or, you can also send the payment to our paypal: <%= ENV["INVOICE_MAIL"] %><p>
+<p>Then, after you paid, we will change your order status to: Paid. Before that, the status will be 'Wait payment'. Thanks for understand.</p>
+
+<p>If you ask for pay via Western Union. Here is our account information:</p>
+<p>FIRST NAME: QU</p>
+<p>LAST NAME: YUAN</p>
+<p>CITY: SHANGHAI</p>
+<p>COUNTRY: CHINA</p>
+
+<strong>After you sent the money. please:</strong>
+<p>1. shot a photo of the payment sheet to us.</p>
+<p>2. if the payment sheet didn't show enough information to us, please at least tell us: your FIRST NAME, LAST name, MTC number, Address, and most important is the VALUE (not the money you paid to Western Union, but the NET MONEY.)</p>
+
+<p>* because of time equation, maybe we need some hours to check it.</p>
+
+<strong>Here is your ordered items: </strong>
+<table>
+  <% @order.order_items.each do |item| %>
+    <tr>
+      <td style="width: 70%">
+        <%= item.product.name %>
+      </td>
+      <td>
+        <%= item.quantity %>
+      </td>
+      <td>
+        <strong><%= number_to_currency item.price %></strong>
+      </td>
+      <td>
+        <strong><%= number_to_currency item.subtotal %></strong>
+      </td>
+    </tr>
+  <% end %>
+  <tr>
+    <td></td>
+    <td></td>
+    <td><h5>Subtotal</h5></td>
+    <td>
+      <h5><strong><%= number_to_currency @order.subtotal %></strong></h5>
+    </td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td><h5>Shipping total</h5></td>
+    <td><h5><strong><%= number_to_currency @order.shipping_total %></strong></h5></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td><h3>Total</h3></td>
+    <td><h3><strong><%= number_to_currency @order.total %></strong></h3></td>
+  </tr>
+</table>

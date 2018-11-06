@@ -39,6 +39,7 @@ class OrdersController < ApplicationController
     end
 
     if order_saved
+      @order.thank_buy_email
       flash[:success] = "The order was successful"
       redirect_to @order
     else

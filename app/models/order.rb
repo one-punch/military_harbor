@@ -36,4 +36,8 @@ class Order < ApplicationRecord
     status.humanize
   end
 
+  def thank_buy_email
+    OrderMailer.thank_buy(self).deliver_now
+  end
+
 end
