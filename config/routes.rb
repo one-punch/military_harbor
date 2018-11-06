@@ -12,6 +12,8 @@ Rails.application.routes.draw do
 
   resources :users
 
+  resources :account_activations, only: [:edit]
+
   get '/profile',  to: 'users#profile'
   get '/settings', to: 'users#settings'
 
