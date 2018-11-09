@@ -81,7 +81,9 @@
           <%= number_to_currency order.total %>
         </td>
         <td>
-          <%= order.shipper ? order.shipper.name : '未分配承运商' %>
+          <% if order.shipper %>
+            <%= order.shipper.name %>
+          <% end %>
         </td>
         <td>
           <%= order.status_humanize %>
