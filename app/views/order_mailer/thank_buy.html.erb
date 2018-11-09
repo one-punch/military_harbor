@@ -1,24 +1,23 @@
 Dear <%= "#{@order.first_name} #{@order.last_name}" %>
-
 <p>Thank you for purchase from our Website.</p>
-<p>Please note: we will send the invoice to your paypal email address: <%= @user.email %></p>
-<p>Or, you can also send the payment to our paypal: <%= ENV["INVOICE_MAIL"] %><p>
-<p>Then, after you paid, we will change your order status to: Paid. Before that, the status will be 'Wait payment'. Thanks for understand.</p>
 
-<p>If you ask for pay via Western Union. Here is our account information:</p>
-<p>FIRST NAME: QU</p>
-<p>LAST NAME: YUAN</p>
-<p>CITY: SHANGHAI</p>
-<p>COUNTRY: CHINA</p>
-
-<p>After you sent the money. please:<p>
-<p>1. shot a photo of the payment sheet to <%= ENV["INVOICE_MAIL"] %></p>
-<p>2. if the payment sheet didn't show enough information to us, please at least tell us: your FIRST NAME, LAST name, MTC number, Address, and most important is the VALUE (not the money you paid to Western Union, but the NET MONEY.)</p>
-
-<p>* because of time equation, maybe we need some hours to check it.</p>
-
+<p>Order Number: <%= @order.id %></p>
 <strong>Here is your ordered items: </strong>
-<table>
+<table border="1">
+  <tr>
+    <th style="width: 70%">
+      item
+    </th>
+    <th>
+      qty
+    </th>
+    <th>
+      price
+    </th>
+    <th>
+      subtotal
+    </th>
+  </tr>
   <% @order.order_items.each do |item| %>
     <tr>
       <td style="width: 70%">
@@ -56,3 +55,18 @@ Dear <%= "#{@order.first_name} #{@order.last_name}" %>
     <td><h3><strong><%= number_to_currency @order.total %></strong></h3></td>
   </tr>
 </table>
+
+<strong>Shiping Address:(Please double check again)</strong> <br>
+<strong>Name: </strong><%= "#{@order.first_name} #{@order.last_name}" %> <br>
+<strong>Email: </strong><%= @order.email %> <br>
+<strong>Address: </strong><%= @order.street %> <br>
+<strong>ZIP: </strong><%= @order.zip %> <br>
+<strong>Country or Region: </strong><%= @order.country %> <br>
+<strong>Phone: </strong><%= @order.phone %> <br>
+
+<p>Please note: we will send the invoice to your paypal email address: <%= @user.email %></p>
+<p>Or, you can also send the payment to our paypal: <%= ENV["INVOICE_MAIL"] %><p>
+<p>Then, after you paid, we will change your order status to: Paid. Before that, the status will be 'Wait payment'. Thanks for understand.</p>
+
+<p>* because of time equation, maybe we need some hours to check it.</p>
+

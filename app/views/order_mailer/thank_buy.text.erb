@@ -1,21 +1,6 @@
 Dear <%= "#{@order.first_name} #{@order.last_name}" %>
 
 Thank you for purchase from our Website.
-Please note: we will send the invoice to your paypal email address: <%= @user.email %>
-Or, you can also send the payment to our paypal: <%= ENV["INVOICE_MAIL"] %>
-Then, after you paid, we will change your order status to: Paid. Before that, the status will be 'Wait payment'. Thanks for understand.
-
-If you ask for pay via Western Union. Here is our account information:
-FIRST NAME: QU
-LAST NAME: YUAN
-CITY: SHANGHAI
-COUNTRY: CHINA
-
-After you sent the money. please:
-1. shot a photo of the payment sheet to <%= ENV["INVOICE_MAIL"] %>
-2. if the payment sheet didn't show enough information to us, please at least tell us: your FIRST NAME, LAST name, MTC number, Address, and most important is the VALUE (not the money you paid to Western Union, but the NET MONEY.)
-
-* because of time equation, maybe we need some hours to check it.
 
 Here is your ordered items:
 
@@ -26,3 +11,17 @@ Here is your ordered items:
 subtotal: <%= number_to_currency @order.subtotal %>
 shipping total: <%= number_to_currency @order.shipping_total %>
 total: <%= number_to_currency @order.total %>
+
+Shiping Address:(Please double check again)
+Name: <%= "#{@order.first_name} #{@order.last_name}" %>
+Email: <%= @order.email %>
+Address: <%= @order.street %>
+ZIP: <%= @order.zip %>
+Country or Region: <%= @order.country %>
+Phone: <%= @order.phone %>
+Please note: we will send the invoice to your paypal email address: <%= @user.email %>
+Or, you can also send the payment to our paypal: <%= ENV["INVOICE_MAIL"] %>
+Then, after you paid, we will change your order status to: Paid. Before that, the status will be 'Wait payment'. Thanks for understand.
+
+* because of time equation, maybe we need some hours to check it.
+
