@@ -8,8 +8,10 @@ class HomeController < ApplicationController
   def about
     if content_names.include? params[:name]
       @content = get_centent params[:name]
-    else
+    elsif url_names.include? params[:name]
       @url = "#{Picture::BASE_URL}/#{Picture::NAMES[params[:name]]}.jpg"
+    else
+      redirect_to root_path
     end
   end
 
