@@ -27,6 +27,7 @@ Rails.application.routes.draw do
   get '/cart', to: 'cart_items#index'
   get '/checkout', to: 'orders#new'
 
+  get '/about/:name', to: 'home#about', as: :about
 
   namespace :admin do
     root to: 'home#index', as: 'root'

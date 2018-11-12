@@ -4,6 +4,11 @@ class Picture < ApplicationRecord
 
   BASE_URL = 'https://www.militaryharbor.net'
 
+  NAMES = {
+    'payment'   => 'webimg/abpay01',
+    'tunic' => 'webimg/abgt01'
+  }
+
   def url
     "#{BASE_URL}/#{self.name}"
   end

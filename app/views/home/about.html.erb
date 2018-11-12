@@ -1,0 +1,11 @@
+<% if @content %>
+  <div class="page-header">
+    <h1>About <%= params[:name].humanize %></h1>
+  </div>
+
+  <% @content.each do |line| %>
+    <p><%= line %></p>
+  <% end %>
+<% else %>
+  <%= image_tag @url, class: 'img-center' %>
+<% end %>
