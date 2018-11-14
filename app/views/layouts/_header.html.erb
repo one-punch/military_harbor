@@ -7,7 +7,9 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <%= link_to "Military Harbor", root_path, class: "navbar-brand" %>
+      <%= link_to  root_path, class: "navbar-brand" do %>
+        <%= image_tag "#{Picture::BASE_URL}/webimg/LOGO.png", width: 150 %>
+      <% end %>
     </div>
 
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -22,7 +24,7 @@
           <%= link_to "Payment", about_path(name: 'payment') %>
         </li>
         <li>
-          <%= link_to "Tunic", about_path(name: 'tunic') %>
+          <%= link_to "About German Tunic", about_path(name: 'tunic') %>
         </li>
         <li>
           <a href="#">Contact</a>

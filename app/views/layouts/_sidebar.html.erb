@@ -6,7 +6,7 @@
     <% Category.roots.actived.each do |category| %>
       <li class="dropdown">
         <a href="" class="accordion-heading" data-toggle="collapse" data-target="#submenu-<%= category.id %>" data-url="<%= products_path(category_id: category.id) %>">
-          <span class="nav-header-primary">
+          <span class="nav-header-primary top-category">
             <%= category.name %>
             <% if category.has_children? %>
               <span class="pull-right">
