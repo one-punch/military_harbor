@@ -23,6 +23,7 @@ class OrdersController < ApplicationController
         @order.subtotal = current_cart.subtotal
         @order.shipping_total = current_cart.shipping_total
         @order.total = current_cart.total
+        @order.weight = current_cart.weight_total
         @order.save!
         cart_items.each do |cart_item|
           @order.order_items.create!(product_id: cart_item.product_id, price: cart_item.product.price, quantity: cart_item.quantity)

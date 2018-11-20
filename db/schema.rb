@@ -81,7 +81,11 @@ ActiveRecord::Schema.define(version: 20181106071917) do
     t.string "shipping_number"
     t.decimal "subtotal", precision: 8, scale: 2, default: "0.0"
     t.decimal "shipping_total", precision: 8, scale: 2, default: "0.0"
+    t.decimal "actual_shipping_cost", precision: 8, scale: 2, default: "0.0"
     t.decimal "total", precision: 8, scale: 2, default: "0.0"
+    t.decimal "profit", precision: 8, scale: 2, default: "0.0"
+    t.decimal "weight", precision: 8, scale: 2, default: "0.0"
+    t.decimal "actual_weight", precision: 8, scale: 2, default: "0.0"
     t.text "description"
     t.integer "user_id"
     t.datetime "created_at", null: false

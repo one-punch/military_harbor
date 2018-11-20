@@ -20,7 +20,7 @@
             <%= f.label :first_name %>
             <%= f.text_field :first_name, class: 'form-control form-control-large',
               placeholder: 'Enter first name' %>
-        </div>
+          </div>
         </div>
 
         <div class="col-xs-3">
@@ -28,7 +28,7 @@
             <%= f.label :last_name %>
             <%= f.text_field :last_name, class: 'form-control form-control-large',
               placeholder: 'Enter last name' %>
-        </div>
+          </div>
         </div>
 
         <div class="col-xs-3">
@@ -36,7 +36,7 @@
             <%= f.label :email %>
             <%= f.text_field :email, class: 'form-control form-control-large',
               placeholder: 'Enter email' %>
-        </div>
+          </div>
         </div>
 
         <div class="col-xs-3">
@@ -44,16 +44,17 @@
             <%= f.label :phone %>
             <%= f.text_field :phone, class: 'form-control form-control-large',
               placeholder: 'Enter phone number' %>
-        </div>
+          </div>
         </div>
       </div>
+
       <div class="row">
         <div class="col-xs-3">
           <div class="form-group">
             <%= f.label :country, 'Country or Region' %>
             <%= f.text_field :country, class: 'form-control form-control-large',
               placeholder: 'Enter country or region' %>
-        </div>
+          </div>
         </div>
 
         <div class="col-xs-3">
@@ -61,7 +62,7 @@
             <%= f.label :province, 'State' %>
             <%= f.text_field :province, class: 'form-control form-control-large',
               placeholder: 'Enter state or province' %>
-        </div>
+          </div>
         </div>
 
         <div class="col-xs-3">
@@ -69,7 +70,7 @@
             <%= f.label :city %>
             <%= f.text_field :city, class: 'form-control form-control-large',
               placeholder: 'Enter city' %>
-        </div>
+          </div>
         </div>
 
         <div class="col-xs-3">
@@ -77,7 +78,7 @@
             <%= f.label :zip, 'ZIP' %>
             <%= f.text_field :zip, class: 'form-control form-control-large',
               placeholder: 'Enter zip' %>
-        </div>
+          </div>
         </div>
       </div>
 
@@ -85,26 +86,58 @@
         <%= f.label :street %>
         <%= f.text_field :street, class: 'form-control form-control-large',
           placeholder: 'Enter address' %>
-    </div>
+      </div>
 
-    <div class="row">
-      <div class="col-xs-6">
-        <%= f.label :shipper_id, 'Shipper' %>
-        <%= f.select :shipper_id, options_for_select(Shipper.all.map {|shipper| [shipper.name, shipper.id]}), {}, class: "form-control" %>
+      <div class="row">
+        <div class="col-xs-6">
+          <div class="form-group">
+            <%= f.label :shipper_id, 'Shipper' %>
+            <%= f.select :shipper_id, options_for_select(Shipper.all.map {|shipper| [shipper.name, shipper.id]}), {}, class: "form-control" %>
+          </div>
+        </div>
+        <div class="col-xs-6">
+          <div class="form-group">
+            <%= f.label :shipping_number %>
+            <%= f.text_field :shipping_number, class: 'form-control form-control-large',
+              placeholder: 'Shipping Number' %>
+          </div>
+        </div>
       </div>
-      <div class="col-xs-6">
-        <div class="form-group">
-          <%= f.label :shipping_number %>
-          <%= f.text_field :shipping_number, class: 'form-control form-control-large',
-            placeholder: 'Shipping Number' %>
-      </div>
-      </div>
-    </div>
 
-    <div class="pull-right">
-      <%= f.submit '保存', class: 'btn btn-primary' %>
-    </div>
-  <% end %>
+      <div class="row">
+        <div class="col-xs-3">
+          <div class="form-group">
+            <%= f.label :actual_weight, '实际重量' %>
+            <%= f.number_field :actual_weight, class: 'form-control form-control-large' %>
+          </div>
+        </div>
+
+        <div class="col-xs-3">
+          <div class="form-group">
+            <%= f.label :actual_shipping_cost, '实际运费' %>
+            <%= f.number_field :actual_shipping_cost, class: 'form-control form-control-large' %>
+          </div>
+        </div>
+
+        <div class="col-xs-3">
+          <div class="form-group">
+            <%= f.label :profit, '利润' %>
+            <%= f.number_field :profit, class: 'form-control form-control-large' %>
+          </div>
+        </div>
+
+        <div class="col-xs-3">
+          <div class="form-group">
+            <%= f.label :status, '订单状态' %>
+            <%= f.select :status, options_for_select(Order.statuses.map { |k, v| [k.humanize, k] }.to_h, @order.status), {}, class: "form-control" %>
+          </div>
+        </div>
+      </div>
+
+      <div class="pull-right">
+        <%= f.submit '保存', class: 'btn btn-primary' %>
+      </div>
+    <% end %>
   </div>
 
   <table class="table">

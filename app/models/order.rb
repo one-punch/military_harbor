@@ -4,7 +4,7 @@ class Order < ApplicationRecord
   belongs_to :user
   belongs_to :shipper, optional: true
 
-  enum status: [:wait_payment, :paid, :shipped, :cancel]
+  enum status: [:wait_payment, :pending, :paid, :shipped, :cancel]
 
   enum pay: [:paypal, :western_nion]
 
