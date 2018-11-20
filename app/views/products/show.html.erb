@@ -39,11 +39,8 @@
 
           <% if @product.allow_checkout? %>
             <div class="row">
-              <div class="col-md-6">
+              <div class="col-md-12">
                 <%= submit_tag 'Add To Cart', class: "btn btn-primary btn-product" %>
-              </div>
-              <div class="col-md-6">
-                <%= link_to 'Buy Now', '', class: 'btn btn-success btn-product' %>
               </div>
             </div>
           <% end %>

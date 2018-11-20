@@ -54,7 +54,7 @@
       <th>商品总额</th>
       <th>运费</th>
       <th>合计</th>
-      <th>运输方式</th>
+      <th>运单号</th>
       <th>状态</th>
       <th>操作</th>
     </tr>
@@ -84,8 +84,8 @@
           <%= number_to_currency order.total %>
         </td>
         <td>
-          <% if order.shipper %>
-            <%= order.shipper.name %>
+          <% if order.shipping_number %>
+            <%= order.shipping_number %>
           <% end %>
         </td>
         <td>
