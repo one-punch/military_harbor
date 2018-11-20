@@ -9,7 +9,7 @@ class OrderMailer < ApplicationMailer
     @order = order
     @user  = order.user
 
-    mail to: @user.email, subject: "[Military Harbor] Thank you for purchase"
+    mail to: @user.email, bcc: ENV[MH_MAIL], subject: "[Military Harbor] Thank you for purchase"
   end
 
   # Subject can be set in your I18n file at config/locales/en.yml
