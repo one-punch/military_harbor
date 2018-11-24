@@ -29,6 +29,7 @@ set :puma_init_active_record, false
 set :puma_preload_app, true
 set :nginx_use_ssl, false
 set :nginx_config_name, 'military_harbor'
+set :nginx_domains, ENV['MH_DOMAIN']
 
 
 # role-based syntax
