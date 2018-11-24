@@ -14,5 +14,8 @@
       <%= product.entity.property_info %>
     <% end %>
     </p>
+    <% if product.free_shipping? %>
+      <span class="label label-success">Free Shipping</span>
+    <% end %>
   </div>
 </div>

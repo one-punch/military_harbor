@@ -30,6 +30,10 @@ class PrimeryProduct < ApplicationRecord
     entity.name
   end
 
+  def free_shipping?
+    weight < 0.2
+  end
+
   def currency_price
     "$#{'%.2f' % price}"
   end
