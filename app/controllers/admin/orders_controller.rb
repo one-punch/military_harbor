@@ -2,7 +2,7 @@ class Admin::OrdersController < Admin::ApplicationController
   before_action :find_order, only: [:show, :edit, :update]
 
   def index
-    @orders = Order.includes(:user, :order_items)
+    @orders = Order.includes(:user, :order_items).order('created_at DESC')
     if params[:date].present?
       date = Date.parse(params[:date])
       @orders = @orders.where(created_at: date.beginning_of_day..date.end_of_day)

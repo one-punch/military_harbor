@@ -41,7 +41,7 @@ class User < ApplicationRecord
   end
 
   def send_activation_email
-    UserMailer.account_activation(self).deliver_now
+    UserMailer.account_activation(self).deliver_later
   end
 
   def create_reset_digest
@@ -51,7 +51,7 @@ class User < ApplicationRecord
   end
 
   def send_password_reset_email
-    UserMailer.password_reset(self).deliver_now
+    UserMailer.password_reset(self).deliver_later
   end
 
   def password_reset_expired?
