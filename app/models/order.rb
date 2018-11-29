@@ -37,7 +37,7 @@ class Order < ApplicationRecord
   end
 
   def thank_buy_email
-    OrderMailer.thank_buy(self).deliver_now
+    OrderMailer.thank_buy(self).deliver_later
   end
 
 end
