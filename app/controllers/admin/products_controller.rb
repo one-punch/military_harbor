@@ -94,11 +94,16 @@ class Admin::ProductsController < Admin::ApplicationController
 
   def import
     if params[:file]
-      Product.import(params[:file])
+      Product.transaction do
+        Product.import(params[:file])
+      end
       flash[:success] = "导入商品成功"
     else
       flash[:danger] = "请选择上传文件"
     end
+    redirect_to admin_products_path
+  rescue => e
+    flash[:danger] = e
     redirect_to admin_products_path
   end
 
