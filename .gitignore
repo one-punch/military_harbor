@@ -30,3 +30,6 @@ public/uploads
 *.swp
 
 .env
+config/development_config.yml
+config/staging_config.yml
+config/production_config.yml

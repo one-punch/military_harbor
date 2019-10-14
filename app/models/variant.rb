@@ -5,6 +5,7 @@ class Variant < PrimeryProduct
   belongs_to :parent, class_name: 'Product', foreign_key: 'parent_id'
   has_many :properties
   accepts_nested_attributes_for :properties, :reject_if => lambda { |a| ![a['key'], a['value']].all? }, :allow_destroy => true
+  belongs_to :paper
 
   SIZE_MAPPING = {
     'S' => -1,

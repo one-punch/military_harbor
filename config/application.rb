@@ -16,6 +16,10 @@ module MilitaryHarbor
     # -- all .rb files in that directory are automatically loaded.
     config.autoload_paths += %W(
       #{config.root}/app/uploaders
+      #{config.root}/app/third_api
     )
+    # config.eager_load_paths += config.autoload_paths
   end
 end
+
+YAML_CONFIG = YAML.load_file("#{Rails.root}/config/#{Rails.env}_config.yml").deep_symbolize_keys

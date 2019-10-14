@@ -78,6 +78,7 @@ class Admin::ProductsController < Admin::ApplicationController
       redirect_to edit_admin_product_path(@variant.id)
     else
       flash.now[:danger] = @variant.errors.full_messages.join("; ")
+      render :new_variant
     end
   end
 
@@ -89,6 +90,7 @@ class Admin::ProductsController < Admin::ApplicationController
       redirect_to edit_admin_product_path(@variant.id)
     else
       flash.now[:danger] = @variant.errors.full_messages.join("; ")
+      render :new_variant
     end
   end
 
