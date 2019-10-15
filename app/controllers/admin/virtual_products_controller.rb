@@ -1,5 +1,7 @@
 class Admin::VirtualProductsController < Admin::ApplicationController
 
+  before_action :init, only: [:edit, :show, :actual_products]
+
   def index
     @products = VirtualProduct.page(params[:page])
     @products = @products.where('lower(name) LIKE ? ', "%#{params[:q].downcase}%").or(@products.where('lower(sku) LIKE ? ', "%#{params[:q].downcase}%")) if params[:q]
@@ -20,7 +22,7 @@ class Admin::VirtualProductsController < Admin::ApplicationController
   end
 
   def edit
-    @product = VirtualProduct.find params[:id]
+
   end
 
   def show
@@ -33,10 +35,14 @@ class Admin::VirtualProductsController < Admin::ApplicationController
 
 
   def actual_products
-
+    @product = VirtualProduct.find params[:id]
   end
 
   private
+
+  def init
+    @product = VirtualProduct.find params[:id]
+  end
 
   def product_params
     params.require(:virtual_product).permit(:name, :sku, :description, :price, :purchase_price, :weight, :active, :category_id, :product_detail_id,
