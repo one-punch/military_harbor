@@ -194,6 +194,8 @@
   </table>
 </div>
 
-<div class="pull-right">
-  <%= link_to '付款确认', {controller: :orders, action: :update, order: {status: :paid}}, method: :put, class: 'btn btn-primary' %>
-</div>
+<% if !@order.confirm? %>
+  <div class="pull-right">
+    <%= link_to '付款确认', {controller: :orders, action: :update, order: {status: :paid}}, method: :put, class: 'btn btn-primary' %>
+  </div>
+<% end %>

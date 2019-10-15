@@ -61,6 +61,11 @@ Rails.application.routes.draw do
     resources :users
     resources :orders
     resources :shippers
+    resources :virtual_products do
+      member do
+        get "/actual_products" => "virtual_products#actual_products", as: :actual_products
+      end
+    end
     resources :categories do
       collection { put :sort }
     end

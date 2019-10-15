@@ -21,19 +21,7 @@ class Cart < ApplicationRecord
 
   def shipping_total
     weight = weight_total
-    if weight <= 1
-      if weight > 0.2 && weight <= 0.4
-        12
-      elsif weight > 0.4 && weight <= 0.7
-        20
-      else
-        25
-      end
-    else
-      total = 30
-      incre = (weight - 1.1) / 0.5
-      incre.to_i * 5 + 30
-    end
+    0
   end
 
   def total

@@ -1,0 +1,13 @@
+<div class="page-header">
+
+  <div class="pull-right">
+    <%= link_to 'Edit Images', admin_product_images_path(@product.id), class: 'btn btn-success'%>
+
+    <% if @product.is_master? %>
+      <%= link_to 'Manager Actual Product', actual_products_admin_virtual_product_path(@product.id), class: 'btn btn-primary' %>
+    <% end %>
+  </div>
+  <h1>Edit Product</h1>
+</div>
+
+<%= render partial: "admin/products/form", locals: {product: @product, url: admin_virtual_product_path(@product.id), method: :PATCH} %>

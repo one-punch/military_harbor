@@ -1,0 +1,31 @@
+<div class="page-header">
+  <h1>新建订单</h1>
+</div>
+
+
+<%= form_for(@order, url: admin_orders_path, method: :POST) do |f| %>
+  <div class="row">
+    <div class="col-lg-6 col-sm-12">
+      <div class="form-group">
+        <%= f.label :user_id, '用户' %>
+        <%= f.select :user_id, options_for_select(User.pluck_for_select, params[:user_id]), {include_blank: false}, class: "form-control" %>
+      </div>
+    </div>
+    <div class="col-lg-6 col-sm-12">
+      <div class="form-group">
+        <label for="product_id">课程套餐</label>
+        <%= f.label :product_id, "课程套餐" %>
+        <%= select_tag :product_id, options_for_select(Product.pluck_for_select, params[:product_id]), include_blank: false, class: "form-control" %>
+      </div>
+    </div>
+  </div>
+
+  <div class="space-6"></div>
+
+  <div class="row">
+    <div class="col-lg-11">
+      <button type="submit" class="pull-right btn btn-primary">Submit</button>
+    </div>
+  </div>
+
+<% end %>

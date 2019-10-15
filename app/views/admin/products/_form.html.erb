@@ -40,16 +40,8 @@
       </div>
 
     </div>
-    <div class="col-lg-12 col-sm-12">
-      <div class="form-group">
-        <%= f.fields_for :pictures do |builder| %>
-          <%= render 'picture_fields', f: builder %>
-        <% end %>
-      <p class='add-field'><%= link_to_add_fields "添加图片链接", f, :pictures, class: 'btn btn-success' %></p>
-      </div>
-    </div>
 
-    <% if f.object.is_a?(Variant) %>
+    <% if f.object.is_a?(Variant) || f.object.is_a?(VirtualProduct) %>
       <div class="col-lg-12 col-sm-12">
         <div class="form-group">
           <%= f.fields_for :properties do |builder| %>

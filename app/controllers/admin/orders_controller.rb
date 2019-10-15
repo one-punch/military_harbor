@@ -13,6 +13,30 @@ class Admin::OrdersController < Admin::ApplicationController
     @orders = @orders.page(params[:page])
   end
 
+  def new
+    @order = Order.new
+  end
+
+  def create
+    @product = PrimeryProduct.find params[:product_id]
+    @user = User.find order_params[:user_id]
+    if @product.is_virtual || @product.is_sku?
+      cart = Cart.create
+      cart.add_item({product_id: @product.id, quantity: 1})
+      cart.save
+      @order = Order.generate(order_params.merge(email: @user.email), cart)
+      if !@order.new_record?
+        redirect_to admin_order_path(@order)
+      else
+        flash[:error] = @order.errors.full_messages.join("; ")
+        render :new
+      end
+    else
+      flash[:error] = "不允许使用此产品创建订单"
+      render :new
+    end
+  end
+
   def show
 
   end
@@ -23,6 +47,8 @@ class Admin::OrdersController < Admin::ApplicationController
 
   def update
     if @order.update_attributes order_params
+      service = OrderService.new(@order)
+      service.processing
       flash[:success] = "order updated"
       redirect_to admin_order_path(@order)
     else
@@ -32,25 +58,18 @@ class Admin::OrdersController < Admin::ApplicationController
 
   private
 
+  def order_params
+    params.require(:order).permit(:user_id)
+  end
+
   def find_order
     @order = Order.find(params[:id]) if params[:id]
   end
 
   def order_params
-    params.require(:order).permit(:first_name,
-                                  :last_name,
-                                  :email,
-                                  :phone,
-                                  :country,
-                                  :province,
-                                  :city,
-                                  :zip,
-                                  :street,
-                                  :description,
+    params.require(:order).permit(:user_id,
                                   :pay,
                                   :pay_number,
-                                  :shipper_id,
-                                  :shipping_number,
                                   :status,
                                   )
   end

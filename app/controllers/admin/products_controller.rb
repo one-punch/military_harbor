@@ -29,9 +29,8 @@ class Admin::ProductsController < Admin::ApplicationController
   end
 
   def edit
-    _product = PrimeryProduct.find params[:id]
-    @product = _product.is_master? ? Product.find(params[:id]) : Variant.find(params[:id])
-    render :edit
+    @product = PrimeryProduct.find params[:id]
+    @product = @product.is_master? ? @product.becomes(Product) : @product.becomes(Variant)
   end
 
   def update
@@ -110,8 +109,8 @@ class Admin::ProductsController < Admin::ApplicationController
   end
 
   def images
-    _product = PrimeryProduct.find params[:product_id]
-    @product = _product.is_master? ? Product.find(params[:product_id]) : Variant.find(params[:product_id])
+    @product = PrimeryProduct.find params[:product_id]
+    @product = @product.is_master? ? @product.becomes(Product) : @product.becomes(Variant)
   end
 
   def upload

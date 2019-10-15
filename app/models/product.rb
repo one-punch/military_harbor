@@ -4,7 +4,6 @@ class Product < PrimeryProduct
   default_scope {where("products.parent_id IS NULL")}
 
   has_many :variants, class_name: 'Variant', foreign_key: 'parent_id', dependent: :destroy
-  belongs_to :paper
 
   scope :root, -> { where(parent_id: nil) }
 
@@ -70,6 +69,12 @@ class Product < PrimeryProduct
       end
     end
     row
+  end
+
+  def self.pluck_for_select
+    Rails.cache.fetch "product/pluck_for_select/#{select(:id, :updated_at).order("updated_at DESC").first&.updated_at.to_i}" do
+      unscoped.where("is_virtual = true OR parent_id IS NOT NULL").pluck(:name, :id)
+    end
   end
 
   def has_variant?
