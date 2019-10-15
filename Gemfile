@@ -83,4 +83,4 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem "faraday", "~> 0.9"
 gem 'hashie', '~> 3.5.6'
-
+gem 'kristin', '~> 0.4.1'
