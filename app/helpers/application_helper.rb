@@ -47,4 +47,11 @@ module ApplicationHelper
     content_tag(:a, name, html_options.merge(:href => href, :onclick => onclick))
   end
 
+
+  def render_404
+    respond_to do |format|
+      format.html { render :file => "#{Rails.root}/public/404.html", :layout => false, :status => :not_found }
+      format.any  { head 404 }
+    end
+  end
 end

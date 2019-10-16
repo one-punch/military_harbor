@@ -17,7 +17,13 @@ class ProductsController < ApplicationController
   end
 
   def viewer
-    render file: 'public/viewer/viewer.html', layout: "viewer"
+    if can_view?(params[:id])
+      token = PaperViewerService.prepare(current_user, params[:id])
+      @url = paper_path(token: token)# "paper-#{token}"
+      render file: 'public/viewer/viewer.html', layout: "viewer"
+    else
+
+    end
   end
 
 end

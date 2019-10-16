@@ -1,5 +1,9 @@
 class UserPaperRecord < ApplicationRecord
 
+  def not_expired?
+    !expired?
+  end
+
   def expired?
     Time.now > expired_at
   end
@@ -8,7 +12,7 @@ class UserPaperRecord < ApplicationRecord
     expired_at = Time.now.beginning_of_day + days.days
   end
 
-  def extend(days)
+  def stretch(days)
     if !expired?
       expired_at = expired_at + days.days
     end
