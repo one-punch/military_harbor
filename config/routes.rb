@@ -9,6 +9,8 @@ Rails.application.routes.draw do
   delete '/logout', to: 'sessions#destroy'
 
   get 'p-:id-:name' => 'products#show', :id => /\d+/, as: :product, :format => :html
+  get 'view-:id-:name' => 'products#viewer', :id => /\d+/, as: :viewer, :format => :html
+  get 'paper-:id' => 'papers#show', as: :paper
 
   resources :users
 

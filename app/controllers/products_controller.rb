@@ -16,5 +16,8 @@ class ProductsController < ApplicationController
     @product = _product.is_master? ? Product.find(params[:id]) : Variant.find(params[:id])
   end
 
+  def viewer
+    render file: 'public/viewer/viewer.html', layout: "viewer"
+  end
 
 end
