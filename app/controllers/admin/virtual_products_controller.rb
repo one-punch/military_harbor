@@ -17,6 +17,7 @@ class Admin::VirtualProductsController < Admin::ApplicationController
     if @product.save
       redirect_to admin_product_images_path(product_id: @product.id)
     else
+      flash.now[:error] = @product.errors.full_messages.join "; "
       render :new
     end
   end

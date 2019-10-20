@@ -8,23 +8,14 @@
         <span class="icon-bar"></span>
       </button>
       <%= link_to  root_path, class: "navbar-brand" do %>
-        <%= image_tag "#{Picture::BASE_URL}/webimg/LOGO.png", width: 150 %>
+        <%= image_tag "/img/logo.jpg", width: 150 %>
       <% end %>
     </div>
 
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
         <li>
-          <%= link_to "Home", root_path %>
-        </li>
-        <li>
-          <%= link_to "Shipping", about_path(name: 'shipping') %>
-        </li>
-        <li>
-          <%= link_to "Payment", about_path(name: 'payment') %>
-        </li>
-        <li>
-          <%= link_to "About German Tunic", about_path(name: 'tunic') %>
+          <%= link_to t("home"), root_path %>
         </li>
         <li>
           <a href="#">Contact</a>
