@@ -34,16 +34,16 @@
 
           <%= varirants_selector @product %>
 
-          <label>Quantity</label>
-          <%= number_field_tag 'cart_item[quantity]', 1, class: 'form-control', min: 1, max: 20 %>
+          <!-- <label>Quantity</label> -->
+          <%#= number_field_tag 'cart_item[quantity]', 1, class: 'form-control', min: 1, max: 20 %>
 
-          <% if @product.allow_checkout? %>
-            <div class="row">
+          <%# if @product.allow_checkout? %>
+            <!-- <div class="row">
               <div class="col-md-12">
-                <%= submit_tag 'Add To Cart', class: "btn btn-primary btn-product" %>
+                <%#= submit_tag 'Add To Cart', class: "btn btn-primary btn-product" %>
               </div>
-            </div>
-          <% end %>
+            </div> -->
+          <%# end %>
         <% end %>
       </div>
     </div>
@@ -51,8 +51,17 @@
     <div class="panel panel-default">
       <div class="panel-heading">
         <h3 class="panel-title">Description</h3>
+
       </div>
       <div class="panel-body">
+        <% if @product.is_a? VirtualProduct %>
+
+        <% elsif @product.is_a? %>
+
+        <% end %>
+        <% if can_read?(@product) %>
+          <%= link_to t("product.view"), viewer_path(id: @product.paper.id, name: @product.sku), class: "pull-right btn btn-success" %>
+        <% end %>
         <% if @product.description %>
           <%= @product.description.html_safe %>
         <% end %>
