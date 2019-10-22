@@ -66,6 +66,8 @@ Rails.application.routes.draw do
     resources :virtual_products do
       member do
         get "/actual_products" => "virtual_products#actual_products", as: :actual_products
+        post :add
+        get :products
       end
     end
     resources :categories do

@@ -12,4 +12,8 @@ class VirtualProduct < PrimeryProduct
     [:active] && actual_products.present?
   end
 
+  def self.pluck_for_select
+    Product.where("products.parent_id IS NULL").pluck(:sku, :id)
+  end
+
 end

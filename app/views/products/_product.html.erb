@@ -1,6 +1,6 @@
 <div class="thumbnail">
   <%= link_to product_path(product.id, product.name) do %>
-    <%= image_tag(product.default_image(:thumb)) %>
+    <%= image_tag(product.default_image(:thumb), class: "img-responsive") %>
   <% end %>
 
   <div class="caption">

@@ -2,7 +2,8 @@
 
 <div class="page-header">
   <div class="pull-right">
-    <%= link_to 'Add Actual Product', new_admin_product_path, class: 'btn btn-primary'%>
+    <%= link_to t('admin.add'), products_admin_virtual_product_path(@product), remote: true, class: 'btn btn-success'%>
+    <%= link_to t('admin.new'), new_admin_product_path, class: 'btn btn-primary'%>
   </div>
   <h1>Manager Actual Product</h1>
 </div>

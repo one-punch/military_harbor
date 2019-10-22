@@ -1,6 +1,6 @@
 class Admin::VirtualProductsController < Admin::ApplicationController
 
-  before_action :init, only: [:edit, :show, :actual_products]
+  before_action :init, only: [:edit, :show, :actual_products, :products, :add]
 
   def index
     @products = VirtualProduct.page(params[:page])
@@ -37,6 +37,14 @@ class Admin::VirtualProductsController < Admin::ApplicationController
 
   def actual_products
     @product = VirtualProduct.find params[:id]
+  end
+
+  def add
+
+  end
+
+  def products
+
   end
 
   private

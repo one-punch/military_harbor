@@ -4,7 +4,7 @@ module ProductsHelper
   end
 
   def varirants_selector product
-    return if product.is_master? && !product.has_variant?
+    return if product.is_virtual? || product.is_master? && !product.has_variant?
     html = capture { label_tag 'variants' }
     html << capture do
       if product.is_sku?

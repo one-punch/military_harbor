@@ -1,4 +1,5 @@
 class ProductsController < ApplicationController
+  before_action :find, only: [:show, :viewer]
 
   def index
     if params[:category_id]
@@ -12,17 +13,31 @@ class ProductsController < ApplicationController
   end
 
   def show
-    _product = PrimeryProduct.find params[:id]
-    @product = _product.is_master? ? Product.find(params[:id]) : Variant.find(params[:id])
   end
 
   def viewer
-    if can_view?(params[:id])
-      token = PaperViewerService.prepare(current_user, params[:id])
-      @url = paper_path(token: token)# "paper-#{token}"
-      render file: 'public/viewer/viewer.html', layout: "viewer"
+    if can_read?(@product)
+      token = PaperViewerService.prepare(current_user, @product.paper_id)
+      @url = paper_path(token: token) # "paper-#{token}"
+      render layout: "viewer"
     else
+      flash[:error] = "没有权限查看"
+      redirect_to :back
+    end
+  end
 
+
+  private
+
+  def find
+    @product = PrimeryProduct.find params[:id]
+    @product = \
+    if @product.is_virtual?
+      @product.becomes(VirtualProduct)
+    elsif @product.is_master?
+      @product.becomes(Product)
+    else
+      @product.becomes(Variant)
     end
   end
 

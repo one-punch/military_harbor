@@ -6,8 +6,16 @@ module PapersHelper
   end
 
   def can_read?(product)
-    if product.is_a? Variant
-       can_view?(product.paper.id)
+    if product.paper_id
+       can_view?(product.paper_id)
+    else
+      false
+    end
+  end
+
+  def can_download?(product)
+    if product.paper_id
+      current_user.admin? || UserPaperRecord.where(user_id: current_user.id, paper_id: paper_id).last&.allow_download?
     else
       false
     end

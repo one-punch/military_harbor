@@ -35,3 +35,8 @@ en:
   home: 主页
   product:
     view: "查 看"
+
+  admin:
+    new: '新 建'
+    add: '增 添'
+

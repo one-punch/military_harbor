@@ -35,7 +35,7 @@ class PrimeryProduct < ApplicationRecord
   end
 
   def currency_price
-    "$#{'%.2f' % price}"
+    "#{'%.2f' % price} 元"
   end
 
   def allow_checkout?

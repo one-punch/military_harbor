@@ -54,13 +54,26 @@
 
       </div>
       <div class="panel-body">
-        <% if @product.is_a? VirtualProduct %>
-
-        <% elsif @product.is_a? %>
-
-        <% end %>
         <% if can_read?(@product) %>
-          <%= link_to t("product.view"), viewer_path(id: @product.paper.id, name: @product.sku), class: "pull-right btn btn-success" %>
+          <%= link_to t("product.view"), viewer_path(id: @product.id, name: @product.sku), class: "pull-right btn btn-success" %>
+        <% end %>
+        <% if @product.is_virtual? %>
+          <div class="row">
+            <% @product.actual_products.each do |actual_product| %>
+              <div class="col-lg-4">
+                <%= link_to product_path(actual_product.id, actual_product.name) do %>
+                  <%= image_tag(actual_product.default_image(:thumb), class: "img-responsive") %>
+                <% end %>
+               <h2><%= actual_product.name %></h2>
+                <p>
+                  <%= link_to t("product.view"), product_path(actual_product.id, actual_product.name), class: "btn btn-default", role: "button"  %>
+                  <% if can_read?(actual_product) %>
+                    <%= link_to t("product.view"), viewer_path(id: actual_product.id, name: actual_product.sku), class: "pull-right btn btn-success" %>
+                  <% end %>
+                </p>
+              </div>
+            <% end %>
+          </div>
         <% end %>
         <% if @product.description %>
           <%= @product.description.html_safe %>
