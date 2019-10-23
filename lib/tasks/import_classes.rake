@@ -83,7 +83,9 @@ def paper
           else
             ""
           end
-          Paper.where(proto_id: p[:id]).first_or_create name: p[:name], proto_material_id: paper[:id], student: p[:downloads][:student], tearcher: p[:downloads][:tearcher], type_name: type, number: i, path: p[:downloads][:path]
+          Paper.where(proto_id: p[:id]).first_or_create name: p[:name], proto_material_id: paper[:id], student: p[:downloads][:student], tearcher: p[:downloads][:tearcher], type_name: type, number: i, path: p[:path]
+          # pa = Paper.where(proto_id: p[:id]).last
+          # pa.update_attributes name: p[:name], proto_material_id: paper[:id], student: p[:downloads][:student], tearcher: p[:downloads][:tearcher], type_name: type, number: i, path: p[:path]
       end
     end
   end
