@@ -78,7 +78,7 @@ class User < ApplicationRecord
   end
 
   def self.pluck_for_select
-    Rails.cache.fetch "user/pluck_for_select/#{select(:id, :updated_at).order("updated_at DESC").first&.updated_at.to_i}/" do
+    Rails.cache.fetch "user/pluck_for_select/#{cache_key}/" do
       pluck(:email, :id)
     end
   end

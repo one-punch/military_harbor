@@ -3,7 +3,8 @@
   <div class='row'>
     <div class='col-md-5'>
       <div class="form-group">
-        <%= f.text_field :key, placeholder: "名", class: "form-control" %>
+        <%#binding.pry%>
+        <%= f.select :key, Property.keys.map{|k, v| [k.humanize, k] }, {include_blank: false }, placeholder: "名", class: "form-control" %>
       </div>
     </div>
     <div class='col-md-5'>

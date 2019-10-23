@@ -1,1 +1,1 @@
-$("<%= escape_javascript render(partial: 'modal', locals: { product: @product, url: "", method: :POST }) %>").modal()
+$("<%= escape_javascript render(partial: 'modal', locals: { product: @product, url: add_admin_virtual_product_path(@product.id), method: :POST }) %>").modal()

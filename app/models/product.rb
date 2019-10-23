@@ -72,7 +72,7 @@ class Product < PrimeryProduct
   end
 
   def self.pluck_for_select
-    Rails.cache.fetch "product/pluck_for_select/#{select(:id, :updated_at).order("updated_at DESC").first&.updated_at.to_i}" do
+    Rails.cache.fetch "product/pluck_for_select/#{cache_key}" do
       unscoped.where("is_virtual = true OR parent_id IS NOT NULL").pluck(:name, :id)
     end
   end

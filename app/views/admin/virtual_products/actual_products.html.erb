@@ -1,8 +1,10 @@
 <%# 加已有的产品或者新建，新建就去走一遍新建流程 %>
-
 <div class="page-header">
   <div class="pull-right">
-    <%= link_to t('admin.add'), products_admin_virtual_product_path(@product), remote: true, class: 'btn btn-success'%>
+    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#add">
+       <%= t('admin.add') %>
+    </button>
+
     <%= link_to t('admin.new'), new_admin_product_path, class: 'btn btn-primary'%>
   </div>
   <h1>Manager Actual Product</h1>
@@ -47,3 +49,5 @@
     </div>
   </div>
 </div>
+
+<%= render(partial: 'modal', locals: { product: @product, url: add_admin_virtual_product_path(@product.id), method: :POST }) %>

@@ -9,6 +9,7 @@
 //= require bootstrap
 //= require bootstrap-fileinput/themes/fa/theme.js
 //= require simditor
+//= require jsviews/jsrender.min
 
 function add_fields(link, association, content) {
   console.log($(link).parent())
@@ -22,3 +23,32 @@ function remove_fields(link) {
   $(link).prev("input[type=hidden]").val("1");
   $(link).closest(".fields").hide();
 }
+
+
+$(function(){
+  _Console = function(){
+    this.tmpl = $.templates("#alert");
+  }
+
+  window.Console = new _Console()
+
+  _Console.prototype.alert = function(key, val){
+    var html = this.tmpl.render({
+      key: key,
+      value: val
+    });
+    $("#main").prepend(html)
+  }
+
+  _Console.prototype.alertSuccess = function(val){
+    Console.alert("success", val)
+  };
+
+  _Console.prototype.alertError = function(val){
+    Console.alert("danger", val)
+  };
+
+  _Console.prototype.alertWarning = function(val){
+    Console.alert("warning", val)
+  };
+})

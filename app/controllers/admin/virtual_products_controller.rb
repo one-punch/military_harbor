@@ -36,11 +36,19 @@ class Admin::VirtualProductsController < Admin::ApplicationController
 
 
   def actual_products
-    @product = VirtualProduct.find params[:id]
   end
 
   def add
-
+    Product.where(id: product_params[:actual_products]).each do |product|
+      @product.virtual_product_actual_products.build(actual_product_id: product.id)
+    end
+    @success = false
+    if @product.save
+      @success = true
+      flash[:success] = I18n.t("admin.success")
+    else
+      @message = @product.errors.full_messages.join "; "
+    end
   end
 
   def products
@@ -54,7 +62,7 @@ class Admin::VirtualProductsController < Admin::ApplicationController
   end
 
   def product_params
-    params.require(:virtual_product).permit(:name, :sku, :description, :price, :purchase_price, :weight, :active, :category_id, :product_detail_id,
+    params.require(:virtual_product).permit(:name, :sku, :description, :price, :purchase_price, :weight, :active, :category_id, :product_detail_id, :actual_products,
                                     pictures_attributes: [:id, :name, :_destroy],
                                     properties_attributes: [:id, :key, :value, :_destroy])
   end

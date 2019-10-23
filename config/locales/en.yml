@@ -39,4 +39,5 @@ en:
   admin:
     new: '新 建'
     add: '增 添'
+    success: "操作成功"
 

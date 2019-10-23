@@ -1,0 +1,5 @@
+<% if @success %>
+  window.location.reload()
+<% else %>
+  Console.alertError("<%= @message %>")
+<% end %>
