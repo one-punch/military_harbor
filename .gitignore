@@ -33,3 +33,5 @@ public/uploads
 config/development_config.yml
 config/staging_config.yml
 config/production_config.yml
+config/sidekiq.yml
+store/*

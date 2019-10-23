@@ -1,0 +1,29 @@
+# :verbose: false
+:pidfile: ./tmp/pids/sidekiq.pid
+:logfile: ./log/sidekiq.log
+
+staging:
+  :concurrency: 2
+  :queues:
+    - [default, 3]
+    - [daily, 3]
+    - [long, 1]
+    - [usual, 1]
+    - [mail, 3]
+development:
+  :concurrency: 2
+  :queues:
+    - [default, 3]
+    - [daily, 3]
+    - [long, 1]
+    - [usual, 1]
+    - [mail, 3]
+production:
+  :timeout: 300
+  :concurrency: 2
+  :queues:
+    - [default, 3]
+    - [daily, 3]
+    - [long, 1]
+    - [usual, 1]
+    - [mail, 3]

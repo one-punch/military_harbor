@@ -1,40 +1,31 @@
 class DownloadService
 
   def initialize(url, target_path)
-    u = URI.parse(url)
+    @url = url
+    u = URI.parse(@url)
     @host = u.host
     @post = u.port || 80
-    @path = url.sub("https://#{@host}", "")
     @file_path = "#{Rails.root}/#{target_path}"
-  end
-
-  def head
-    response = nil
-    Net::HTTP.start(@host, @port) {|http|
-      response = http.head(@path)
-    }
-    @filename = self.class.filename_from_content_disposition(response['content-disposition']) || "test.pdf"
   end
 
   def _begin
     FileUtils.mkdir_p(@file_path) unless File.exist?(@file_path)
-    Net::HTTP.start(@host, @port) do |http|
-      f = open("#{@file_path}/#{@filename}", "wb")
-      begin
-        http.request_get(@path) do |resp|
-          resp.read_body do |segment|
-            f.write(segment)
-          end
-        end
-      ensure
-        f.close()
-      end
+    open(@url,
+        "User-Agent" => "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36",
+        "Referer" => "https://jiaoshi.izhikang.com/sixtteacher/home/home!newIndex.action?modelTab=1")do |response|
+      @filename = self.class.filename_from_content_disposition(response.meta['content-disposition'])
+      raise new Error("pdf file not found") if @filename.blank?
+      response.set_encoding('UTF-8')
+      open("#{@file_path}/#{@filename}", 'w') { |f|
+        f.write(response.read)
+      }
     end
+
   end
 
   def exec
-    head
     _begin
+    @filename
   end
 
   def self.filename_from_content_disposition(content_disposition)

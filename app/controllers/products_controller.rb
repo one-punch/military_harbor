@@ -13,6 +13,9 @@ class ProductsController < ApplicationController
   end
 
   def show
+    if @product.paper_id.present?
+      PaperDownloadJob.perform_later @product.paper_id
+    end
   end
 
   def viewer
@@ -25,7 +28,6 @@ class ProductsController < ApplicationController
       redirect_to :back
     end
   end
-
 
   private
 
