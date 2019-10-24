@@ -23,13 +23,13 @@ set :puma_access_log, "#{shared_path}/log/puma_access.log"
 set :puma_error_log, "#{shared_path}/log/puma_error.log"
 set :puma_env, fetch(:rack_env, fetch(:rails_env, 'production'))
 set :puma_threads, [0, 16]
-set :puma_workers, 5
+set :puma_workers, 2
 set :puma_worker_timeout, nil
 set :puma_init_active_record, false
 set :puma_preload_app, true
 set :nginx_use_ssl, false
 set :nginx_config_name, 'military_harbor'
-
+set :sidekiq_config, -> { File.join(shared_path, 'config', 'sidekiq.yml') }
 
 # role-based syntax
 # ==================
