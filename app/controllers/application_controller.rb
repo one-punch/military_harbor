@@ -3,6 +3,7 @@ class ApplicationController < ActionController::Base
   include SessionsHelper
   include ApplicationHelper
   include PapersHelper
+  before_action :logged_in_user
 
   helper_method :current_cart, :cart_items
 
