@@ -15,8 +15,7 @@
 //= require bootstrap
 //= require rails-ujs
 //= require turbolinks
+//= require cable
 //= require viewer/pdfjs/pdf
 //= require viewer/pdfjs/pdf.worker
 //= require viewer/viewer
-//= require viewer/debugger
-//= require_tree .

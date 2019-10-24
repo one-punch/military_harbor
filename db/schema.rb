@@ -10,9 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181106071917) do
+ActiveRecord::Schema.define(version: 20191024112757) do
 
-  create_table "attachments", force: :cascade do |t|
+  create_table "attachments", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer "source_id", null: false
     t.string "source_type", null: false
     t.string "file", null: false
@@ -24,18 +24,18 @@ ActiveRecord::Schema.define(version: 20181106071917) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "cart_items", force: :cascade do |t|
+  create_table "cart_items", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer "quantity", default: 1
     t.integer "product_id"
     t.integer "cart_id"
   end
 
-  create_table "carts", force: :cascade do |t|
+  create_table "carts", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "categories", force: :cascade do |t|
+  create_table "categories", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name"
     t.boolean "active", default: true
     t.integer "ancestry_depth"
@@ -45,26 +45,44 @@ ActiveRecord::Schema.define(version: 20181106071917) do
     t.integer "position"
   end
 
-  create_table "ckeditor_assets", force: :cascade do |t|
-    t.string "data_file_name", null: false
-    t.string "data_content_type"
-    t.integer "data_file_size"
-    t.string "type", limit: 30
-    t.integer "width"
-    t.integer "height"
+  create_table "courses", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "proto_id", null: false
+    t.string "name"
+    t.integer "subject_id", null: false
+    t.integer "grade_id", null: false
+    t.json "attrs"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["type"], name: "index_ckeditor_assets_on_type"
+    t.index ["grade_id"], name: "index_courses_on_grade_id"
+    t.index ["proto_id"], name: "index_courses_on_proto_id", unique: true
+    t.index ["subject_id"], name: "index_courses_on_subject_id"
   end
 
-  create_table "order_items", force: :cascade do |t|
+  create_table "grades", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "materials", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "proto_id", null: false
+    t.string "name"
+    t.integer "number", default: 0
+    t.string "proto_course_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["proto_course_id"], name: "index_materials_on_proto_course_id"
+    t.index ["proto_id"], name: "index_materials_on_proto_id", unique: true
+  end
+
+  create_table "order_items", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.decimal "price", precision: 8, scale: 2, default: "0.0"
     t.integer "quantity"
     t.integer "product_id"
     t.integer "order_id"
   end
 
-  create_table "orders", force: :cascade do |t|
+  create_table "orders", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "first_name"
     t.string "last_name"
     t.string "email"
@@ -92,7 +110,25 @@ ActiveRecord::Schema.define(version: 20181106071917) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "pictures", force: :cascade do |t|
+  create_table "papers", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "proto_id", null: false
+    t.string "name"
+    t.string "proto_material_id", null: false
+    t.text "student"
+    t.text "teacher"
+    t.string "type_name"
+    t.integer "number"
+    t.string "path"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "student_file"
+    t.string "teacher_file"
+    t.index ["proto_id"], name: "index_papers_on_proto_id", unique: true
+    t.index ["proto_material_id"], name: "index_papers_on_proto_material_id"
+    t.index ["type_name"], name: "index_papers_on_type_name"
+  end
+
+  create_table "pictures", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name"
     t.integer "imageable_id"
     t.string "imageable_type"
@@ -101,14 +137,14 @@ ActiveRecord::Schema.define(version: 20181106071917) do
     t.index ["imageable_type", "imageable_id"], name: "index_pictures_on_imageable_type_and_imageable_id"
   end
 
-  create_table "product_details", force: :cascade do |t|
+  create_table "product_details", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name"
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "products", force: :cascade do |t|
+  create_table "products", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name"
     t.string "sku"
     t.text "description"
@@ -121,18 +157,25 @@ ActiveRecord::Schema.define(version: 20181106071917) do
     t.integer "product_detail_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "is_virtual", default: false
+    t.integer "paper_id"
+    t.index ["active"], name: "index_products_on_active"
+    t.index ["category_id"], name: "index_products_on_category_id"
+    t.index ["is_virtual"], name: "index_products_on_is_virtual"
+    t.index ["paper_id"], name: "index_products_on_paper_id"
+    t.index ["parent_id"], name: "index_products_on_parent_id"
   end
 
-  create_table "properties", force: :cascade do |t|
+  create_table "properties", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer "variant_id", null: false
-    t.string "key"
+    t.integer "key", default: 0
     t.string "value"
     t.integer "position", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "property_groups", force: :cascade do |t|
+  create_table "property_groups", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer "product_id", null: false
     t.string "name", null: false
     t.integer "position", default: 0
@@ -140,7 +183,7 @@ ActiveRecord::Schema.define(version: 20181106071917) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "shippers", force: :cascade do |t|
+  create_table "shippers", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name"
     t.string "url"
     t.text "description"
@@ -148,7 +191,23 @@ ActiveRecord::Schema.define(version: 20181106071917) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "users", force: :cascade do |t|
+  create_table "subjects", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "user_paper_records", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer "user_id", null: false
+    t.integer "paper_id", null: false
+    t.date "expired_at"
+    t.boolean "allow_download", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id", "paper_id"], name: "index_user_paper_records_on_user_id_and_paper_id", unique: true
+  end
+
+  create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name"
     t.string "email"
     t.string "password_digest"
@@ -162,6 +221,14 @@ ActiveRecord::Schema.define(version: 20181106071917) do
     t.string "reset_digest"
     t.datetime "reset_sent_at"
     t.index ["email"], name: "index_users_on_email", unique: true
+  end
+
+  create_table "virtual_product_actual_products", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer "virtual_product_id", null: false
+    t.integer "actual_product_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["virtual_product_id", "actual_product_id"], name: "index_virtual_actual_products_on_virtual_and_actual_id", unique: true
   end
 
 end

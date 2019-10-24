@@ -13,6 +13,7 @@
     <link rel="resource" type="application/l10n" href="viewer/locale/locale.properties">
     <%= render 'layouts/shim' %>
   </head>
+  <% if Rails.env.production? %>
   <script type="text/javascript">
     $(document).ready(function(){
       $(document).bind("contextmenu",function(e){
@@ -20,6 +21,7 @@
       });
     });
   </script>
+  <% end %>
   <body tabindex="1" class="loadingInProgress">
     <%= yield %>
   </body>
