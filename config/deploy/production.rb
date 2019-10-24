@@ -6,7 +6,16 @@
 set :stage, :production
 set :rails_env, :production
 
-server 'military_harbor.production', user: 'deploy', roles: %w{app db web}
+set :user, 'sp'
+
+set :ssh_options, {
+   user: fetch(:user),
+   keys: %w{~/.ssh/gz_sp.pem},
+   auth_methods: %w{publickey},
+   forward_agent: true
+}
+
+server 'military_harbor.production', user: 'sp', roles: %w{app db web}
 # server "example.com", user: "deploy", roles: %w{app db web}, my_property: :my_value
 # server "example.com", user: "deploy", roles: %w{app web}, other_property: :other_value
 # server "db.example.com", user: "deploy", roles: %w{db}
@@ -30,6 +39,7 @@ set :puma_preload_app, true
 set :nginx_use_ssl, false
 set :nginx_config_name, 'military_harbor'
 set :sidekiq_config, -> { File.join(shared_path, 'config', 'sidekiq.yml') }
+set :branch, ENV['BRANCH'] || 'release'
 
 # role-based syntax
 # ==================
