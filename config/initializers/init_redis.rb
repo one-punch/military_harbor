@@ -1,3 +1,3 @@
 require "redis"
 
-REDIS_STORE = Redis.new(url: YAML_CONFIG[:redis][:url_0])
+REDIS_STORE = Redis.new(url: YAML_CONFIG[:redis][:url_0], password: YAML_CONFIG[:redis][:password])

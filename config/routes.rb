@@ -1,3 +1,5 @@
+require 'sidekiq/web'
+require 'admin_constraint'
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root 'home#index'
@@ -35,6 +37,8 @@ Rails.application.routes.draw do
   get '/about/:name', to: 'home#about', as: :about
 
   namespace :admin do
+    mount Sidekiq::Web => '/sidekiq', :constraints => AdminConstraint.new
+
     root to: 'home#index', as: 'root'
 
     resources :products do

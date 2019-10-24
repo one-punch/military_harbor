@@ -2,7 +2,7 @@ require 'sidekiq/web'
 
 namespace = "sidekiq"
 Sidekiq.configure_server do |config|
-  config.redis = { url: "#{YAML_CONFIG[:redis][:sidekiq]}" }
+  config.redis = { url: YAML_CONFIG[:redis][:sidekiq], password: YAML_CONFIG[:redis][:password] }
 
   # A Sidekiq server process requires at least (concurrency + 5) connections.
   ActiveRecord::Base.configurations[Rails.env]['pool'] = 30
@@ -10,5 +10,5 @@ Sidekiq.configure_server do |config|
 end
 
 Sidekiq.configure_client do |config|
-  config.redis = { url: "#{YAML_CONFIG[:redis][:sidekiq]}" }
+  config.redis = { url: YAML_CONFIG[:redis][:sidekiq], password: YAML_CONFIG[:redis][:password] }
 end
