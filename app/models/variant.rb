@@ -7,6 +7,8 @@ class Variant < PrimeryProduct
   accepts_nested_attributes_for :properties, :reject_if => lambda { |a| ![a['key'], a['value']].all? }, :allow_destroy => true
   belongs_to :paper
 
+  delegate :name, :student_version, :teacher_version, to: :paper, prefix: true, allow_nil: true
+
   SIZE_MAPPING = {
     'S' => -1,
     'M' => 0,

@@ -8,9 +8,9 @@ class PaperDownloadJob < ApplicationJob
       paper.student_file = "#{paper.path}/#{filename}"
     end
 
-    if paper.tearcher.present? && paper.tearcher_file.blank?
+    if paper.teacher.present? && paper.teacher_file.blank?
       filename = DownloadService.new(paper.student, "/store/#{paper.path}").exec
-      paper.tearcher_file = "#{paper.path}/#{filename}"
+      paper.teacher_file = "#{paper.path}/#{filename}"
     end
     paper.save
   end

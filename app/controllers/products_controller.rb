@@ -1,5 +1,5 @@
 class ProductsController < ApplicationController
-  before_action :find, only: [:show, :viewer]
+  before_action :find, only: [:show, :student, :teacher]
 
   def index
     if params[:category_id]
@@ -18,11 +18,22 @@ class ProductsController < ApplicationController
     end
   end
 
-  def viewer
-    if can_read?(@product)
+  def student
+    if can_read?(@product) && @product.paper&.student&.present?
       token = PaperViewerService.prepare(current_user, @product.paper_id)
       @url = paper_path(token: token) # "paper-#{token}"
-      render layout: "viewer"
+      render "viewer", layout: "viewer"
+    else
+      flash[:error] = "没有权限查看"
+      redirect_to :back
+    end
+  end
+
+  def teacher
+    if can_read?(@product) && @product.paper&.teacher&.present?
+      token = PaperViewerService.prepare(current_user, @product.paper_id)
+      @url = paper_path(token: token) # "paper-#{token}"
+      render "viewer", layout: "viewer"
     else
       flash[:error] = "没有权限查看"
       redirect_to :back

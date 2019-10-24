@@ -1,0 +1,18 @@
+<div class="row">
+  <% if product.paper&.student&.present? %>
+    <div class="col-lg-6">
+      <%= product.paper_student_version %>
+      <% if can_read?(@product) %>
+        <%= link_to t("product.view"), student_viewer_path(id: product.id, name: product.sku), class: "pull-right btn btn-success" %>
+      <% end %>
+    </div>
+  <% end %>
+  <% if product.paper&.teacher&.present? %>
+    <div class="col-lg-6">
+      <%= product.paper_teacher_version %>
+      <% if can_read?(@product) %>
+        <%= link_to t("product.view"), teacher_viewer_path(id: product.id, name: product.sku), class: "pull-right btn btn-success" %>
+      <% end %>
+    </div>
+  <% end %>
+</div>

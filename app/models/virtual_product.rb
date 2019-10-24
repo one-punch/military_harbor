@@ -14,7 +14,7 @@ class VirtualProduct < PrimeryProduct
 
   def self.pluck_for_select(except=[])
     options = Rails.cache.fetch "VirtualProduct/pluck_for_select/#{cache_key}" do
-      Product.where("products.parent_id IS NULL").pluck(:sku, :id)
+      Product.where("products.parent_id IS NULL").where("products.is_virtual" => false).pluck(:sku, :id)
     end
     options.select { |ops| !except.include?(ops[1]) }
   end

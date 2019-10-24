@@ -30,14 +30,18 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
-  full_title: "壹品书吧"
+  hello: Hello world
+  full_title: 壹品书吧
   home: 主页
   product:
     view: "查 看"
 
   admin:
-    new: '新 建'
-    add: '增 添'
-    success: "操作成功"
+    new: 新 建
+    add: 增 添
+    success: 操作成功
+
+  paper:
+    student: 学生版
+    teacher: 教师版
 

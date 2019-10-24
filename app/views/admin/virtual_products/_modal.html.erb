@@ -9,7 +9,7 @@
       <div class="modal-body">
           <div class="form-group">
             <%= f.label :actual_products, "关联课程" %>
-            <%= f.select :actual_products, options_for_select(VirtualProduct.pluck_for_select(@product.actual_products.map(&:id)), nil), { include_blank: false, include_hidden: false }, multiple: true , class: "form-control" %>
+            <%= f.select :actual_products, options_for_select(VirtualProduct.pluck_for_select(@product.actual_products.map(&:id) + [@product.id]), nil), { include_blank: false, include_hidden: false }, multiple: true , class: "form-control" %>
           </div>
       </div>
       <div class="modal-footer">

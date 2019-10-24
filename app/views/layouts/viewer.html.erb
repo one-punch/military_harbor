@@ -13,7 +13,13 @@
     <link rel="resource" type="application/l10n" href="viewer/locale/locale.properties">
     <%= render 'layouts/shim' %>
   </head>
-
+  <script type="text/javascript">
+    $(document).ready(function(){
+      $(document).bind("contextmenu",function(e){
+          return false;
+      });
+    });
+  </script>
   <body tabindex="1" class="loadingInProgress">
     <%= yield %>
   </body>
