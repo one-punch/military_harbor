@@ -26,7 +26,8 @@ set :linked_files, fetch(:linked_files, []).push(
   'config/production_config.yml',
   'config/sidekiq.yml',
   'config/secrets.yml',
-  '.env'
+  '.env',
+  '.ruby-version'
  )
 
 # Default value for linked_dirs is []
