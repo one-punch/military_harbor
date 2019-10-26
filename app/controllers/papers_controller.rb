@@ -1,10 +1,15 @@
 class PapersController < ApplicationController
 
   def show
-    paper_id = PaperViewerService.pop(current_user, params[:token])
-    if paper_id && can_view?(paper_id)
+    val = PaperViewerService.pop(current_user, params[:token])
+    if val && (paper_id = val["id"]) && (type = val["type"]) && can_view?(paper_id)
       @paper = Paper.find paper_id
-      file_path = @paper.student_file
+      case type
+      when 'teacher'
+        file_path = @paper.teacher_file
+      else
+        file_path = @paper.student_file
+      end
       send_file "#{Rails.root}/store/#{file_path}", :disposition => 'inline'
     else
       render_404

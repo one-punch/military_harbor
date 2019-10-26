@@ -20,7 +20,7 @@ class ProductsController < ApplicationController
 
   def student
     if can_read?(@product) && @product.paper&.student&.present?
-      token = PaperViewerService.prepare(current_user, @product.paper_id)
+      token = PaperViewerService.prepare(current_user, @product.paper_id, :student)
       @url = paper_path(token: token) # "paper-#{token}"
       render "viewer", layout: "viewer"
     else
@@ -31,7 +31,7 @@ class ProductsController < ApplicationController
 
   def teacher
     if can_read?(@product) && @product.paper&.teacher&.present?
-      token = PaperViewerService.prepare(current_user, @product.paper_id)
+      token = PaperViewerService.prepare(current_user, @product.paper_id, :teacher)
       @url = paper_path(token: token) # "paper-#{token}"
       render "viewer", layout: "viewer"
     else
