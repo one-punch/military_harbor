@@ -83,15 +83,15 @@ def paper
           else
             ""
           end
-          Paper.where(proto_id: p[:id]).first_or_create name: p[:name], proto_material_id: paper[:id], student: p[:downloads][:student], teacher: p[:downloads][:tearcher], type_name: type, number: i, path: p[:path]
+          Paper.where(proto_id: p[:id]).first_or_create name: p[:name], proto_material_id: paper[:id], student: p[:downloads][:student], teacher: p[:downloads][:teacher], type_name: type, number: i, path: p[:path]
           # pa = Paper.where(proto_id: p[:id]).last
-          # pa.update_attributes name: p[:name], proto_material_id: paper[:id], student: p[:downloads][:student], teacher: p[:downloads][:tearcher], type_name: type, number: i, path: p[:path]
+          # pa.update_attributes name: p[:name], proto_material_id: paper[:id], student: p[:downloads][:student], teacher: p[:downloads][:teacher], type_name: type, number: i, path: p[:path]
       end
     end
   end
 
   @data_hash[:classes].each do |_class|
-    Paper.where(proto_id: _class[:id]).first_or_create name: _class[:name], proto_material_id: _class[:courseId], student: _class[:downloads][:student], teacher: _class[:downloads][:tearcher], path: _class[:downloads][:path]
+    Paper.where(proto_id: _class[:id]).first_or_create name: _class[:name], proto_material_id: _class[:courseId], student: _class[:downloads][:student], teacher: _class[:downloads][:teacher], path: _class[:downloads][:path]
   end
 
 end
