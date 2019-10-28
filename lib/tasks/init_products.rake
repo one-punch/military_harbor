@@ -71,7 +71,7 @@ end
 def init_virtual_product
   Category.where(ancestry_depth: 1).find_each do |c|
     name = "#{c.parent.name} #{c.name}"
-    virtual_product = VirtualProduct.create(name: name, sku: SecureRandom.hex, price: 99, category_id: category.id)
+    virtual_product = VirtualProduct.create(name: name, sku: SecureRandom.hex, price: 99, category_id: c.id)
     virtual_product.properties.create(key: :subscribe, value: 100)
     virtual_product.properties.create(key: :download, value: false)
     Product.joins(:category).where("categories.ancestry LIKE ?" => "#{c.parent.id}/#{c.id}/%", "categories.ancestry_depth" => 3).find_each do |product|
