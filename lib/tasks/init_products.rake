@@ -70,7 +70,7 @@ end
 
 def init_virtual_product
   Category.where(ancestry_depth: 1).find_each do |c|
-    name = "#{c.parent.name} #{c.name}"
+    name = "#{c.parent.name} #{c.name} 套餐"
     virtual_product = VirtualProduct.create(name: name, sku: SecureRandom.hex, price: 99, category_id: c.id)
     virtual_product.properties.create(key: :subscribe, value: 100)
     virtual_product.properties.create(key: :download, value: false)
