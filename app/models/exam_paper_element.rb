@@ -1,0 +1,2 @@
+class ExamPaperElement < ApplicationRecord
+end
