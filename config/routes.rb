@@ -82,4 +82,8 @@ Rails.application.routes.draw do
     end
     resources :product_details
   end
+
+  namespace :api do
+    resources :exam_papers
+  end
 end
