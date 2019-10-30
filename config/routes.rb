@@ -15,6 +15,11 @@ Rails.application.routes.draw do
   get 'view-:id-teacher-:name' => 'products#teacher', :id => /\d+/, as: :teacher_viewer, :format => :html
   get 'view-:id-student-:name' => 'products#student', :id => /\d+/, as: :student_viewer, :format => :html
 
+  get 'exam-:id-teacher-:name' => 'papers#teacher_exam', :id => /\d+/, as: :teacher_exam, :format => :html
+
+  get 'exam-:id-student-:name' => 'papers#student_exam', :id => /\d+/, as: :student_exam, :format => :html
+
+
   get 'paper-:token' => 'papers#show', as: :paper
 
   resources :users

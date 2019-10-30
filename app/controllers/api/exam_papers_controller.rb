@@ -16,7 +16,6 @@ module Api
 
 
     def exam_paper_type
-      # course proto_id
       course = Course.where(proto_id: exam_paper_params[:id]).first_or_initialize(
         name: exam_paper_params[:name],
         subject_id: exam_paper_params[:subjectId],
@@ -72,14 +71,14 @@ module Api
           content: element_params[:content],
           contentType: element_params[:contentType],
           axis: element_params[:axis],
-          number: element_params[:number],
+          number: element_params[:sort],
           remark: element_params[:remark],
           deleted: element_params[:deleted],
           blank: element_params[:blank],
           queTypeName: element_params[:queTypeName],
           hideMainIdList: element_params[:hideMainIdList],
           hideQueIdList: element_params[:hideQueIdList],
-          question: element_params[:queTypeName],
+          question: element_params[:question],
           contentTypeCode: element_params[:contentTypeCode])
         if element.new_record? && element.save
         else

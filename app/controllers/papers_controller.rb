@@ -16,4 +16,13 @@ class PapersController < ApplicationController
     end
   end
 
+  def student_exam
+    @paper = Paper.preload(:exam_paper_elements).find params[:id]
+  end
+
+  def teacher_exam
+    @paper = Paper.preload(:exam_paper_elements).find params[:id]
+  end
+
+
 end
