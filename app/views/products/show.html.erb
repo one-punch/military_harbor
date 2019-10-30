@@ -63,7 +63,7 @@
                 <% end %>
                <h2><%= actual_product.name %></h2>
                 <p>
-                  <%= link_to t("product.view"), product_path(actual_product.id, actual_product.name), class: "btn btn-default", role: "button"  %>
+                  <%= link_to t("product.view"), product_path(actual_product.id, actual_product.name), class: "btn btn-default", role: "button", target: :_blank  %>
                 </p>
               </div>
             <% end %>
