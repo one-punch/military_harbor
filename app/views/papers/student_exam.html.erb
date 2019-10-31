@@ -69,7 +69,7 @@
                       <% el.question_man_answer.each do |answer| %>
                         <div class="talqs_panel_item">
                           <div class="talqs_panel_item_content">
-                              <%= answer.join(",") %>
+                              <%= answer.join(",").html_safe %>
                           </div>
                         </div>
                       <% end %>
