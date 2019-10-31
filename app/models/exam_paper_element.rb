@@ -6,7 +6,7 @@ class ExamPaperElement < ApplicationRecord
   serialize :question, JSON
   serialize :attrs, JSON
 
-  delegate :content, :answerOptionList, to: :question_man, prefix: true, allow_nil: true
+  delegate :content, :answerOptionList, :answer, :childList, :analysis, to: :question_man, prefix: true, allow_nil: true
   # delegate :name, :student_version, :teacher_version, to: :paper, prefix: true, allow_nil: true
 
 

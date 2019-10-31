@@ -9,7 +9,7 @@
     <% if el.is_title? %>
         <div  class="print-title">
           <span class="print-title-index"><%= title_number %>、</span>
-          <% title_number += 1; question_number = 1; %>
+          <% title_number += 1 ; question_number = 1; %>
           <span class="print-title-body"><%= el.content %></span>
         </div>
     <% elsif el.is_section? %>
@@ -25,6 +25,16 @@
             <div class="talqs_main clearfix">
               <div class="talqs_content clearfix">
                 <%= el.question_man_content&.html_safe %>
+              </div>
+              <div class="talqs_subqs">
+                <% el.question_man_childList.each_with_index do |child, idx| %>
+                <div class="talqs_main clearfix">
+                  <span class="talqs_index"><%= idx + 1 %></span>
+                  <div class="talqs_content clearfix">
+                    <%= child.content&.html_safe %>
+                  </div>
+                </div>
+                <% end %>
               </div>
               <% if el.question_man_answerOptionList %>
               <div class="talqs_options clearfix">
@@ -46,6 +56,79 @@
                 <% end %>
               </div>
               <% end %>
+            </div>
+
+            <div class="talqs_analyze_group">
+              <div class="talqs_analyze_layer">
+                <div class="talqs_answer  clearfix">
+                  <label class="talqs_label">
+                    【答案】
+                  </label>
+                  <% if el.question_man_answer %>
+                    <div class="talqs_panel">
+                      <% el.question_man_answer.each do |answer| %>
+                        <div class="talqs_panel_item">
+                          <div class="talqs_panel_item_content">
+                              <%= answer.join(",") %>
+                          </div>
+                        </div>
+                      <% end %>
+                    </div>
+                  <% end %>
+                  <% if el.question_man_childList %>
+                    <div class="talqs_panel">
+                      <% el.question_man_childList.each_with_index do |child, idx| %>
+                        <% child.answer.each do |answer| %>
+                          <div class="talqs_analyze_item">
+                            <div class="talqs_analyze_item_index">
+                              <%= idx + 1 %>
+                            </div>
+                            <div class="talqs_panel_item">
+                              <div class="talqs_panel_item_content">
+                                  <%= answer.join(",").html_safe %>
+                              </div>
+                            </div>
+                          </div>
+                        <% end if child.answer %>
+                      <% end if el.question_man_childList %>
+                    </div>
+                  <% end %>
+                </div>
+                <div class="talqs_analyze  clearfix">
+                  <label class="talqs_label">
+                    【解析】
+                  </label>
+                  <% if el.question_man_analysis %>
+                    <div class="talqs_panel">
+                      <% el.question_man_analysis.each do |analyze| %>
+                        <div class="talqs_panel_item clearfix">
+                          <div class="talqs_panel_item_content">
+                            <%= analyze.html_safe %>
+                          </div>
+                        </div>
+                      <% end %>
+                    </div>
+                  <% end %>
+                  <% if el.question_man_childList %>
+                    <div class="talqs_panel">
+                      <% el.question_man_childList.each_with_index do |child, idx| %>
+                        <% child.analysis.each do |analyze| %>
+                          <div class="talqs_analyze_item">
+                            <div class="talqs_analyze_item_index">
+                              <%= idx + 1 %>
+                            </div>
+                          </div>
+                          <div class="talqs_panel_item clearfix">
+                            <div class="talqs_panel_item_content">
+                              <%= analyze.html_safe %>
+                            </div>
+                          </div>
+                        <% end %>
+                      <% end %>
+                    </div>
+                  <% end %>
+                </div>
+              </div>
             </div>
           </div>
         </div>
