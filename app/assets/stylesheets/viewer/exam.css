@@ -1,8 +1,8 @@
-.print-version-menu[data-v-f354109a] {
+.print-version-menu {
   display: inline-block
 }
 
-.print-version-menu .print-version-button[data-v-f354109a] {
+.print-version-menu .print-version-button {
   position: relative;
   display: inline-block;
   width: 74px;
@@ -16,7 +16,7 @@
   cursor: pointer
 }
 
-.print-version-menu .print-version-button .print-version-hover[data-v-f354109a] {
+.print-version-menu .print-version-button .print-version-hover {
   display: none;
   position: absolute;
   top: 35px;
@@ -32,7 +32,7 @@
   white-space: nowrap
 }
 
-.print-version-menu .print-version-button .print-version-hover[data-v-f354109a]:before {
+.print-version-menu .print-version-button .print-version-hover:before {
   content: "";
   position: absolute;
   left: 20px;
@@ -45,33 +45,33 @@
   border-left: 5px solid transparent
 }
 
-.print-version-menu .print-version-button[data-v-f354109a]:first-child {
+.print-version-menu .print-version-button:first-child {
   -webkit-transform: translateX(1px);
   transform: translateX(1px);
   border-radius: 4px 0 0 4px
 }
 
-.print-version-menu .print-version-button[data-v-f354109a]:last-child {
+.print-version-menu .print-version-button:last-child {
   -webkit-transform: translateX(-1px);
   transform: translateX(-1px);
   border-radius: 0 4px 4px 0
 }
 
-.print-version-menu .print-version-button[data-v-f354109a]:hover {
+.print-version-menu .print-version-button:hover {
   color: #3f92ff
 }
 
-.print-version-menu .print-version-button:hover .print-version-hover[data-v-f354109a] {
+.print-version-menu .print-version-button:hover .print-version-hover {
   display: block
 }
 
-.print-version-menu .print-version-button.actived[data-v-f354109a] {
+.print-version-menu .print-version-button.actived {
   z-index: 1;
   color: #3f92ff;
   border-color: #3f92ff
 }
 
-.print-wrapper[data-v-b5955b8c] {
+.print-wrapper {
   position: relative;
   width: 100%;
   background: #fff;
@@ -80,23 +80,23 @@
   widows: 3
 }
 
-.print-wrapper.break-page[data-v-b5955b8c] {
+.print-wrapper.break-page {
   page-break-after: always
 }
 
-.print-wrapper.is-default[data-v-b5955b8c]:hover {
+.print-wrapper.is-default:hover {
   will-change: transform;
   z-index: 1;
   -webkit-box-shadow: 0 1px 10px 0 rgba(83, 95, 105, .2);
   box-shadow: 0 1px 10px 0 rgba(83, 95, 105, .2)
 }
 
-.print-wrapper.is-default:hover .print-margin-hint[data-v-b5955b8c],
-.print-wrapper.is-default:hover .print-tool[data-v-b5955b8c] {
+.print-wrapper.is-default:hover .print-margin-hint,
+.print-wrapper.is-default:hover .print-tool {
   display: block
 }
 
-.print-tool[data-v-b5955b8c] {
+.print-tool {
   display: none;
   position: absolute;
   bottom: 0;
@@ -117,7 +117,7 @@
   user-select: none
 }
 
-.print-tool .print-tool-button[data-v-b5955b8c] {
+.print-tool .print-tool-button {
   display: inline-block;
   width: 72px;
   height: 28px;
@@ -128,15 +128,15 @@
   cursor: pointer
 }
 
-.print-tool .print-tool-button.is-visible[data-v-b5955b8c] {
+.print-tool .print-tool-button.is-visible {
   color: #ff342d
 }
 
-.print-tool .print-tool-button.is-default[data-v-b5955b8c]:hover {
+.print-tool .print-tool-button.is-default:hover {
   color: #3f92ff
 }
 
-.print-tool .print-tool-line[data-v-b5955b8c] {
+.print-tool .print-tool-line {
   display: inline-block;
   height: 20px;
   width: 1px;
@@ -145,7 +145,7 @@
   transform: translateY(4px)
 }
 
-.print-margin-wrap[data-v-b5955b8c] {
+.print-margin-wrap {
   position: relative;
   width: 100%;
   height: 100%;
@@ -153,7 +153,7 @@
   overflow: hidden
 }
 
-.print-margin-wrap .print-margin-hint[data-v-b5955b8c] {
+.print-margin-wrap .print-margin-hint {
   display: none;
   position: absolute;
   bottom: 20px;
@@ -169,7 +169,7 @@
   user-select: none
 }
 
-.print-margin-wrap .print-margin-move[data-v-b5955b8c] {
+.print-margin-wrap .print-margin-move {
   opacity: 0;
   position: absolute;
   bottom: 0;
@@ -181,20 +181,20 @@
   cursor: row-resize
 }
 
-.print-margin-wrap .print-margin-move[data-v-b5955b8c]:hover {
+.print-margin-wrap .print-margin-move:hover {
   opacity: 1
 }
 
-.print-margin-wrap.is-move[data-v-b5955b8c],
-.print-margin-wrap[data-v-b5955b8c]:hover {
+.print-margin-wrap.is-move,
+.print-margin-wrap:hover {
   background: #e7f5ff
 }
 
-.print-margin-wrap.is-move .print-margin-hint[data-v-b5955b8c] {
+.print-margin-wrap.is-move .print-margin-hint {
   display: block
 }
 
-.print-margin-wrap.is-move .print-margin-move[data-v-b5955b8c] {
+.print-margin-wrap.is-move .print-margin-move {
   opacity: 1
 }
 
