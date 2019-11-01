@@ -1,6 +1,6 @@
 <div class="row" style="position: fixed">
   <div class="col-md-2">
-    <button id="print" type="button" class="btn btn-success"><%= t("print") %></button>
+    <button id="print" type="button" onclick="printJS('print-body', 'html')" class="btn btn-success"><%= t("print") %></button>
   </div>
 
   <div id="question" class="col-md-offset-6 col-md-2" style="display: none;">
@@ -124,8 +124,16 @@
     <% end %>
   </div>
 <% end %>
+</div>
+
+ <canvas id="canvas" width="760"></canvas>
 <script type="text/javascript">
 $(function(){
+   // MathJax.Hub.Queue(function (){
+   //    var canvas = document.getElementById("canvas");
+   //    var main = document.getElementById("print-body");
+   //    rasterizeHTML.drawHTML(main.outerHTML,canvas);
+   //  })
   $(document).on("click", "#question", function(){
     $(".talqs_analyze_group").hide()
     $(this).hide()
@@ -137,29 +145,32 @@ $(function(){
     $("#question").show()
   })
 
-  $(document).on("click", "#print", function(){
+  // $(document).on("click", "#print", function(){
 
-    var currentPosition = document.getElementById("print-body").scrollTop;
-      var w = document.getElementById("print-body").offsetWidth;
-      var h = document.getElementById("print-body").offsetHeight;
-     document.getElementById("print-body").style.height="auto";
 
-      html2canvas(document.getElementById("print-body"), {
+    // var currentPosition = document.getElementById("print-body").scrollTop;
+    //   var w = document.getElementById("print-body").offsetWidth;
+    //   var h = document.getElementById("print-body").offsetHeight;
+    //  document.getElementById("print-body").style.height="auto";
 
-        // dpi: 300, // Set to 300 DPI
-        // scale: 3, // Adjusts your resolution
-        onrendered: function(canvas) {
-          var img = canvas.toDataURL("image/jpeg", 1);
-          var doc = new jsPDF('L', 'px', [h, w]);
-          doc.addImage(img, 'JPEG', 0, 0, h, w);
-          doc.addPage();
-          doc.save('sample-file.pdf');
-        }
-      });
-     document.getElementById("print-body").style.height="100px";
-     document.getElementById("print-body").scrollTop = currentPosition;
+    //   html2canvas(document.getElementById("print-body"), {
 
-    // html2canvas($('.print-body'), {
+    //     // dpi: 300, // Set to 300 DPI
+    //     // scale: 3, // Adjusts your resolution
+    //     onrendered: function(canvas) {
+    //       var img = canvas.toDataURL("image/jpeg", 1);
+    //       var doc = new jsPDF('L', 'px', [h, w]);
+    //       doc.addImage(img, 'JPEG', 0, 0, h, w);
+    //       doc.addPage();
+    //       doc.save('sample-file.pdf');
+    //     }
+    //   });
+    //  document.getElementById("print-body").style.height="100px";
+    //  document.getElementById("print-body").scrollTop = currentPosition;
+    // var useWidth = document.getElementById("print-body").offsetWidth;
+    // var useHeight = document.getElementById("print-body").offsetHeight;
+    // console.log(useWidth, useHeight)
+    // html2canvas(document.getElementById("print-body"), {
     //   onrendered: function(canvas) {
     //     var imgData = canvas.toDataURL('image/png');
 
@@ -169,7 +180,7 @@ $(function(){
     //     doc.save('test.pdf');
     //   }
     // });
-  })
+  // })
 
 })
 </script>
