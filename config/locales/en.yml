@@ -35,7 +35,9 @@ en:
   home: 主页
   product:
     view: "查 看"
-
+  print: 打 印
+  question: 试 卷
+  analyze: 详 解
   admin:
     new: 新 建
     add: 增 添

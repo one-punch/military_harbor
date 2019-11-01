@@ -1,4 +1,18 @@
-<div class="print-body">
+<div class="row" style="position: fixed">
+  <div class="col-md-2">
+    <button id="print" type="button" class="btn btn-success"><%= t("print") %></button>
+  </div>
+
+  <div id="question" class="col-md-offset-6 col-md-2" style="display: none;">
+    <button type="button" class="btn btn-info"><%= t("question") %></button>
+  </div>
+
+  <div id="analyze" class="col-md-offset-6 col-md-2">
+    <button type="button" class="btn btn-info"><%= t("analyze") %></button>
+  </div>
+</div>
+
+<div id="print-body" class="print-body">
   <div class="print-title">
     <%= @paper.name %>
   </div>
@@ -26,16 +40,8 @@
               <div class="talqs_content clearfix">
                 <%= el.question_man_content&.html_safe %>
               </div>
-              <div class="talqs_subqs">
-                <% el.question_man_childList.each_with_index do |child, idx| %>
-                <div class="talqs_main clearfix">
-                  <span class="talqs_index"><%= idx + 1 %></span>
-                  <div class="talqs_content clearfix">
-                    <%= child.content&.html_safe %>
-                  </div>
-                </div>
-                <% end %>
-              </div>
+              <%= sub_question(el.question_man_childList) %>
+
               <% if el.question_man_answerOptionList %>
               <div class="talqs_options clearfix">
                 <% el.question_man_answerOptionList.each_with_index do |answer, idx| %>
@@ -75,24 +81,7 @@
                       <% end %>
                     </div>
                   <% end %>
-                  <% if el.question_man_childList %>
-                    <div class="talqs_panel">
-                      <% el.question_man_childList.each_with_index do |child, idx| %>
-                        <% child.answer.each do |answer| %>
-                          <div class="talqs_analyze_item">
-                            <div class="talqs_analyze_item_index">
-                              <%= idx + 1 %>
-                            </div>
-                            <div class="talqs_panel_item">
-                              <div class="talqs_panel_item_content">
-                                  <%= answer.join(",").html_safe %>
-                              </div>
-                            </div>
-                          </div>
-                        <% end if child.answer %>
-                      <% end if el.question_man_childList %>
-                    </div>
-                  <% end %>
+                  <%= sub_answer(el.question_man_childList) %>
                 </div>
                 <div class="talqs_analyze  clearfix">
                   <label class="talqs_label">
@@ -109,24 +98,23 @@
                       <% end %>
                     </div>
                   <% end %>
-                  <% if el.question_man_childList %>
+                  <% if el.question_man.optionAnalysisList %>
                     <div class="talqs_panel">
-                      <% el.question_man_childList.each_with_index do |child, idx| %>
-                        <% child.analysis.each do |analyze| %>
-                          <div class="talqs_analyze_item">
-                            <div class="talqs_analyze_item_index">
-                              <%= idx + 1 %>
-                            </div>
+                      <% el.question_man.optionAnalysisList.each do |analyze| %>
+                        <div class="talqs_analyze_item">
+                          <div class="talqs_analyze_item_index">
+                            <%= analyze.code %>
                           </div>
-                          <div class="talqs_panel_item clearfix">
-                            <div class="talqs_panel_item_content">
-                              <%= analyze.html_safe %>
-                            </div>
+                        </div>
+                        <div class="talqs_panel_item clearfix">
+                          <div class="talqs_panel_item_content">
+                            <%= analyze.analysis&.join&.html_safe %>
                           </div>
-                        <% end if child.analysis %>
+                        </div>
                       <% end %>
                     </div>
                   <% end %>
+                  <%= sub_analyze(el.question_man_childList) %>
                 </div>
               </div>
             </div>
@@ -136,3 +124,52 @@
     <% end %>
   </div>
 <% end %>
+<script type="text/javascript">
+$(function(){
+  $(document).on("click", "#question", function(){
+    $(".talqs_analyze_group").hide()
+    $(this).hide()
+    $("#analyze").show()
+  })
+  $(document).on("click", "#analyze", function(){
+    $(".talqs_analyze_group").show()
+    $(this).hide()
+    $("#question").show()
+  })
+
+  $(document).on("click", "#print", function(){
+
+    var currentPosition = document.getElementById("print-body").scrollTop;
+      var w = document.getElementById("print-body").offsetWidth;
+      var h = document.getElementById("print-body").offsetHeight;
+     document.getElementById("print-body").style.height="auto";
+
+      html2canvas(document.getElementById("print-body"), {
+
+        // dpi: 300, // Set to 300 DPI
+        // scale: 3, // Adjusts your resolution
+        onrendered: function(canvas) {
+          var img = canvas.toDataURL("image/jpeg", 1);
+          var doc = new jsPDF('L', 'px', [h, w]);
+          doc.addImage(img, 'JPEG', 0, 0, h, w);
+          doc.addPage();
+          doc.save('sample-file.pdf');
+        }
+      });
+     document.getElementById("print-body").style.height="100px";
+     document.getElementById("print-body").scrollTop = currentPosition;
+
+    // html2canvas($('.print-body'), {
+    //   onrendered: function(canvas) {
+    //     var imgData = canvas.toDataURL('image/png');
+
+    //     // Generate PDF
+    //     var doc = new jsPDF('p', 'pt', 'a4');
+    //     doc.addImage(imgData, 'PNG', 0, 0, canvas.width, canvas.height);
+    //     doc.save('test.pdf');
+    //   }
+    // });
+  })
+
+})
+</script>

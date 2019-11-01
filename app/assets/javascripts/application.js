@@ -19,3 +19,4 @@
 //= require viewer/pdfjs/pdf
 //= require viewer/pdfjs/pdf.worker
 //= require viewer/viewer
+//= require html2canvas/v1.0.0-rc.5/html2canvas.min
