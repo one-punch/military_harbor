@@ -1,6 +1,12 @@
 module Api
   class ExamPapersController < ApplicationController
 
+    def new
+      material_ids = Material.distinct(:proto_course_id).joins(:course).where("courses.type_name" => "试卷").pluck(:proto_course_id)
+      paper_ids = Paper.distinct(:proto_id).joins(:exam_paper_elements).where("papers.type_name" => "exam").pluck(:proto_id)
+      render :json => {code: 0, message: "success", paper_ids: paper_ids, filter_ids: material_ids}.to_json, :callback => params['callback']
+    end
+
     def create
       case params[:code]
       when "examPaperType"
