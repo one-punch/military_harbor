@@ -86,3 +86,4 @@ gem "faraday", "~> 0.9"
 gem 'hashie', '~> 3.5.6'
 gem 'redis', '~> 4.1.1'
 gem 'sidekiq', '~> 5.2.7'
+gem 'render_async', '~> 2.1.3'

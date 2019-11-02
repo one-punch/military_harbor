@@ -40,6 +40,11 @@ class ProductsController < ApplicationController
     end
   end
 
+  def filters
+    @category = Category.find(params[:category_id])
+    render partial: "filters"
+  end
+
   private
 
   def find

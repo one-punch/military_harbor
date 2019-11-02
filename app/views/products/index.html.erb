@@ -23,19 +23,7 @@
   </div>
 
   <div class="col-md-9">
-    <% if @category && @category.has_children? %>
-      <div class="sub-category">
-        <div class="row">
-          <% Category.find(params[:category_id]).children.actived.each do |category| %>
-            <% if category.has_products? %>
-              <div class="col-sm-3 col-lg-3 col-md-3 category-item">
-                <%= link_to category.name, products_path(category_id: category.id) %>
-              </div>
-            <% end %>
-          <% end %>
-        </div>
-      </div>
-    <% end %>
+    <%= render_async product_filters_path(@category.id) if @category %>
     <br>
     <% @products.each do |product| %>
       <% if @category %>

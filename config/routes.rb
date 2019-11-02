@@ -19,6 +19,7 @@ Rails.application.routes.draw do
 
   get 'exam-:id-student-:name' => 'papers#student_exam', :id => /\d+/, as: :student_exam, :format => :html
 
+  get "/c/:category_id/filter" => 'products#filters', :category_id => /\d+/, as: :product_filters
 
   get 'paper-:token' => 'papers#show', as: :paper
 
@@ -90,5 +91,6 @@ Rails.application.routes.draw do
 
   namespace :api do
     resources :exam_papers
+
   end
 end
