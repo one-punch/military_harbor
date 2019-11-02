@@ -1,4 +1,4 @@
-<% if true ||  @category && @category.has_children? %>
+<% if @category && @category.has_children? %>
   <div class="sub-category">
     <div class="row">
       <% Category.find(params[:category_id]).children.actived.each do |category| %>
