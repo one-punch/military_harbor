@@ -1,6 +1,11 @@
 module Api
   class ExamPapersController < ApplicationController
 
+    def index
+      papers = Paper.select(:proto_id).left_joins(:exam_paper_elements).where("exam_paper_elements.id is null").where("papers.type_name" => "exam")
+      render :json => {code: 0, message: "success", paper_ids: papers.map(&:proto_id)}.to_json, :callback => params['callback']
+    end
+
     def new
       material_ids = Material.distinct(:proto_course_id).joins(:course).where("courses.type_name" => "试卷").pluck(:proto_course_id)
       paper_ids = Paper.select("papers.proto_id").joins(:exam_paper_elements).where("papers.type_name" => "exam").group("papers.proto_id").having("COUNT(papers.proto_id) > 1").to_a.map(&:proto_id)

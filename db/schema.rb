@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20191024112757) do
+ActiveRecord::Schema.define(version: 20191101133055) do
 
   create_table "attachments", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer "source_id", null: false
@@ -53,9 +53,32 @@ ActiveRecord::Schema.define(version: 20191024112757) do
     t.json "attrs"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "grade_group_id", null: false
+    t.string "type_name", default: "教材"
     t.index ["grade_id"], name: "index_courses_on_grade_id"
     t.index ["proto_id"], name: "index_courses_on_proto_id", unique: true
     t.index ["subject_id"], name: "index_courses_on_subject_id"
+  end
+
+  create_table "exam_paper_elements", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "proto_id", null: false
+    t.string "proto_paper_id", null: false
+    t.text "content"
+    t.integer "contentType"
+    t.string "axis"
+    t.string "number"
+    t.string "remark"
+    t.boolean "deleted"
+    t.string "blank"
+    t.string "queTypeName"
+    t.text "hideMainIdList"
+    t.text "hideQueIdList"
+    t.text "question", limit: 16777215
+    t.string "contentTypeCode"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["proto_id"], name: "index_exam_paper_elements_on_proto_id"
+    t.index ["proto_paper_id"], name: "index_exam_paper_elements_on_proto_paper_id"
   end
 
   create_table "grades", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -71,6 +94,7 @@ ActiveRecord::Schema.define(version: 20191024112757) do
     t.string "proto_course_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "attrs"
     t.index ["proto_course_id"], name: "index_materials_on_proto_course_id"
     t.index ["proto_id"], name: "index_materials_on_proto_id", unique: true
   end

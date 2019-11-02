@@ -1,7 +1,7 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
-@import "viewer/exam";
 @import "talqs-template4.0/talqsTemplate.min";
+@import "viewer/exam";
 
 @mixin box_sizing {
   -moz-box-sizing:    border-box;

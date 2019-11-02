@@ -1,6 +1,6 @@
 <div class="row" style="position: fixed">
   <div class="col-md-2">
-    <button id="print" type="button" onclick="printJS('print-body', 'html')" class="btn btn-success"><%= t("print") %></button>
+    <button id="print" type="button" class="btn btn-success"><%= t("print") %></button>
   </div>
 
   <div id="question" class="col-md-offset-6 col-md-2" style="display: none;">
@@ -145,7 +145,9 @@ $(function(){
     $("#question").show()
   })
 
-  // $(document).on("click", "#print", function(){
+  $(document).on("click", "#print", function(){
+    printReport("print-body")
+  })
 
 
     // var currentPosition = document.getElementById("print-body").scrollTop;
@@ -181,6 +183,127 @@ $(function(){
     //   }
     // });
   // })
+
+  var gPrinting = false;
+  function outerHTML(node) {
+    var chating=node.cloneNode(true)
+    var myDiv=document.createElement("div");
+    myDiv.appendChild(chating);
+    var str= myDiv.innerHTML;
+    chating=null;
+    $(myDiv).remove();
+    return str;
+};
+
+
+  function printReport(containerId)
+  {
+    if (gPrinting) { // block the button while in printing mode
+      return;
+    }
+    var origDisplay = [];
+    var hpw = $("#"+containerId).height() / $("#"+containerId).width();
+    gPrinting = true;
+
+    MyHtml2Canvas(containerId, function(canvas){
+      canvas.style.width = '210mm';
+      canvas.style.height = 210 * hpw + "mm";
+      var childNodes = document.body.childNodes;
+      // hide all body content
+      $.each(childNodes, function (i, node) {
+        if (node.nodeType === 1) {
+          origDisplay[i] = node.style.display;
+          node.style.display = 'none';
+        }
+      });
+
+      // pull out the canvas
+      var tmpDiv = "divCanvasTempContainer_";  //临时div
+        $("body").append("<div id='"+tmpDiv+"' ></div>");
+        $("#"+tmpDiv).append(canvas);
+
+      // print
+      window.focus(); // #1510
+      window.print();
+
+      // allow the browser to prepare before reverting
+      setTimeout(function () {
+        // restore all body content
+        $.each(childNodes, function (i, node) {
+          if (node.nodeType === 1) {
+            node.style.display = origDisplay[i];
+          }
+        });
+        $("#"+tmpDiv).remove();
+        gPrinting = false;
+      }, 1000);
+      return false;
+    });
+  }
+
+    function MyHtml2Canvas(containerId, backcall)
+    {
+      scrollTo(0, 0);
+        var container = "#"+containerId;//为需要截取成图片的dom的id
+        var tmpDiv = "divCanvasTempContainer_";  //临时div
+        $("body").append("<div id='"+tmpDiv+"' style='display:none;'></div>");
+        if (typeof html2canvas !== 'undefined') {
+            //以下是对svg的处理
+            var nodesToRecover = [];
+            var nodesToRemove = [];
+            var svgElem = $(container).find('svg');
+            var lstSvgHtml = [];
+            svgElem.each(function (index, node) {
+                var parentNode = node.parentNode;
+                //$(node).find(".highcharts-background").attr("fill", "white");
+                var svg = outerHTML(node).trim();
+                //svg = svg.replace(/fill="transparent"/g, 'fill="white"');
+
+                lstSvgHtml.push(svg);
+                //var svg = parentNode.html().trim();
+                //创建临时的canvas
+                $("#"+tmpDiv).html('<canvas class="tempCanvas"></canvas>');
+                var canvas = $("#"+tmpDiv+" canvas")[0];
+                canvg(canvas, svg);
+                if (node.style.position) {
+                    canvas.style.position += node.style.position;
+                    canvas.style.left += node.style.left;
+                    canvas.style.top += node.style.top;
+                }
+
+                nodesToRecover.push({
+                    parent: parentNode,
+                    child: node
+                });
+               // $("#divCanvas").append(svg);
+                parentNode.removeChild(node);
+
+                nodesToRemove.push({
+                    parent: parentNode,
+                    child: canvas
+                });
+                parentNode.appendChild(canvas);
+                //$("#divCanvas").append(canvas);
+
+            });
+            //$("#divCanvas").show();
+            html2canvas(document.querySelector(container), {
+                onrendered: backcall
+            });
+        }
+
+        //把添加的删除掉，再把删除掉的添加回来
+        for( var i = 0; i < nodesToRecover.length; ++i)
+      {
+          var $parent = $(nodesToRecover[i].parent);
+          $parent.find(".tempCanvas").remove();
+          //console.log(nodesToRecover[i].child);
+          $parent.append(nodesToRecover[i].child);
+      }
+        //删除临时div
+        $("#"+tmpDiv).remove();
+    }
+
 
 })
 </script>
