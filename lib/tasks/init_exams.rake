@@ -25,6 +25,7 @@ namespace :exam do
         exam = c.children.where(name: "试卷").first_or_create(ancestry_depth: 2)
         Paper.joins(material: :course).where("papers.type_name" => "exam").where("courses.subject_id" => subject.id, "courses.grade_id" => grade[:id]).find_each do |paper|
             product = init_product(paper, exam)
+            init_variant(paper, exam, product)
             if product.valid?
             else
               @logger.error(product.errors.full_messages.join("; "))
@@ -35,6 +36,16 @@ namespace :exam do
 
     def init_product(paper, category)
       Product.where(paper_id: paper.id, category_id: category.id).first_or_create(name: paper.name, sku: SecureRandom.hex, price: 1.99)
+    end
+
+    def init_variant(paper, category, parent)
+      # 生成两个 variant
+      # 一个包含订阅 property，一个下载property
+      # 关联回master product
+      subscription = parent.variants.build(name: paper.name, sku: SecureRandom.hex, price: 1.99, category_id: category.id, paper_id: paper.id)
+      download = parent.variants.build(name: paper.name, sku: SecureRandom.hex, price: 1.99, category_id: category.id, paper_id: paper.id)
+      subscription.properties.build(key: :subscribe, value: 100)
+      download.properties.build(key: :download, value: false)
     end
 
     log_file = File.open("#{Rails.root}/log/init_products.log", 'a')

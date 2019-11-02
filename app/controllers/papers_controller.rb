@@ -17,11 +17,17 @@ class PapersController < ApplicationController
   end
 
   def student_exam
-    @paper = Paper.preload(:exam_paper_elements).find params[:id]
+    @product = Product.preload(paper: :exam_paper_elements).find params[:id]
+    if can_read?(@product) && @product.paper&.is_exam?
+      @paper = @product.paper
+    else
+      flash[:error] = "没有权限查看"
+      redirect_to :back
+    end
   end
 
   def teacher_exam
-    @paper = Paper.preload(:exam_paper_elements).find params[:id]
+    student_exam
   end
 
 

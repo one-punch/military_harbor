@@ -1,0 +1,143 @@
+<div class="row" style="position: fixed">
+  <div class="col-md-2">
+    <button id="print" type="button" class="btn btn-success"><%= t("print") %></button>
+  </div>
+
+  <div id="question" class="col-md-offset-6 col-md-2" style="display: none;">
+    <button type="button" class="btn btn-info"><%= t("question") %></button>
+  </div>
+
+  <div id="analyze" class="col-md-offset-6 col-md-2">
+    <button type="button" class="btn btn-info"><%= t("analyze") %></button>
+  </div>
+</div>
+
+<div id="print-body" class="print-body">
+  <div class="print-title">
+    <%= @paper.name %>
+  </div>
+
+<% title_number = 1; question_number = 1; %>
+<% @paper.exam_paper_elements.each_with_index do |el, idx| %>
+  <div class="print-wrapper transition is-default">
+    <% if el.is_title? %>
+        <div  class="print-title">
+          <span class="print-title-index"><%= title_number %>、</span>
+          <% title_number += 1 ; question_number = 1; %>
+          <span class="print-title-body"><%= el.content %></span>
+        </div>
+    <% elsif el.is_section? %>
+      <div class="print-paragraph">
+        <%= el.content.html_safe %>
+      </div>
+    <% elsif el.is_question? %>
+      <div class="print-question is-default">
+        <span class="print-question-index"><%= question_number %>.</span>
+        <% question_number += 1 %>
+        <div class="print-question-body is-student">
+          <div class="talqs">
+            <div class="talqs_main clearfix">
+              <div class="talqs_content clearfix">
+                <%= el.question_man_content&.html_safe %>
+              </div>
+              <%= sub_question(el.question_man_childList) %>
+
+              <% if el.question_man_answerOptionList %>
+              <div class="talqs_options clearfix">
+                <% el.question_man_answerOptionList.each_with_index do |answer, idx| %>
+                  <ul class="talqs_options_list talqs_options_list_4 talqs_layout_complete">
+                      <li class="talqs_options_rows clearfix">
+                        <ul class="talqs_options_columns_1 clearfix">
+                          <% answer.each do |opt| %>
+                            <li class="talqs_options_columns_item clearfix">
+                              <span class="talqs_options_label"><%= opt.aoVal %>. </span>
+                              <div class="talqs_options_content">
+                                <%= opt.content&.html_safe %>
+                              </div>
+                            </li>
+                          <% end %>
+                        </ul>
+                      </li>
+                  </ul>
+                <% end %>
+              </div>
+              <% end %>
+            </div>
+
+            <div class="talqs_analyze_group">
+              <div class="talqs_analyze_layer">
+                <div class="talqs_answer  clearfix">
+                  <label class="talqs_label">
+                    【答案】
+                  </label>
+                  <% if el.question_man_answer %>
+                    <div class="talqs_panel">
+                      <% el.question_man_answer.each do |answer| %>
+                        <div class="talqs_panel_item">
+                          <div class="talqs_panel_item_content">
+                              <%= answer.join(",").html_safe %>
+                          </div>
+                        </div>
+                      <% end %>
+                    </div>
+                  <% end %>
+                  <%= sub_answer(el.question_man_childList) %>
+                </div>
+                <div class="talqs_analyze  clearfix">
+                  <label class="talqs_label">
+                    【解析】
+                  </label>
+                  <% if el.question_man_analysis %>
+                    <div class="talqs_panel">
+                      <% el.question_man_analysis.each do |analyze| %>
+                        <div class="talqs_panel_item clearfix">
+                          <div class="talqs_panel_item_content">
+                            <%= analyze.html_safe %>
+                          </div>
+                        </div>
+                      <% end %>
+                    </div>
+                  <% end %>
+                  <% if el.question_man.optionAnalysisList %>
+                    <div class="talqs_panel">
+                      <% el.question_man.optionAnalysisList.each do |analyze| %>
+                        <div class="talqs_analyze_item">
+                          <div class="talqs_analyze_item_index">
+                            <%= analyze.code %>
+                          </div>
+                        </div>
+                        <div class="talqs_panel_item clearfix">
+                          <div class="talqs_panel_item_content">
+                            <%= analyze.analysis&.join&.html_safe %>
+                          </div>
+                        </div>
+                      <% end %>
+                    </div>
+                  <% end %>
+                  <%= sub_analyze(el.question_man_childList) %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% end %>
+</div>
+
+ <canvas id="canvas" width="760"></canvas>
+<script type="text/javascript">
+$(function(){
+  $(document).on("click", "#question", function(){
+    $(".talqs_analyze_group").hide()
+    $(this).hide()
+    $("#analyze").show()
+  })
+  $(document).on("click", "#analyze", function(){
+    $(".talqs_analyze_group").show()
+    $(this).hide()
+    $("#question").show()
+  })
+})
+</script>
