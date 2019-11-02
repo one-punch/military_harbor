@@ -26,7 +26,7 @@ namespace :exam do
         Paper.joins(material: :course).where("papers.type_name" => "exam").where("courses.subject_id" => subject.id, "courses.grade_id" => grade[:id]).find_each do |paper|
             product = init_product(paper, exam)
             init_variant(paper, exam, product)
-            if product.valid?
+            if product.save
             else
               @logger.error(product.errors.full_messages.join("; "))
             end

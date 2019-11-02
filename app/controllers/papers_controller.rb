@@ -17,7 +17,7 @@ class PapersController < ApplicationController
   end
 
   def student_exam
-    @product = Product.preload(paper: :exam_paper_elements).find params[:id]
+    @product = Variant.preload(paper: :exam_paper_elements).find params[:id]
     if can_read?(@product) && @product.paper&.is_exam?
       @paper = @product.paper
     else
