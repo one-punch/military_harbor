@@ -18,7 +18,7 @@
 
   <% if product.paper&.is_exam? %>
     <div class="col-lg-6">
-      <%= product.student_version %>
+      <%= product.paper_student_version %>
       <% if can_read?(@product) %>
         <%= link_to t("product.view"), student_exam_path(id: product.id, name: product.sku), class: "pull-right btn btn-success", target: :_blank %>
       <% end %>
