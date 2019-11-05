@@ -23,6 +23,16 @@
   </div>
 
   <div class="col-md-9">
+    <% if @category && @category.ancestry_depth.to_i >= 2 %>
+    <div class="row">
+      <div class="col-md-offset-9 col-md-3">
+        <%= form_tag(products_path, method: :get) do %>
+          <%= hidden_field_tag(:category_id, @category.id) %>
+          <%= text_field_tag :q, params[:q], class: 'form-control', placeholder: t("admin.category.search") %>
+        <% end %>
+      </div>
+    </div>
+    <% end %>
     <%= render_async product_filters_path(@category.id) if @category %>
     <br>
     <% @products.each do |product| %>

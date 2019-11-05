@@ -42,8 +42,12 @@ en:
     new: 新 建
     add: 增 添
     success: 操作成功
+    category:
+      search: 在此类目中搜索
 
   paper:
     student: 学生版
     teacher: 教师版
+
+
 
