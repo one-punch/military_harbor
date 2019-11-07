@@ -14,7 +14,7 @@ class DownloadService
         "User-Agent" => "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.120 Safari/537.36",
         "Referer" => "https://jiaoshi.izhikang.com/sixtteacher/home/home!newIndex.action?modelTab=1")do |response|
       @filename = self.class.filename_from_content_disposition(response.meta['content-disposition'])
-      raise new Error("pdf file not found") if @filename.blank?
+      raise Exception.new("pdf file not found") if @filename.blank?
       response.set_encoding('UTF-8')
       open("#{@file_path}/#{@filename}", 'w') { |f|
         f.write(response.read)
