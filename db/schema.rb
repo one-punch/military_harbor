@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20191109074347) do
+ActiveRecord::Schema.define(version: 20191109094937) do
 
   create_table "attachments", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer "source_id", null: false
@@ -44,6 +44,8 @@ ActiveRecord::Schema.define(version: 20191109074347) do
     t.datetime "updated_at", null: false
     t.integer "position"
     t.boolean "is_leaf"
+    t.index ["active"], name: "index_categories_on_active"
+    t.index ["ancestry_depth"], name: "index_categories_on_ancestry_depth"
     t.index ["is_leaf"], name: "index_categories_on_is_leaf"
   end
 
@@ -230,6 +232,8 @@ ActiveRecord::Schema.define(version: 20191109074347) do
     t.integer "item_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["item_id", "item_type"], name: "index_user_favorites_on_item_id_and_item_type"
+    t.index ["user_id"], name: "index_user_favorites_on_user_id"
   end
 
   create_table "user_paper_records", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
