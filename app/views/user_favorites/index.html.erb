@@ -10,7 +10,7 @@
                   <% if favorite.is_product? %>
                   [<%= t("course") %>] ( <%= favorite.item.category.path.map{|c| c.name}.join(" > ") %> )
                   <% elsif favorite.is_category? %>
-                  [<%= t("category") %>]
+                  [<%= t("category") %>] ( <%= favorite.item.path.map{|c| c.name}.join(" > ") %> )
                   <% end %> <%= favorite.item_name %>
                 </p>
               <% end %>
