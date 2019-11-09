@@ -7,10 +7,13 @@ class PrimeryProduct < ApplicationRecord
   accepts_nested_attributes_for :pictures, :reject_if => lambda { |a| a['name'].blank? }, :allow_destroy => true
   belongs_to :category
   belongs_to :product_detail, optional: true
+  has_many :user_favorites
 
   validates :sku, presence: true, uniqueness: true
   validates :price, numericality: true
   validates :purchase_price, numericality: true, allow_blank: true
+
+  delegate :id, :name, to: :category, prefix: true, allow_nil: true
 
   scope :active, -> { where(parent_id: nil) }
 

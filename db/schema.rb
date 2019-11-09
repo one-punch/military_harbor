@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20191101133055) do
+ActiveRecord::Schema.define(version: 20191109074347) do
 
   create_table "attachments", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer "source_id", null: false
@@ -43,6 +43,8 @@ ActiveRecord::Schema.define(version: 20191101133055) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "position"
+    t.boolean "is_leaf"
+    t.index ["is_leaf"], name: "index_categories_on_is_leaf"
   end
 
   create_table "courses", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -58,6 +60,7 @@ ActiveRecord::Schema.define(version: 20191101133055) do
     t.index ["grade_id"], name: "index_courses_on_grade_id"
     t.index ["proto_id"], name: "index_courses_on_proto_id", unique: true
     t.index ["subject_id"], name: "index_courses_on_subject_id"
+    t.index ["type_name"], name: "index_courses_on_type_name"
   end
 
   create_table "exam_paper_elements", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -221,6 +224,14 @@ ActiveRecord::Schema.define(version: 20191101133055) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "user_favorites", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "user_id", null: false
+    t.string "item_type", null: false
+    t.integer "item_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "user_paper_records", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer "user_id", null: false
     t.integer "paper_id", null: false
@@ -244,6 +255,7 @@ ActiveRecord::Schema.define(version: 20191101133055) do
     t.datetime "activated_at"
     t.string "reset_digest"
     t.datetime "reset_sent_at"
+    t.integer "favorite_count", default: 24
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 

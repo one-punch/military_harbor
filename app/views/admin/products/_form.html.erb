@@ -30,7 +30,7 @@
       <% if product.is_master? %>
         <div class="form-group">
           <%= f.label :category_id, '类目' %>
-          <%= f.select :category_id, options_for_select(Category.leaves.map {|category| [category.name, category.id]}, product_category_id(product)), {include_blank: true}, class: "form-control" %>
+          <%= f.select :category_id, options_for_select([[product.category_name, product.category_id]], product_category_id(product)), {include_blank: true}, class: "form-control select2" %>
         </div>
       <% end %>
       <div class="form-group">

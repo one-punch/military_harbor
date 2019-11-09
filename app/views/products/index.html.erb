@@ -25,7 +25,10 @@
   <div class="col-md-9">
     <% if @category && @category.ancestry_depth.to_i >= 1 %>
     <div class="row">
-      <div class="col-md-offset-9 col-md-3">
+      <div class="col-md-3">
+        <%= favorites(@category) %>
+      </div>
+      <div class="col-md-offset-6 col-md-3">
         <%= form_tag(products_path, method: :get) do %>
           <%= hidden_field_tag(:category_id, @category.id) %>
           <%= text_field_tag :q, params[:q], class: 'form-control', placeholder: t("admin.category.search") %>

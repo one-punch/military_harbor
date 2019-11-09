@@ -7,6 +7,8 @@ class User < ApplicationRecord
 
   has_many :orders
 
+  has_many :user_favorites
+
   validates :name, presence: true, length: { maximum: 50 }
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :email, presence: true, length: { maximum: 255 },
@@ -41,7 +43,7 @@ class User < ApplicationRecord
   end
 
   def send_activation_email
-    UserMailer.account_activation(self.id).deliver_later
+    # UserMailer.account_activation(self.id).deliver_later
   end
 
   def create_reset_digest
@@ -50,7 +52,7 @@ class User < ApplicationRecord
   end
 
   def send_password_reset_email
-    UserMailer.password_reset(self.id).deliver_later
+    # UserMailer.password_reset(self.id).deliver_later
   end
 
   def password_reset_expired?

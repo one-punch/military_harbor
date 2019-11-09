@@ -24,6 +24,7 @@ Rails.application.routes.draw do
   get 'paper-:token' => 'papers#show', as: :paper
 
   resources :users
+  resources :user_favorites
 
   resources :account_activations, only: [:edit]
   resources :password_resets, only: [:new, :create, :edit, :update]
@@ -70,6 +71,12 @@ Rails.application.routes.draw do
 
         delete "/property/:property_id" => "products#delete_property", as: :delete_property
 
+      end
+    end
+
+    resources :ajax_select do
+      collection do
+        get :category
       end
     end
 

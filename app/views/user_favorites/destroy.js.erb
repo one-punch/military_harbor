@@ -1,0 +1,6 @@
+<% if @success %>
+  $.toaster({ message : '<%= t("admin.success") %>', priority : 'success' });
+  $("#favorite-<%= @favorite.id %>").remove()
+<% else %>
+  $.toaster({ message : '<%= t("admin.fail") %>', priority : 'danger' });
+<% end %>

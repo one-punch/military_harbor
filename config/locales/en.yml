@@ -38,10 +38,15 @@ en:
   print: 打 印
   question: 试 卷
   analyze: 详 解
+  favorite: 收 藏
+  course: 课 程
+  category: 类 目
+  are_you_sure: 此操作无法恢复，是否执行？
   admin:
     new: 新 建
     add: 增 添
     success: 操作成功
+    fail: 操作失败
     category:
       search: 在此类目中搜索
 

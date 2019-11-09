@@ -1,0 +1,11 @@
+<% if @success %>
+  $.toaster({ message : '<%= @message %>', priority : 'success' });
+  $span = $("#<%= params[:element] %>").find("span")
+  if($span.hasClass("glyphicon-star-empty")){
+    $span.removeClass("glyphicon-star-empty").addClass("glyphicon-star")
+  }else if($span.hasClass("glyphicon-star")){
+    $span.removeClass("glyphicon-star").addClass("glyphicon-star-empty")
+  }
+<% else %>
+  $.toaster({ message : '<%= @message %>', priority : 'danger' });
+<% end %>
