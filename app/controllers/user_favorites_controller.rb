@@ -1,7 +1,7 @@
 class UserFavoritesController < ApplicationController
 
   def index
-    @favorites = current_user.user_favorites.preload(:item).page(params[:page]).per(params[:per] || 1)
+    @favorites = current_user.user_favorites.preload(:item).page(params[:page]).per(params[:per] || 24)
   end
 
   def create
