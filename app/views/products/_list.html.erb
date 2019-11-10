@@ -1,0 +1,19 @@
+<section class="courses archives section">
+   <% @products.each_slice(3) do |group| %>
+    <div class="row">
+     <% group.each do |product| %>
+        <% if @category %>
+          <div class="col-lg-4 col-md-4 col-12">
+            <%= render 'products/product', product: product %>
+          </div>
+        <% else %>
+          <% if product.allow_checkout? %>
+            <div class="col-lg-4 col-md-4 col-12">
+              <%= render 'products/product', product: product %>
+            </div>
+          <% end %>
+        <% end %>
+     <% end %>
+    </div>
+  <% end %>
+</section>

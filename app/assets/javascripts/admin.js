@@ -90,7 +90,6 @@ $(function(){
       data: function (params) {
         var query = {
           q: params.term,
-          type: 'public',
           page: params.page || 1
         }
 

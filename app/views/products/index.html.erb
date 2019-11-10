@@ -38,25 +38,7 @@
     <% end %>
     <%= render_async product_filters_path(@category.id) if @category %>
 
-    <section class="courses archives section">
-      <div class="row">
-       <% @products.each_slice(3) do |group| %>
-        <div class="row">
-         <% group.each do |product| %>
-          <div class="col-lg-4 col-md-4 col-12">
-            <% if @category %>
-              <%= render 'products/product', product: product %>
-            <% else %>
-              <% if product.allow_checkout? %>
-                <%= render 'products/product', product: product %>
-              <% end %>
-            <% end %>
-           </div>
-         <% end %>
-        </div>
-      <% end %>
-    </section>
-
+    <%= render "list" %>
   </div>
 </div>
 
