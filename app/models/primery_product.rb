@@ -59,7 +59,7 @@ class PrimeryProduct < ApplicationRecord
   end
 
   def default_image(format=:thumb)
-    product_images(format).first || "#{Picture::BASE_URL}/image/PCS.jpg"
+    product_images(format).first || "/img/course#{rand(1..3)}.jpg"
   end
 
   def detail_content
