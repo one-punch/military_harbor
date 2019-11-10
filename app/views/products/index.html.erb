@@ -39,20 +39,18 @@
     <%= render_async product_filters_path(@category.id) if @category %>
 
     <section class="courses archives section">
-      <div class="container">
-        <div class="row">
-         <% @products.each do |product| %>
-          <div class="col-lg-3 col-md-3 col-12">
-            <% if @category %>
+      <div class="row">
+       <% @products.each do |product| %>
+        <div class="col-lg-4 col-md-4 col-12">
+          <% if @category %>
+            <%= render 'products/product', product: product %>
+          <% else %>
+            <% if product.allow_checkout? %>
               <%= render 'products/product', product: product %>
-            <% else %>
-              <% if product.allow_checkout? %>
-                <%= render 'products/product', product: product %>
-              <% end %>
             <% end %>
-           </div>
-         <% end %>
-        </div>
+          <% end %>
+         </div>
+       <% end %>
       </div>
     </section>
 
