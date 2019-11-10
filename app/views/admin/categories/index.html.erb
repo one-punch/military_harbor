@@ -5,7 +5,7 @@
   <h1>类目管理</h1>
 </div>
 
-<%= render 'categories', categories: @categories if @categories.present? %>
+<%= render('categories', categories: @categories, subtree: true) if @categories.present? %>
 
 <div class="pull-right">
   <%= paginate @categories %>

@@ -3,7 +3,12 @@ class Admin::CategoriesController < Admin::ApplicationController
 
 
   def index
-    @categories = Category.roots.page(params[:page])
+    if params[:id]
+      root = Category.find params[:id]
+      @categories = Category.where(ancestry: "#{root.ancestry}/#{root.id}").page(params[:page])
+    else
+      @categories = Category.roots.page(params[:page])
+    end
   end
 
   def show
@@ -47,7 +52,7 @@ class Admin::CategoriesController < Admin::ApplicationController
       category.save
     end
 
-    render body: nil
+    render
   end
 
   private
