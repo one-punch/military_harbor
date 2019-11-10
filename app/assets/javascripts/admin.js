@@ -11,6 +11,8 @@
 //= require simditor
 //= require jsviews/jsrender.min
 //= require select2/js/select2.full.min
+//= require jquery.toaster/jquery.toaster.js
+
 
 function add_fields(link, association, content) {
   console.log($(link).parent())
@@ -51,17 +53,12 @@ function formatRepoSelection (repo) {
 
 $(function(){
   _Console = function(){
-    this.tmpl = $.templates("#alert");
   }
 
   window.Console = new _Console()
 
   _Console.prototype.alert = function(key, val){
-    var html = this.tmpl.render({
-      key: key,
-      value: val
-    });
-    $("#main").prepend(html)
+    $.toaster({ message : val, priority : key });
   }
 
   _Console.prototype.alertSuccess = function(val){

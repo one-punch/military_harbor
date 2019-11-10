@@ -20,4 +20,3 @@
 //= require viewer/pdfjs/pdf.worker
 //= require jquery.toaster/jquery.toaster.js
 //= require viewer/viewer
-//= require html2canvas/v1.0.0-rc.5/html2canvas.min
