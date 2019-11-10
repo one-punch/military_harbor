@@ -1,18 +1,21 @@
-<div class="thumbnail">
-  <%= link_to product_path(product.id, product.name) do %>
-    <%= image_tag(product.default_image(:thumb), class: "img-responsive") %>
-  <% end %>
 
-  <div class="caption">
-    <%= link_to truncate(product.name, length: 50), product_path(product.id, product.name || "default") %>
-    <p><%= product.sku %></p>
-    <h4 class="pull-right">
-      <%= product.currency_price %>
-    </h4>
-    <p>
-    <% if product.is_sku? %>
-      <%= product.entity.property_info %>
-    <% end %>
-    </p>
-  </div>
+<div class="single-course">
+  <%= link_to product_path(product.id, product.name) do %>
+    <div class="course-head overlay">
+      <%= image_tag(product.default_image(:thumb), class: "img-responsive") %>
+    </div>
+    <div class="single-content">
+      <h4>
+        <%= truncate(product.name, length: 50) %>
+      </h4>
+      <!-- <p>Vivamus volutpat eros pulvinar velit laoreet, sit amet egestas erat dignissim. Lorem ipsum dolor sit amet, consecteturadipiscing elit aenean </p> -->
+    </div>
+    <div class="course-meta">
+      <div class="meta-left">
+        <!-- <span><i class="fa fa-users"></i>36 Seat</span> -->
+        <!-- <span><i class="fa fa-clock-o"></i>2 Years</span> -->
+      </div>
+      <span class="price"><%= product.currency_price %></span>
+    </div>
+  <% end %>
 </div>
