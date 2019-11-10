@@ -3,7 +3,7 @@ class Admin::CategoriesController < Admin::ApplicationController
 
 
   def index
-    per = params[:per].present? ? params[:per].to_i : 4
+    per = params[:per].present? ? params[:per].to_i : 24
     if params[:id]
       root = Category.find params[:id]
       @categories = Category.where(ancestry: "#{root.ancestry}/#{root.id}").page(params[:page]).per(per)
