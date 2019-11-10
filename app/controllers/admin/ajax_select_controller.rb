@@ -4,12 +4,21 @@ class Admin::AjaxSelectController < Admin::ApplicationController
     page = params[:page] ? params[:page].to_i : 1
     per = params[:per] ? params[:per].to_i : 24
     if params[:q].present?
-      @categories = Category.where(is_leaf: true).where("name LIKE ?", "%#{params[:q].strip}%").page(page).per(per)
+      @categories = Category.all
+      if params[:is_leaf].present? && params[:is_leaf] == "0"
+        @categories = @categories.where(is_leaf: false)
+      else
+        @categories = @categories.where(is_leaf: true)
+      end
+      @categories = @categories.where("name LIKE ?", "%#{params[:q].strip}%").page(page).per(per)
     else
       @categories = Kaminari.paginate_array([], total_count: 1).page(1).per(1)
     end
     @options = @categories.map {|category| {text: category.path.map(&:name).join(" > "), id: category.id } }
 
+    if params[:is_leaf].present? && params[:is_leaf] == "0"
+      @options = @options.unshift({ text: '一级类目', id:  nil })
+    end
     render json: {
         code: 0,
         message: "success",

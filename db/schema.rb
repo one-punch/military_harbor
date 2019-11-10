@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20191109094937) do
+ActiveRecord::Schema.define(version: 20191110124352) do
 
   create_table "attachments", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer "source_id", null: false
@@ -43,7 +43,7 @@ ActiveRecord::Schema.define(version: 20191109094937) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "position"
-    t.boolean "is_leaf"
+    t.boolean "is_leaf", default: false
     t.index ["active"], name: "index_categories_on_active"
     t.index ["ancestry_depth"], name: "index_categories_on_ancestry_depth"
     t.index ["is_leaf"], name: "index_categories_on_is_leaf"

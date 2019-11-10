@@ -76,6 +76,7 @@ $(function(){
   $('.select2').select2({
     placeholder: 'Search for a repository',
     minimumInputLength: 2,
+    allowClear: true,
     templateResult: formatRepo,
     templateSelection: formatRepoSelection,
     ajax: {

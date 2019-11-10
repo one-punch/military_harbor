@@ -15,9 +15,7 @@
 <div class="form-group">
   <%= f.label '选择分类级别' %>
   <%= f.select :parent_id,
-    options_for_select(Category.select {|category| category.products.blank? }.map {|category|[category.path.map(&:name).join(" > "), category.id]}.unshift(['一级类目', nil]), @category.parent_id),
-    {}, class: "form-control" %>
+    options_for_select((@category.parent_id ? [[@category.parent.name, @category.parent.id]] : []), @category.parent_id), {include_blank: false}, data: {path: category_admin_ajax_select_index_path(is_leaf: 0, not_in: @category.id)}, class: "form-control select2"  %>
 </div>
-
 
 <%= f.submit "保存", {class: "btn btn-primary"} %>
