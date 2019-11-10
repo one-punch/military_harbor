@@ -8,14 +8,14 @@
     <div class="col-lg-6 col-sm-12">
       <div class="form-group">
         <%= f.label :user_id, '用户' %>
-        <%= f.select :user_id, options_for_select(User.pluck_for_select, params[:user_id]), {include_blank: false}, class: "form-control" %>
+        <%= f.select :user_id, options_for_select([], params[:user_id]), {include_blank: false}, data: {path: user_admin_ajax_select_index_path}, class: "form-control select2" %>
       </div>
     </div>
     <div class="col-lg-6 col-sm-12">
       <div class="form-group">
         <label for="product_id">课程套餐</label>
         <%= f.label :product_id, "课程套餐" %>
-        <%= select_tag :product_id, options_for_select(Product.pluck_for_select, params[:product_id]), include_blank: false, class: "form-control" %>
+        <%= select_tag :product_id, options_for_select([], params[:product_id]), include_blank: false, data: {path: product_admin_ajax_select_index_path}, class: "form-control select2" %>
       </div>
     </div>
   </div>

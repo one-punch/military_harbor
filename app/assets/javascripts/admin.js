@@ -83,7 +83,9 @@ $(function(){
     templateSelection: formatRepoSelection,
     ajax: {
       delay: 250,
-      url: '/admin/ajax_select/category',
+      url: function (params) {
+        return $(this).data("path")
+      },
       dataType: 'json',
       data: function (params) {
         var query = {

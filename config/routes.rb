@@ -77,6 +77,8 @@ Rails.application.routes.draw do
     resources :ajax_select do
       collection do
         get :category
+        get :product
+        get :user
       end
     end
 
