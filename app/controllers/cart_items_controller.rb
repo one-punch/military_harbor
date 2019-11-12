@@ -49,6 +49,7 @@ class CartItemsController < ApplicationController
     else
       @product = @product.becomes(Variant)
     end
+    @had = can_read?(@product)
     @exists = current_cart.cart_items.where("cart_items.product_id" => @product.id).exists?
     render partial: "info"
   end
