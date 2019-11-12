@@ -1,0 +1,6 @@
+<% if @add_item %>
+  $("#<%= params[:element_id] %>").html("<%= t('canncel') %>")
+<% elsif @destroy %>
+  $("#<%= params[:element_id] %>").html("<%= t('pre_buy') %>")
+<% end %>
+Console.alertSuccess("<%= t('admin.success') %>")

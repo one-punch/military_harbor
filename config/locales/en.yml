@@ -34,7 +34,7 @@ en:
   full_title: 壹品书吧
   home: 主页
   product:
-    view: "查 看"
+    view: 查 看
   print: 打 印
   question: 试 卷
   analyze: 详 解
@@ -42,6 +42,10 @@ en:
   course: 课 程
   category: 类 目
   are_you_sure: 此操作无法恢复，是否执行？
+  canncel: 取 消
+  pre_buy: 预 购
+  course_list: 课程列表
+  continue_shopping: 回到主页
   admin:
     new: 新 建
     add: 增 添

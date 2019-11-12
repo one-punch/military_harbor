@@ -30,6 +30,29 @@ class CartItemsController < ApplicationController
     end
   end
 
+  def toggle
+    if (item = current_cart.cart_items.where("cart_items.product_id" => item_params[:product_id]).last)
+      @destroy = item.destroy
+    else
+      @cart = current_cart
+      cart_item = @cart.add_item item_params
+      @add_item = cart_item.save
+    end
+  end
+
+  def info
+    @product = PrimeryProduct.find params[:id]
+    if @product.is_virtual?
+      @product = @product.becomes(VirtualProduct)
+    elsif  @product.is_master?
+      @product = @product.becomes(Product)
+    else
+      @product = @product.becomes(Variant)
+    end
+    @exists = current_cart.cart_items.where("cart_items.product_id" => @product.id).exists?
+    render partial: "info"
+  end
+
   private
 
   def find_item

@@ -1,0 +1,11 @@
+<%= hidden_field_tag('cart_item[product_id]', @product.id) %>
+<% id = SecureRandom.hex %>
+<%= hidden_field_tag('element_id', id) %>
+
+<button id="<%= id %>" class="btn btn-default" type="submit">
+<% if @exists %>
+  <%= t("canncel") %>
+<% else %>
+  <%= t("pre_buy") %>
+<% end %>
+</button>

@@ -32,7 +32,15 @@ Rails.application.routes.draw do
   get '/profile',  to: 'users#profile'
   get '/settings', to: 'users#settings'
 
-  resources :cart_items, only: [:create, :update, :destroy]
+  resources :cart_items, only: [:create, :update, :destroy] do
+    collection do
+      post 'toggle', to: 'cart_items#toggle'
+    end
+
+    member do
+      get 'info', to: 'cart_items#info'
+    end
+  end
 
   resources :orders
 

@@ -10,12 +10,16 @@
       </h4>
       <!-- <p>Vivamus volutpat eros pulvinar velit laoreet, sit amet egestas erat dignissim. Lorem ipsum dolor sit amet, consecteturadipiscing elit aenean </p> -->
     </div>
+  <% end %>
     <div class="course-meta">
       <div class="meta-left">
-        <!-- <span><i class="fa fa-users"></i>36 Seat</span> -->
+        <%= form_tag(toggle_cart_items_path, method: :POST, remote: true) do %>
+          <%= render_async info_cart_item_path(product.id) %>
+        <% end %>
         <!-- <span><i class="fa fa-clock-o"></i>2 Years</span> -->
       </div>
-      <span class="price"><%= product.currency_price %></span>
+      <%= link_to product_path(product.id, product.name) do %>
+        <span class="price"><%= product.currency_price %></span>
+      <% end %>
     </div>
-  <% end %>
 </div>

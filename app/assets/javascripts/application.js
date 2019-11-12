@@ -20,3 +20,28 @@
 //= require viewer/pdfjs/pdf.worker
 //= require jquery.toaster/jquery.toaster.js
 //= require viewer/viewer
+
+
+
+$(function(){
+  _Console = function(){
+  }
+
+  window.Console = new _Console()
+
+  _Console.prototype.alert = function(key, val){
+    $.toaster({ message : val, priority : key });
+  }
+
+  _Console.prototype.alertSuccess = function(val){
+    Console.alert("success", val)
+  };
+
+  _Console.prototype.alertError = function(val){
+    Console.alert("danger", val)
+  };
+
+  _Console.prototype.alertWarning = function(val){
+    Console.alert("warning", val)
+  };
+})
