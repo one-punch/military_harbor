@@ -25,16 +25,30 @@
       </div>
 
       <div class="col-md-6">
-        <%= form_tag(cart_items_path) do %>
-          <%= hidden_field_tag('cart_item[product_id]', @product.id) %>
           <h3><%= @product.currency_price %></h3>
-
           <span>Store Item Number: <%= @product.sku %></span>
-          <br>
-
           <%= varirants_selector @product %>
 
-          <%= favorites(@product) %>
+          <div class="row">
+            <div class="col-md-6">
+              <%= favorites(@product) %>
+            </div>
+            <div class="col-md-6">
+              <%= form_tag(toggle_cart_items_path, method: :POST, remote: true) do %>
+                <%= render_async info_cart_item_path(@product.id) %>
+              <% end %>
+            </div>
+          </div>
+        <%#= form_tag(cart_items_path) do %>
+          <%#= hidden_field_tag('cart_item[product_id]', @product.id) %>
+          <!-- <h3><%#= @product.currency_price %></h3> -->
+
+          <!-- <span>Store Item Number: <%#= @product.sku %></span> -->
+          <!-- <br> -->
+
+          <%#= varirants_selector @product %>
+
+          <%#= favorites(@product) %>
 
           <!-- <label>Quantity</label> -->
           <%#= number_field_tag 'cart_item[quantity]', 1, class: 'form-control', min: 1, max: 20 %>
@@ -46,7 +60,7 @@
               </div>
             </div> -->
           <%# end %>
-        <% end %>
+        <%# end %>
       </div>
     </div>
 
