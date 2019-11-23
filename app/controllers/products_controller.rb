@@ -54,7 +54,7 @@ class ProductsController < ApplicationController
     if params[:q]
       if params[:q].include?(",")
         params[:q].split(",").each do |q|
-          @children = @cchildren.where('lower(name) LIKE ? ', "%#{q.downcase}%")
+          @children = @children.where('lower(name) LIKE ? ', "%#{q.downcase}%")
         end
       else
         @children = @children.where('lower(name) LIKE ? ', "%#{params[:q].downcase}%")
