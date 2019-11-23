@@ -6,4 +6,8 @@ class Grade < ApplicationRecord
     "high" => 3
   }
 
+  def group_name
+    Grade::GROUP.invert[group_id]
+  end
+
 end
