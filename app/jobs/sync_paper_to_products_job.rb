@@ -8,7 +8,7 @@ class SyncPaperToProductsJob < ApplicationJob
     @papers = Paper.find_by_sql %Q{
       SELECT DISTINCT papers.* from papers
       LEFT JOIN products ON papers.id = products.paper_id
-      WHERE products.id IS NULL
+      WHERE products.id IS NULL AND papers.name IS NOT NULL
     }
     mats = {}
     cours = {}
