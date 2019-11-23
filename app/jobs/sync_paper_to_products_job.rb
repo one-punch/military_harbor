@@ -28,8 +28,8 @@ class SyncPaperToProductsJob < ApplicationJob
         cours[mat.proto_course_id] = cour
       end
       subject = Category.where(ancestry: cour.grade.id, ancestry_depth: 1, name: cour.subject.name).take
-      course = subject.children.where(name: cour.name).first_or_create(ancestry_depth: 2)
-      material = course.children.where(name: mat.name).first_or_create(ancestry_depth: 3, position: mat.number)
+      course = subject.children.where(name: cour.name).first_or_create(ancestry_depth: 2, is_leaf: false)
+      material = course.children.where(name: mat.name).first_or_create(ancestry_depth: 3, position: mat.number, is_leaf: true)
 
       product = init_product(paper, material)
       init_variant(paper, material, product)
@@ -37,7 +37,6 @@ class SyncPaperToProductsJob < ApplicationJob
       else
         @logger.error(product.errors.full_messages.join("; "))
       end
-      break
     end
   end
 

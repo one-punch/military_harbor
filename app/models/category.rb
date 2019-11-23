@@ -26,7 +26,10 @@ class Category < ApplicationRecord
   end
 
   def reset_is_leaf
-    self.is_leaf = self.is_childless?
+    return if new_record?
+    if self.is_leaf != self.is_childless?
+      update_columns(is_leaf: is_childless?)
+    end
   end
 
 end

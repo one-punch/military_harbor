@@ -1,13 +1,12 @@
 class Api::ClassPapersController < Api::ApplicationController
 
   def create
-      case params[:code]
-      when "course"
-        course
-      when "papers"
-        paper
-      end
-
+    case params[:code]
+    when "course"
+      course
+    when "papers"
+      paper
+    end
   end
 
 
