@@ -43,7 +43,7 @@
       </div>
     </div>
     <% end %>
-    <%= render_async product_filters_path(@category.id) if @category %>
+    <%= render_async product_filters_path(@category.id, q: params[:q]) if @category %>
 
     <%= render "list" %>
   </div>
