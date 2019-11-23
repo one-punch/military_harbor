@@ -1,4 +1,4 @@
-<% if @category && @children %>
+<% if @category && @children.present? %>
   <div class="sub-category">
     <div class="row">
       <% @children.each do |category| %>

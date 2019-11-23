@@ -50,15 +50,14 @@ class ProductsController < ApplicationController
 
   def filters
     @category = Category.find(params[:category_id])
+    @children = @category.children.actived
     if params[:q]
-      if @category.has_children?
-        if params[:q].include?(",")
-          params[:q].split(",").each do |q|
-            @children = @category.children.actived.where('lower(name) LIKE ? ', "%#{q.downcase}%")
-          end
-        else
-          @children = @category.children.actived.where('lower(name) LIKE ? ', "%#{params[:q].downcase}%")
+      if params[:q].include?(",")
+        params[:q].split(",").each do |q|
+          @children = @cchildren.where('lower(name) LIKE ? ', "%#{q.downcase}%")
         end
+      else
+        @children = @children.where('lower(name) LIKE ? ', "%#{params[:q].downcase}%")
       end
     end
     render partial: "filters"
