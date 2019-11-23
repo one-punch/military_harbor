@@ -8,7 +8,15 @@ class ProductsController < ApplicationController
     else
       @products = PrimeryProduct.where(active: true)
     end
-    @products = @products.where('lower(name) LIKE ? ', "%#{params[:q].downcase}%").or(@products.where('lower(sku) LIKE ? ', "%#{params[:q].downcase}%")) if params[:q]
+    if params[:q]
+      if params[:q].include?(",")
+        params[:q].split(",").each do |q|
+          @products = @products.where('lower(name) LIKE ? ', "%#{q.downcase}%").or(@products.where('lower(sku) LIKE ? ', "%#{q}%"))
+        end
+      else
+        @products = @products.where('lower(name) LIKE ? ', "%#{params[:q].downcase}%").or(@products.where('lower(sku) LIKE ? ', "%#{params[:q].downcase}%"))
+      end
+    end
     @products = @products.page(params[:page]).per(24)
   end
 

@@ -20,6 +20,7 @@
 //= require viewer/pdfjs/pdf.worker
 //= require jquery.toaster/jquery.toaster.js
 //= require viewer/viewer
+//= require choices/choices.min
 
 
 

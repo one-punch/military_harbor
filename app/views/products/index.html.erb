@@ -25,13 +25,20 @@
   <div class="col-md-9">
     <% if @category && @category.ancestry_depth.to_i >= 1 %>
     <div class="row">
-      <div class="col-md-3">
+      <div class="col-md-1">
         <%= favorites(@category) %>
       </div>
-      <div class="col-md-offset-6 col-md-3">
+      <div class="col-md-offset-2 col-md-9">
         <%= form_tag(products_path, method: :get) do %>
           <%= hidden_field_tag(:category_id, @category.id) %>
-          <%= text_field_tag :q, params[:q], class: 'form-control', placeholder: t("admin.category.search") %>
+          <div class="row">
+            <div class="col-md-9">
+               <%= text_field_tag :q, params[:q], id: "search-keys", placeholder: t("admin.category.search") %>
+            </div>
+            <div class="col-md-3">
+            <button type="submit" class="btn btn-primary"><%= t("admin.category.search") %></button>
+            </div>
+          </div>
         <% end %>
       </div>
     </div>
@@ -46,3 +53,18 @@
   <%= paginate @products %>
 </div>
 
+
+<script type="text/javascript">
+$(function(){
+  new Choices(
+    document.getElementById('search-keys'),
+    {
+      delimiter: ',',
+      editItems: true,
+      maxItemCount: 5,
+      removeItemButton: true,
+      duplicateItemsAllowed: false
+    }
+  );
+})
+</script>
