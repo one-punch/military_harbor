@@ -1,12 +1,14 @@
 class ExamPaperElement < ApplicationRecord
   belongs_to :paper, primary_key: "proto_id", foreign_key: "proto_paper_id"
 
+  belongs_to  :question, primary_key: "proto_id", foreign_key: "proto_question_id"
+
   serialize :hideMainIdList, JSON
   serialize :hideQueIdList, JSON
-  serialize :question, JSON
+  # serialize :question, JSON
   serialize :attrs, JSON
 
-  delegate :content, :answerOptionList, :answer, :childList, :analysis, to: :question_man, prefix: true, allow_nil: true
+  delegate :content, :answer_options, :answer, :childList, :analysis, to: :question_man, prefix: true, allow_nil: true
   # delegate :name, :student_version, :teacher_version, to: :paper, prefix: true, allow_nil: true
 
 
@@ -23,7 +25,7 @@ class ExamPaperElement < ApplicationRecord
   end
 
   def question_man
-     @q ||= Hashie::Mash.new(question)
+    question
   end
 
 

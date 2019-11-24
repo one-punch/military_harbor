@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20191110124352) do
+ActiveRecord::Schema.define(version: 20191124131538) do
 
   create_table "attachments", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer "source_id", null: false
@@ -65,6 +65,14 @@ ActiveRecord::Schema.define(version: 20191110124352) do
     t.index ["type_name"], name: "index_courses_on_type_name"
   end
 
+  create_table "exam_paper_element_questions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "proto_exam_paper_element_id", null: false
+    t.string "proto_question_id", null: false
+    t.integer "number", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "exam_paper_elements", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "proto_id", null: false
     t.string "proto_paper_id", null: false
@@ -82,14 +90,18 @@ ActiveRecord::Schema.define(version: 20191110124352) do
     t.string "contentTypeCode"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "proto_question_id"
     t.index ["proto_id"], name: "index_exam_paper_elements_on_proto_id"
     t.index ["proto_paper_id"], name: "index_exam_paper_elements_on_proto_paper_id"
+    t.index ["proto_question_id"], name: "index_exam_paper_elements_on_proto_question_id"
   end
 
   create_table "grades", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "group_id"
+    t.index ["group_id"], name: "index_grades_on_group_id"
   end
 
   create_table "materials", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -208,6 +220,48 @@ ActiveRecord::Schema.define(version: 20191110124352) do
     t.integer "product_id", null: false
     t.string "name", null: false
     t.integer "position", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "questions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string "proto_id", null: false
+    t.string "proto_parent_id"
+    t.string "proto_root_id"
+    t.integer "subject_id", default: 0, null: false
+    t.integer "grade_group_id", default: 1, null: false
+    t.integer "logic_ques_type_id"
+    t.integer "difficulty", default: 0
+    t.string "written_ques_type_id"
+    t.string "written_ques_type_name"
+    t.text "content"
+    t.text "answer"
+    t.text "analysis"
+    t.boolean "deleted", default: false, null: false
+    t.text "organization_list"
+    t.string "keyword"
+    t.string "video_url"
+    t.string "voice_text"
+    t.string "translated_text"
+    t.string "que_desc"
+    t.string "que_preview_url"
+    t.string "order_id"
+    t.boolean "is_analysis", default: false
+    t.integer "answer_type"
+    t.boolean "is_decidable", default: true
+    t.string "blank_answer"
+    t.string "bx_answer"
+    t.integer "degree"
+    t.text "option_analysis_list"
+    t.text "option_difficulty_list"
+    t.text "answer_option_list"
+    t.text "question_source_list"
+    t.text "exam_option_list"
+    t.text "option_exam_option_list"
+    t.text "que_source"
+    t.boolean "duplicate_flag", default: false
+    t.boolean "deprecated", default: false
+    t.boolean "is_have_analysis", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

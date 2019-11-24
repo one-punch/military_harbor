@@ -43,10 +43,10 @@
                 <%= el.question_man_content&.html_safe %>
               </div>
               <%= sub_question(el.question_man_childList) %>
-
-              <% if el.question_man_answerOptionList %>
+              <%# binding.pry %>
+              <% if el.question_man_answer_options.present? %>
               <div class="talqs_options clearfix">
-                <% el.question_man_answerOptionList.each_with_index do |answer, idx| %>
+                <% el.question_man_answer_options.each_with_index do |answer, idx| %>
                   <ul class="talqs_options_list talqs_options_list_4 talqs_layout_complete">
                       <li class="talqs_options_rows clearfix">
                         <ul class="talqs_options_columns_1 clearfix">
@@ -100,9 +100,9 @@
                       <% end %>
                     </div>
                   <% end %>
-                  <% if el.question_man.optionAnalysisList %>
+                  <% if el.question_man.option_analysises %>
                     <div class="talqs_panel">
-                      <% el.question_man.optionAnalysisList.each do |analyze| %>
+                      <% el.question_man.option_analysises.each do |analyze| %>
                         <div class="talqs_analyze_item">
                           <div class="talqs_analyze_item_index">
                             <%= analyze.code %>
