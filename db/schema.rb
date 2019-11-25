@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20191124131538) do
+ActiveRecord::Schema.define(version: 20191125054638) do
 
   create_table "attachments", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer "source_id", null: false
@@ -63,14 +63,6 @@ ActiveRecord::Schema.define(version: 20191124131538) do
     t.index ["proto_id"], name: "index_courses_on_proto_id", unique: true
     t.index ["subject_id"], name: "index_courses_on_subject_id"
     t.index ["type_name"], name: "index_courses_on_type_name"
-  end
-
-  create_table "exam_paper_element_questions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string "proto_exam_paper_element_id", null: false
-    t.string "proto_question_id", null: false
-    t.integer "number", default: 0
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "exam_paper_elements", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -249,8 +241,8 @@ ActiveRecord::Schema.define(version: 20191124131538) do
     t.boolean "is_analysis", default: false
     t.integer "answer_type"
     t.boolean "is_decidable", default: true
-    t.string "blank_answer"
-    t.string "bx_answer"
+    t.text "blank_answer"
+    t.text "bx_answer"
     t.integer "degree"
     t.text "option_analysis_list"
     t.text "option_difficulty_list"
@@ -264,6 +256,12 @@ ActiveRecord::Schema.define(version: 20191124131538) do
     t.boolean "is_have_analysis", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "number", default: 0
+    t.index ["number"], name: "index_questions_on_number"
+    t.index ["proto_id"], name: "index_questions_on_proto_id", unique: true
+    t.index ["proto_parent_id"], name: "index_questions_on_proto_parent_id"
+    t.index ["proto_root_id"], name: "index_questions_on_proto_root_id"
+    t.index ["subject_id"], name: "index_questions_on_subject_id"
   end
 
   create_table "shippers", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|

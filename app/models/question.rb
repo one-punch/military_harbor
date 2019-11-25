@@ -2,7 +2,7 @@ class Question < ApplicationRecord
   has_many    :exam_paper_elements,  primary_key: "proto_id", foreign_key: "proto_question_id"
   belongs_to  :parent, class_name: "Question", optional: true, primary_key: "proto_id", foreign_key: "proto_parent_id"
   belongs_to  :root, class_name: "Question", optional: true, primary_key: "proto_id", foreign_key: "proto_root_id"
-  has_many    :childList, class_name: "Question", primary_key: "proto_id", foreign_key: "proto_parent_id"
+  has_many    :childList, -> { order 'questions.number ASC' } ,class_name: "Question", primary_key: "proto_id", foreign_key: "proto_parent_id"
 
   serialize :answer, JSON
   serialize :analysis, JSON

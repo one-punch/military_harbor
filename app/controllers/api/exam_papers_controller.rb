@@ -76,6 +76,7 @@ module Api
 
     def exam_element
       error_elements = []
+      @subjects = Subject.all
       exam_paper_params[:paper][:elementList].each do |element_params|
         element = ExamPaperElement.where(proto_id: element_params[:id]).first_or_initialize(
           proto_paper_id: element_params[:paperId],
@@ -89,17 +90,30 @@ module Api
           queTypeName: element_params[:queTypeName],
           hideMainIdList: element_params[:hideMainIdList],
           hideQueIdList: element_params[:hideQueIdList],
-          question: element_params[:question],
+          # question: element_params[:question],
           contentTypeCode: element_params[:contentTypeCode])
         if element.new_record? && element.save
+          if (ques = element_params[:question]).present?
+            subject = @subjects.find{|sub| sub.name == ques["subjectName"] }
+            exam_question(subject, element, ques)
+          end
         else
           error_elements << element
         end
       end
       if error_elements.present?
         Rails.logger.error(error_elements.map{|p| p.errors.full_messages.join(";")}.join(". ") )
+        render :json => {code: 1, message: "fail"}.to_json, :callback => params['callback']
       else
         render :json => {code: 0, message: "success"}.to_json, :callback => params['callback']
+      end
+    end
+
+    def exam_question(subject, element, ques)
+      question_service = QuestionService.new(element, subject, ques)
+      question_service.exec
+      unless question_service.success?
+        Rails.logger.error("element: #{element.id} fail, detail: #{question_service.message}")
       end
     end
 
