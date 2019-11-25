@@ -43,7 +43,6 @@
                 <%= el.question_man_content&.html_safe %>
               </div>
               <%= sub_question(el.question_man_childList) %>
-              <%# binding.pry %>
               <% if el.question_man_answer_options.present? %>
               <div class="talqs_options clearfix">
                 <% el.question_man_answer_options.each_with_index do |answer, idx| %>
