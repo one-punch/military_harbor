@@ -43,26 +43,7 @@
                 <%= el.question_man_content&.html_safe %>
               </div>
               <%= sub_question(el.question_man_childList) %>
-              <% if el.question_man_answer_options.present? %>
-              <div class="talqs_options clearfix">
-                <% el.question_man_answer_options.each_with_index do |answer, idx| %>
-                  <ul class="talqs_options_list talqs_options_list_4 talqs_layout_complete">
-                      <li class="talqs_options_rows clearfix">
-                        <ul class="talqs_options_columns_1 clearfix">
-                          <% answer.each do |opt| %>
-                            <li class="talqs_options_columns_item clearfix">
-                              <span class="talqs_options_label"><%= opt.aoVal %>. </span>
-                              <div class="talqs_options_content">
-                                <%= opt.content&.html_safe %>
-                              </div>
-                            </li>
-                          <% end %>
-                        </ul>
-                      </li>
-                  </ul>
-                <% end %>
-              </div>
-              <% end %>
+              <%= answer_options(el.question_man_answer_options) %>
             </div>
 
             <div class="talqs_analyze_group">
