@@ -31,6 +31,7 @@ module PapersHelper
           <div class="talqs_content clearfix">
             #{child.content}
           </div>
+          #{answer_options(child.answer_option_list) if child.answer_option_list.present? }
           #{sub_question(child.childList) if child.childList.present? }
       </div>}.strip
     end
@@ -39,6 +40,36 @@ module PapersHelper
         #{html.join.strip}
       </div>
     }.strip.html_safe
+  end
+
+  def sub_answer_options(answer)
+    return unless answer.present?
+    html = answer.map do |opt|
+      %Q{<li class="talqs_options_columns_item clearfix">
+        <span class="talqs_options_label">#{opt.aoVal}. </span>
+        <div class="talqs_options_content">
+          #{opt.content}
+        </div>
+      </li>}
+    end
+    html.join.strip
+  end
+
+  def answer_options(answer_options)
+    if answer_options.present?
+      html = answer_options.map do |answer|
+            %Q{<ul class="talqs_options_list talqs_options_list_4 talqs_layout_complete">
+                <li class="talqs_options_rows clearfix">
+                  <ul class="talqs_options_columns_1 clearfix">
+                    #{ sub_answer_options(answer) if answer.present? }
+                  </ul>
+                </li>
+            </ul>}
+          end
+      %Q{<div class="talqs_options clearfix">
+        #{html.join.strip}
+      </div>}.strip.html_safe
+    end
   end
 
   def sub_answer(childList)
