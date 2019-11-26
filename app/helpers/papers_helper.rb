@@ -31,7 +31,7 @@ module PapersHelper
           <div class="talqs_content clearfix">
             #{child.content}
           </div>
-          #{answer_options(child.answer_option_list) if child.answer_option_list.present? }
+          #{answer_options(child.answer_options) if child.answer_option_list.present? }
           #{sub_question(child.childList) if child.childList.present? }
       </div>}.strip
     end
