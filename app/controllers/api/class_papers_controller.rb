@@ -43,7 +43,7 @@ class Api::ClassPapersController < Api::ApplicationController
               ""
             end
             next unless p[:name].present?
-            Paper.where(proto_id: p[:id]).first_or_create name: p[:name], proto_material_id: mater_params[:id], student: p[:downloads][:student], teacher: p[:downloads][:teacher], type_name: type, number: i, path: paper_path(material, clo)
+            Paper.where(proto_id: p[:id]).first_or_create name: p[:name], proto_material_id: mater_params[:id], student: p[:downloads][:student], teacher: p[:downloads][:teacher], type_name: type, number: i, path: prefix_paper(material, clo)
         end
       end
     end

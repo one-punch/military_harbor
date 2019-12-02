@@ -55,7 +55,7 @@ module ApplicationHelper
     end
   end
 
-  def paper_path(material, type_clo)
+  def prefix_paper(material, type_clo)
     course = material.course
     subject = course.subject
     grade = course.grade
