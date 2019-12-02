@@ -54,4 +54,18 @@ module ApplicationHelper
       format.any  { head 404 }
     end
   end
+
+  def paper_path(material, type_clo)
+    course = material.course
+    subject = course.subject
+    grade = course.grade
+    year = course.attrs["year"] || "all"
+    textBookName = course.attrs["textBookName"].present? ? course.attrs["textBookName"] : "通用版"
+    diffName = course.attrs["diffName"].present? ? course.attrs["diffName"] : "公用"
+
+    # 2019/高三/物理/人教版/腾飞课程/2019广州高三物理寒假人教版(腾飞课程)-（原A版）/功能关系/6/explainPapers
+
+    "#{year}/#{grade.name}/#{subject.name}/#{textBookName}/#{diffName}/#{course.name}/#{material.name}/#{material.number}/#{type_clo}"
+  end
+
 end
