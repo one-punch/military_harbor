@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20191125054638) do
+ActiveRecord::Schema.define(version: 20200102090747) do
 
   create_table "attachments", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer "source_id", null: false
@@ -59,6 +59,7 @@ ActiveRecord::Schema.define(version: 20191125054638) do
     t.datetime "updated_at", null: false
     t.integer "grade_group_id", null: false
     t.string "type_name", default: "教材"
+    t.string "proto_parent_id"
     t.index ["grade_id"], name: "index_courses_on_grade_id"
     t.index ["proto_id"], name: "index_courses_on_proto_id", unique: true
     t.index ["subject_id"], name: "index_courses_on_subject_id"
@@ -104,6 +105,7 @@ ActiveRecord::Schema.define(version: 20191125054638) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.text "attrs"
+    t.string "proto_parent_id"
     t.index ["proto_course_id"], name: "index_materials_on_proto_course_id"
     t.index ["proto_id"], name: "index_materials_on_proto_id", unique: true
   end
@@ -156,6 +158,7 @@ ActiveRecord::Schema.define(version: 20191125054638) do
     t.datetime "updated_at", null: false
     t.string "student_file"
     t.string "teacher_file"
+    t.text "content"
     t.index ["proto_id"], name: "index_papers_on_proto_id", unique: true
     t.index ["proto_material_id"], name: "index_papers_on_proto_material_id"
     t.index ["type_name"], name: "index_papers_on_type_name"
@@ -233,9 +236,9 @@ ActiveRecord::Schema.define(version: 20191125054638) do
     t.text "organization_list"
     t.string "keyword"
     t.string "video_url"
-    t.string "voice_text"
-    t.string "translated_text"
-    t.string "que_desc"
+    t.text "voice_text"
+    t.text "translated_text"
+    t.text "que_desc"
     t.string "que_preview_url"
     t.string "order_id"
     t.boolean "is_analysis", default: false

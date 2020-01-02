@@ -109,5 +109,6 @@ Rails.application.routes.draw do
   namespace :api do
     resources :exam_papers
     resources :class_papers
+    resources :class_modules
   end
 end
