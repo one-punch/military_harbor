@@ -40,7 +40,7 @@ class QuestionService
         content: ques["content"],
         answer: ques["answer"],
         analysis: ques["analysis"],
-        deleted: ques["deleted"],
+        deleted: ques["deleted"] || false,
         organization_list: ques["organizationList"],
         keyword: ques["keyword"],
         video_url: ques["videoUrl"],

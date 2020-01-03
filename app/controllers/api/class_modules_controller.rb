@@ -7,7 +7,11 @@ class Api::ClassModulesController < Api::ApplicationController
     when "material"
       material
     when "paper"
-      paper
+      if data_params[:type] == "knoIns"
+        kno_ins
+      elsif data_params[:type] == "queSet"
+        que_set
+      end
     end
   end
 
@@ -61,7 +65,7 @@ class Api::ClassModulesController < Api::ApplicationController
     render(:json => {code: 0, message: "success"}.to_json, :callback => params['callback'])
   end
 
-  def paper
+  def kno_ins
     material = Material.where(proto_id: data_params[:materialsId]).last
     if material.blank?
       return render(:json => {code: 1, message: "materials #{data_params[:materialsId]} not found"}.to_json, :callback => params['callback'])
@@ -76,8 +80,89 @@ class Api::ClassModulesController < Api::ApplicationController
     render(:json => {code: 0, message: "success"}.to_json, :callback => params['callback'])
   end
 
+  def que_set
+    material = Material.preload(course: :subject).where(proto_id: data_params[:materialsId]).last
+    if material.blank?
+      return render(:json => {code: 1, message: "materials #{data_params[:materialsId]} not found"}.to_json, :callback => params['callback'])
+    end
+    @course = material.course
+    @subject = @course.subject
+    paper = Paper.where(proto_id: data_params[:id]).first_or_initialize(
+      name: data_params[:name],
+      proto_material_id: data_params[:materialsId],
+      number: data_params[:number],
+      type_name: "exam",
+    )
+    if exam_params # queId 为nil的是左边题型的分组
+      paper.content = exam_params.select{|e| !e[:queId].present?}.map{|e| {groupId: e[:groupId], groupName: e[:groupName]}}
+    end
+    unless paper.save
+      return render :json => {code: 1, message: paper.errors.full_messages.join(";")}.to_json, :callback => params['callback']
+    end
+    error_elements = []
+    exam_params.select{|e| e[:queId].present? }.each_with_index do |exam_param, idx|
+      # exam_param 每一条实际都是一个question，为了能沿用目前的数据结构，把question的proto id当作exmapaper proto id 放入作为唯一约束
+      element = ExamPaperElement.where(proto_id: exam_param[:queId]).first_or_initialize(
+        proto_paper_id: paper.proto_id,
+        contentType: 5, # QUESTION 固定5
+        number: idx,
+        contentTypeCode: "QUESTION",
+        proto_question_id: exam_param[:queId],
+      )
+      if element.save
+          binding.pry if element[:parentId] != "0" && element[:parentId].present?
+          ques = exchange_to_question(exam_param)
+          question_service = QuestionService.new(element, @subject, ques)
+          question_service.build_question(ques,
+            parent_id: ques[:parentId],
+            root_id: ques[:rootId],
+            number: ques[:number]
+          )
+      else
+        error_elements << element
+      end
+    end if exam_params
+    if error_elements.present?
+      Rails.logger.error(error_elements.map{|p| p.errors.full_messages.join(";")}.join(". ") )
+      render :json => {code: 1, message: "fail"}.to_json, :callback => params['callback']
+    else
+      render :json => {code: 0, message: "success"}.to_json, :callback => params['callback']
+    end
+  end
+
+  # 把不规范的question数据转换成规范的数据
+  def exchange_to_question(exam_param)
+    prepare_params = exam_param.slice(
+      :queId,
+      :parentId,
+      :difficulty,
+      :content,
+      :answer,
+      :analysis,
+      :voiceText,
+      :translatidText,
+      :isDecidable,
+      :rootId)
+    prepare_params.merge(
+      number: exam_param[:sort],
+      childList: exam_param[:childQuestionList],
+      keyword: exam_param[:keywords],
+      answerOptionList: exam_param[:answerOptionPojoList],
+      organizationList: exam_param[:hierarchyPojoList],
+      questionSourceList: exam_param[:questionItemPojoList],
+      writtenQuesTypeName: exam_param[:wqtName],
+      writtenquestypeId: exam_param[:groupId], # writtenquestypeId 在普通试卷中表示字面意思，在课程的试题里面表示试卷的分类组的id
+      deleted: 0,
+      gradeGroupId: @course.grade_group_id,
+    )
+  end
+
   def data_params
     params[:data]
+  end
+
+  def exam_params
+    params[:data][:data]
   end
 
 

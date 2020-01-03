@@ -1,7 +1,7 @@
 class ExamPaperElement < ApplicationRecord
-  belongs_to :paper, primary_key: "proto_id", foreign_key: "proto_paper_id"
+  belongs_to :paper, primary_key: "proto_id", foreign_key: "proto_paper_id", optional: true
 
-  belongs_to  :question, primary_key: "proto_id", foreign_key: "proto_question_id"
+  belongs_to  :question, primary_key: "proto_id", foreign_key: "proto_question_id", optional: true
 
   serialize :hideMainIdList, JSON
   serialize :hideQueIdList, JSON

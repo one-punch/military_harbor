@@ -1,7 +1,7 @@
 class Question < ApplicationRecord
   has_many    :exam_paper_elements,  primary_key: "proto_id", foreign_key: "proto_question_id"
-  belongs_to  :parent, class_name: "Question", optional: true, primary_key: "proto_id", foreign_key: "proto_parent_id"
-  belongs_to  :root, class_name: "Question", optional: true, primary_key: "proto_id", foreign_key: "proto_root_id"
+  belongs_to  :parent, class_name: "Question", optional: true, primary_key: "proto_id", foreign_key: "proto_parent_id", optional: true
+  belongs_to  :root, class_name: "Question", optional: true, primary_key: "proto_id", foreign_key: "proto_root_id", optional: true
   has_many    :childList, -> { order 'questions.number ASC' } ,class_name: "Question", primary_key: "proto_id", foreign_key: "proto_parent_id"
 
   serialize :answer, JSON
@@ -33,4 +33,6 @@ class Question < ApplicationRecord
     end if option_analysis_list.present?
   end
 
+
 end
+  # writtenquestypeId 在普通试卷中表示字面意思，年级组，在课程的试题里面表示试卷的分类组
