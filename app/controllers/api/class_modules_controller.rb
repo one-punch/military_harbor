@@ -70,6 +70,7 @@ class Api::ClassModulesController < Api::ApplicationController
       name: data_params[:name],
       proto_material_id: data_params[:materialsId],
       number: data_params[:number],
+      type_name: data_params[:type],
       content: data_params[:content]
     )
     render(:json => {code: 0, message: "success"}.to_json, :callback => params['callback'])
