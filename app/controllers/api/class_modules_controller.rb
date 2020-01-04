@@ -110,7 +110,6 @@ class Api::ClassModulesController < Api::ApplicationController
         proto_question_id: exam_param[:queId],
       )
       if element.save
-          binding.pry if element[:parentId] != "0" && element[:parentId].present?
           ques = exchange_to_question(exam_param)
           question_service = QuestionService.new(element, @subject, ques)
           question_service.build_question(ques,
@@ -144,14 +143,14 @@ class Api::ClassModulesController < Api::ApplicationController
       :isDecidable,
       :rootId)
     prepare_params.merge(
-      number: exam_param[:sort],
+      number: exam_param[:parentId].present? && exam_param[:parentId] != "0" ? exam_param[:sort] : 0,
       childList: exam_param[:childQuestionList],
       keyword: exam_param[:keywords],
       answerOptionList: exam_param[:answerOptionPojoList],
       organizationList: exam_param[:hierarchyPojoList],
       questionSourceList: exam_param[:questionItemPojoList],
       writtenQuesTypeName: exam_param[:wqtName],
-      writtenquestypeId: exam_param[:groupId], # writtenquestypeId 在普通试卷中表示字面意思，在课程的试题里面表示试卷的分类组的id
+      writtenQuesTypeId: exam_param[:groupId], # writtenQuesTypeId 在普通试卷中表示字面意思，在课程的试题里面表示试卷的分类组的id
       deleted: 0,
       gradeGroupId: @course.grade_group_id,
     )
