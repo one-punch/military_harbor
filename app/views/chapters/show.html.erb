@@ -1,0 +1,11 @@
+
+<% @knowledge.exam_paper_elements.each do |exam_paper_element| %>
+  <%= exam_paper_element.question&.number.to_i + 1 %> <%= exam_paper_element.question.content&.html_safe %>
+  答案： <%= exam_paper_element.question.answer&.html_safe %>
+  解析： <%= exam_paper_element.question.analysis&.html_safe %>
+  <% exam_paper_element.question.childList.each do |sub_question| %>
+    <%= sub_question.number + 1 %><%= sub_question.content&.html_safe %>
+    答案： <%= sub_question.answer&.html_safe %>
+    解析： <%= sub_question.analysis&.html_safe %>
+  <% end %>
+<% end %>

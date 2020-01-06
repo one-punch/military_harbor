@@ -70,13 +70,15 @@ class Api::ClassModulesController < Api::ApplicationController
     if material.blank?
       return render(:json => {code: 1, message: "materials #{data_params[:materialsId]} not found"}.to_json, :callback => params['callback'])
     end
-    Paper.where(proto_id: data_params[:id]).first_or_create(
+    @course = material.course
+    @subject = @course.subject
+    @paper = Paper.where(proto_id: data_params[:id]).first_or_create(
       name: data_params[:name],
       proto_material_id: data_params[:materialsId],
       number: data_params[:number],
-      type_name: data_params[:type],
-      content: data_params[:content]
+      type_name: data_params[:type]
     )
+    SectionsService.new(@paper, JSON.parse(data_params[:content], symbolize_names: true)).exec if data_params[:content].present?
     render(:json => {code: 0, message: "success"}.to_json, :callback => params['callback'])
   end
 

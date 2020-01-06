@@ -4,6 +4,8 @@ class Paper < ApplicationRecord
 
   serialize :content, JSON
 
+  scope :kno_ins, -> { where(type_name: "knoIns") }
+
   # type_name ['explain', 'work', 'courseware', 'exam']
   def student_version
     "#{name} (#{I18n.t('paper.student')})"

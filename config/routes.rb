@@ -23,6 +23,8 @@ Rails.application.routes.draw do
 
   get 'paper-:token' => 'papers#show', as: :paper
 
+  get 'chapters-knowledge-:id' => "chapters#show", as: :knowledge
+
   resources :users
   resources :user_favorites
 
