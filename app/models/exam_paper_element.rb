@@ -24,6 +24,14 @@ class ExamPaperElement < ApplicationRecord
     contentTypeCode == "QUESTION"
   end
 
+  def is_h1?
+    contentTypeCode == "TITLE@H1"
+  end
+
+  def is_h2?
+    contentTypeCode == "TITLE@H2"
+  end
+
   def question_man
     question
   end

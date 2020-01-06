@@ -156,4 +156,112 @@ module PapersHelper
     }.strip.html_safe
   end
 
+
+    # function scan(sections, goter) {
+    #     goter = goter || [];
+    #     var section;
+    #     var sectionTmp = [];
+    #     var subSection;
+    #     var subSectionTmp = [];
+    #     var order = 0;
+    #     for (var i = 0, len = sections.length; i < len; i += 1) {
+    #         var item = sections[i];
+    #         if (item.type == "title@h1") {
+    #             order = 0;
+    #             section = {
+    #                 children: []
+    #             };
+    #             goter.push(section);
+    #             section.name = item.content;
+    #             section.cnOrder = item.cnOrder;
+    #             section.id = item.id;
+    #             section.body = item;
+    #             sectionTmp = [];
+    #             subSectionTmp = [];
+    #             subSection = null;
+    #         } else if (item.type == "title@h2") {
+    #             order = 0;
+    #             subSection = {
+    #                 name: item.content,
+    #                 id: item.id,
+    #                 body: item,
+    #                 children: []
+    #             };
+    #             if (section) {
+    #                 section.children.push(subSection);
+    #             } else {
+    #                 sectionTmp.length == 0 && goter.push({
+    #                     name: '临时分类组',
+    #                     body: {
+    #                         content: '临时分类组'
+    #                     },
+    #                     isTmp: true,
+    #                     children: sectionTmp
+    #                 });
+    #                 sectionTmp.push(subSection);
+    #             }
+    #             subSectionTmp = [];
+    #         } else {
+    #             var deepSection = {
+    #                 name: item.content || (item.questions ? item.questions[0].content : ''),
+    #                 id: item.id,
+    #                 body: item
+    #             };
+    #             if (subSection) {
+    #                 subSection.children.push(deepSection);
+    #             } else {
+    #                 if (section) {
+    #                     subSectionTmp.length == 0 && section.children.push({
+    #                         name: '临时分类组',
+    #                         body: {
+    #                             content: '临时分类组'
+    #                         },
+    #                         isTmp: true,
+    #                         children: subSectionTmp
+    #                     });
+    #                     subSectionTmp.push(deepSection);
+
+    #                 } else {
+    #                     sectionTmp.length == 0 && goter.push({
+    #                         name: '临时分类组',
+    #                         body: {
+    #                             content: '临时分类组'
+    #                         },
+    #                         isTmp: true,
+    #                         children: sectionTmp
+    #                     });
+    #                     subSectionTmp.length == 0 && sectionTmp.push({
+    #                         name: '临时分类组',
+    #                         body: {
+    #                             content: '临时分类组'
+    #                         },
+    #                         isTmp: true,
+    #                         children: subSectionTmp
+    #                     });
+    #                     subSectionTmp.push(deepSection);
+    #                 }
+    #             }
+    #         }
+    #         if (item.type && ~item.type.indexOf("question")) {
+    #             delete item.order;
+    #             order++;
+    #             var nextQuestion = sections[i + 1];
+    #             if (order == 1) {
+    #                 if (nextQuestion && ~nextQuestion.type.indexOf("question")) item.order = order;
+    #             } else {
+    #                 item.order = order;
+    #             }
+    #         }
+    #     }
+    #     return goter;
+    # }
+  def btree(sections, goter=[])
+    section = nil
+    sectionTmp = []
+    subSection = nil
+    subSectionTmp = []
+
+
+  end
+
 end

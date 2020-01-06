@@ -1,3 +1,14 @@
+<div class="preview-wrap">
+  <div class="preview-new">
+    <div class="doc-menu">
+      <div class="doc-menu-head">
+      </div>
+
+      <div class="doc-menu-body"></div>
+    </div>
+  </div>
+</div>
+
 
 <% @knowledge.exam_paper_elements.each do |exam_paper_element| %>
   <%= exam_paper_element.question&.number.to_i + 1 %> <%= exam_paper_element.question.content&.html_safe %>

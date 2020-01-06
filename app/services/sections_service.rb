@@ -16,6 +16,7 @@ class SectionsService
         number: idx,
         contentTypeCode: section[:type].upcase,
         proto_question_id: section[:id],
+        remark: section[:cnOrder],
       )
       if element.save
         ques = exchange(section, parent_id: nil)
@@ -69,6 +70,9 @@ class SectionsService
       "parentId" => parent_id,
       "gradeGroupId" => @course.grade_group_id
     }
+  end
+
+  Section = Struct.new(:id, :name, :body, :children) do
   end
 
 end
