@@ -260,8 +260,90 @@ module PapersHelper
     sectionTmp = []
     subSection = nil
     subSectionTmp = []
+    order = 0
+    sections.each_with_index do |item, i|
+      if item.is_h1?
+        order = 0
+        section = SectionsService::Section.new(item.id, item.question.content, item, [], false)
+        sectionTmp = []
+        subSectionTmp = []
+        subSection = nil
+        goter << section
+      elsif item.is_h2?
+        order = 0
+        subSection = SectionsService::Section.new(item.id, item.question.content, item, [], false)
+        if section
+          section.children << subSection
+        else
+          if sectionTmp.size == 0
+            goter << SectionsService::Section.new("#", "临时分类组", nil, [], true)
+          end
+          sectionTmp << subSection
+        end
+        subSectionTmp = []
+      else
+        name = item.content || (item.question.present? ? item.question.content : "" )
+        deepSection = SectionsService::Section.new(item.id, name, item, [], false)
+        if subSection
+          subSection.children << deepSection
+        else
+          if section
+            if subSectionTmp.size == 0
+              section.children << SectionsService::Section.new("#", "临时分类组", nil, subSectionTmp, true)
+            end
+            subSectionTmp << deepSection
+          else
+            if sectionTmp.size == 0
+              goter << SectionsService::Section.new("#", "临时分类组", nil, sectionTmp, true)
+            end
 
+            if subSectionTmp.size == 0
+              sectionTmp << SectionsService::Section.new("#", "临时分类组", nil, subSectionTmp, true)
+            end
+            subSectionTmp << deepSection
+          end
+        end
+      end
 
+      if item.contentTypeCode && item.contentTypeCode.include?("QUESTION")
+        order += 1
+        nextQuestion = sections[i + 1]
+        if order == 1
+          if nextQuestion && nextQuestion.contentTypeCode.include?("QUESTION")
+            item.number = order
+          end
+        else
+          item.number = order
+        end
+      end
+    end
+    goter
+  end
+
+  def menu(sections)
+    titles = sections.select{|e| e.is_h1? || e.is_h2?}
+    html = []
+    titles.each_with_index do |title, idx|
+      if title.is_h1?
+        html << "<li title='#{title.question_man_content}'>"
+        html <<   "<h3>#{title.remark}、#{title.question_man_content}</h3>"
+            end_index = find_next_h1(titles, idx + 1)
+            if end_index.to_i <= idx + 1
+              html << "</li>"
+              next
+            end
+            sublis = titles[(idx + 1)..end_index].map do |title_2|
+              "<li title='#{title_2.question_man_content}'>#{title_2.remark}. #{title_2.question_man_content}</li>"
+            end
+            html << "<ol>#{sublis.join}</ol>"
+        html << "</li>"
+      end
+    end
+    html.join
+  end
+
+  def find_next_h1(titles, start)
+    titles[start..-1].index{|t| t.is_h1? }
   end
 
 end

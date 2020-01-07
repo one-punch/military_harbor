@@ -72,7 +72,7 @@ class SectionsService
     }
   end
 
-  Section = Struct.new(:id, :name, :body, :children) do
+  Section = Struct.new(:id, :name, :body, :children, :is_tmp) do
   end
 
 end

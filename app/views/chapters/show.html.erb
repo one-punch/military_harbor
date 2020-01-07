@@ -4,7 +4,12 @@
       <div class="doc-menu-head">
       </div>
 
-      <div class="doc-menu-body"></div>
+      <div class="doc-menu-body">
+        <ul>
+          <%= menu(@titles).html_safe %>
+        </ul>
+      </div>
+      <div class="doc-menu-foot"></div>
     </div>
   </div>
 </div>
