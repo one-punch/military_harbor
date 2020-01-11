@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= full_title(yield(:title)) %></title>
+    <%= csrf_meta_tags %>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <%= stylesheet_link_tag  'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag  'chapters/knowledge', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <script type=text/x-mathjax-config>
+      MathJax.Hub.Register.StartupHook("TeX Jax Ready", function() {
+        MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
+          if (!data.display) {
+            data.math = "\\displaystyle{" + data.math + "}"
+          }
+        });
+      });
+      MathJax.Hub.Config({
+        jax: ["input/TeX", "output/SVG"],
+        extensions: ["tex2jax.js"],
+        TeX: {
+          extensions: ["AMSmath.js", "AMSsymbols.js", "noErrors.js", "noUndefined.js"]
+        },
+        tex2jax: {
+          ignoreClass: 'ignore-math',
+          inlineMath: [
+            ["$", "$"],
+            ["$$", "$$"],
+            ["\\", "\\"]
+          ]
+        },
+        showMathMenu: false,
+        displayAlign: "left",
+        "SVG": {
+          linebreaks: {
+            automatic: true,
+            width: "container"
+          },
+          scale: 80
+        }
+      });
+    </script>
+    <script src="MathJax-2.7.4/MathJax.js" type="text/javascript"></script>
+    <!-- print -->
+    <script src="https://printjs-4de6.kxcdn.com/print.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://printjs-4de6.kxcdn.com/print.min.css">
+    <!-- print -->
+    <%= render 'layouts/shim' %>
+</head>
+
+  <body>
+    <%= yield %>
+  </body>
+</html>

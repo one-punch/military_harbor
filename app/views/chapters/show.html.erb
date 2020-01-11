@@ -1,27 +1,69 @@
-<div class="preview-wrap">
-  <div class="preview-new">
-    <div class="doc-menu">
-      <div class="doc-menu-head">
+<% content_for :title do %>
+  <%= @knowledge.name  %>
+<% end %>
+<div class="zkDocOnline ">
+  <div class="preview-wrap">
+    <div class="preview-new">
+      <div class="doc-menu">
+        <div class="doc-menu-head">
+        </div>
+
+        <div class="doc-menu-body">
+          <ul>
+            <%= chapter_menu(@titles).html_safe %>
+          </ul>
+        </div>
+        <div class="doc-menu-foot"></div>
+      </div>
+     <div class="doc-container print">
+        <div class="doc-container-head">
+          <h1 class="doc-title ng-binding"><%= @knowledge.name %></h1>
+          <div class="btn-group custom-btn-group">
+              <span class="btn custom-btn " ng-click="viewfor('Teacher');version=2">教师版</span>
+              <span class="btn custom-btn  active" ng-click="viewfor('Student');version=1">学生版</span>
+          </div>
+          <div class="btn-group custom-btn-group custom-btn-group-right" ng-show="version==1">
+              <a class="btn custom-btn" ng-click="print()">打印</a>
+          </div>
+        </div>
+        <div class="doc-container-body">
+          <% title_index = 0%>
+          <% @knowledge.exam_paper_elements.each do |exam_paper_element| %>
+
+            <section class="section">
+              <div>
+                <% if exam_paper_element.is_h1? %>
+                  <% title_index = 0%>
+                  <div class="section-title">
+                    <h1>
+                        <span class="title-ico"></span>
+                        <span class="title-con"><%= exam_paper_element.remark %>、<%= exam_paper_element.question.content&.html_safe %></span>
+                        <span class="title-tail"></span>
+                    </h1>
+                  </div>
+                <% elsif exam_paper_element.is_h2? %>
+                  <% title_index = title_index + 1 %>
+                  <div class="section-title">
+                    <h2>
+                        <span class="title-ico"></span>
+                        <span class="title-con"><%= title_index %>．<%= exam_paper_element.question.content&.html_safe %></span>
+                        <span class="title-tail"></span>
+                    </h2>
+                  </div>
+                <% else %>
+                  <div class="section-description">
+                    <div class="content">
+                      <%=  exam_paper_element.question.content&.html_safe %>
+                    </div>
+                  </div>
+                <% end %>
+              </div>
+            </section>
+          <% end %>
+        </div>
       </div>
 
-      <div class="doc-menu-body">
-        <ul>
-          <%= menu(@titles).html_safe %>
-        </ul>
-      </div>
-      <div class="doc-menu-foot"></div>
     </div>
   </div>
 </div>
 
-
-<% @knowledge.exam_paper_elements.each do |exam_paper_element| %>
-  <%= exam_paper_element.question&.number.to_i + 1 %> <%= exam_paper_element.question.content&.html_safe %>
-  答案： <%= exam_paper_element.question.answer&.html_safe %>
-  解析： <%= exam_paper_element.question.analysis&.html_safe %>
-  <% exam_paper_element.question.childList.each do |sub_question| %>
-    <%= sub_question.number + 1 %><%= sub_question.content&.html_safe %>
-    答案： <%= sub_question.answer&.html_safe %>
-    解析： <%= sub_question.analysis&.html_safe %>
-  <% end %>
-<% end %>
