@@ -28,13 +28,12 @@
         </div>
         <div class="doc-container-body">
           <% title_index = 0%>
-          <% @knowledge.exam_paper_elements.each do |exam_paper_element| %>
-
+          <% @exam_paper_elements.each do |exam_paper_element| %>
             <section class="section">
               <div>
                 <% if exam_paper_element.is_h1? %>
                   <% title_index = 0%>
-                  <div class="section-title">
+                  <div id="<%= exam_paper_element.proto_id %>" class="section-title">
                     <h1>
                         <span class="title-ico"></span>
                         <span class="title-con"><%= exam_paper_element.remark %>、<%= exam_paper_element.question.content&.html_safe %></span>
@@ -43,7 +42,7 @@
                   </div>
                 <% elsif exam_paper_element.is_h2? %>
                   <% title_index = title_index + 1 %>
-                  <div class="section-title">
+                  <div id="<%= exam_paper_element.proto_id %>" class="section-title">
                     <h2>
                         <span class="title-ico"></span>
                         <span class="title-con"><%= title_index %>．<%= exam_paper_element.question.content&.html_safe %></span>
@@ -66,4 +65,3 @@
     </div>
   </div>
 </div>
-
