@@ -1,0 +1,76 @@
+<%= stylesheet_link_tag  'chapters/exam', media: 'all', 'data-turbolinks-track': 'reload' %>
+
+<div class="preview_main"> <!-- print -->
+  <div class="preview_cont clearfix">
+    <!-- 左边目录 -->
+    <div class="preview_left">
+      <div class="preview_module preview_check">
+          <h3 class="btn_gradient">目录</h3>
+          <ul ng-init="selectedId=-1">
+              <!-- ngRepeat: group in groups --><li ng-repeat="group in groups" ng-click="$parent.selectedId=group.groupId;anchorTo(group.groupId);" ng-hide="(!group.groupId &amp;&amp; !group.children.length )|| !hasGroup" ng-class="{check:$parent.selectedId==group.groupId}" class="ng-binding ng-scope ng-hide">未分组</li><!-- end ngRepeat: group in groups --><li ng-repeat="group in groups" ng-click="$parent.selectedId=group.groupId;anchorTo(group.groupId);" ng-hide="(!group.groupId &amp;&amp; !group.children.length )|| !hasGroup" ng-class="{check:$parent.selectedId==group.groupId}" class="ng-binding ng-scope">选择</li><!-- end ngRepeat: group in groups --><li ng-repeat="group in groups" ng-click="$parent.selectedId=group.groupId;anchorTo(group.groupId);" ng-hide="(!group.groupId &amp;&amp; !group.children.length )|| !hasGroup" ng-class="{check:$parent.selectedId==group.groupId}" class="ng-binding ng-scope">填空</li><!-- end ngRepeat: group in groups --><li ng-repeat="group in groups" ng-click="$parent.selectedId=group.groupId;anchorTo(group.groupId);" ng-hide="(!group.groupId &amp;&amp; !group.children.length )|| !hasGroup" ng-class="{check:$parent.selectedId==group.groupId}" class="ng-binding ng-scope">解答</li><!-- end ngRepeat: group in groups -->
+          </ul>
+      </div>
+    </div>
+
+    <div class="preview_right">
+      <div class="preview_fixed">
+          <div class="preview_btn clearfix">
+              <a href="" ng-click="version=1;selectedId=-1;anchorTo();" ng-class="{check:version==1}" class="">学生版</a>
+              <a href="" ng-click="version=2;selectedId=-1;anchorTo();" ng-class="{check:version==2}" class="check">教师版</a>
+              <a href="" ng-click="version=3;selectedId=-1;anchorTo();" ng-class="{check:version==3}">答案版</a>
+          </div>
+          <div class="preview_btn2">
+              <a href="" ng-click="print()" ng-show="version!=2" class="btn_common ng-hide">打印</a>
+
+              <a href="" ng-click="edit()" class="btn_common" ng-show="version!=3">编辑</a>
+          </div>
+      </div>
+
+      <div class="topic_cont" id="previewContent">
+        <h2 class="blank_height no-print">
+            <%= @exam.name %>
+        </h2>
+
+
+        <div class="breviary_module">
+          <h3 class="breviary_title">选择</h3>
+
+          <% @exam_paper_elements.each_with_index do |exam_paper_element, idx| %>
+            <% next if exam_paper_element.question.proto_parent_id.present? %>
+            <div class="exam_box">
+              <div>
+                <div class="clearfix">
+                  <span class="exam_num"><%= idx + 1 %>.</span>
+                  <div class="exam_question">
+                    <div class="question_content clearfix">
+                      <%= exam_paper_element.question.content&.html_safe %>
+                    </div>
+                    <% exam_paper_element.question.childList.each_with_index do |sub_question, idx| %>
+                      <!-- 子题目 -->
+                      <div class="opt_complex">
+                        <div class="complex_module">
+                          <div class="complex_child clearfix">
+                            <span class="complex_child_dot">（<%= idx + 1 %>）</span>
+                            <div class="complex_child_exam">
+                              <p class="complex_child_cont">
+                                <%= sub_question.content&.html_safe %>
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          <% end %>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+</div>
