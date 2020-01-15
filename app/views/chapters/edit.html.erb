@@ -1,28 +1,27 @@
 <%= stylesheet_link_tag  'chapters/exam', media: 'all', 'data-turbolinks-track': 'reload' %>
-
+<% content_for :title do %>
+  <%= @exam.name  %>
+<% end %>
 <div class="preview_main"> <!-- print -->
   <div class="preview_cont clearfix">
     <!-- 左边目录 -->
-    <div class="preview_left">
+    <!-- <div class="preview_left">
       <div class="preview_module preview_check">
           <h3 class="btn_gradient">目录</h3>
           <ul ng-init="selectedId=-1">
-              <!-- ngRepeat: group in groups --><li ng-repeat="group in groups" ng-click="$parent.selectedId=group.groupId;anchorTo(group.groupId);" ng-hide="(!group.groupId &amp;&amp; !group.children.length )|| !hasGroup" ng-class="{check:$parent.selectedId==group.groupId}" class="ng-binding ng-scope ng-hide">未分组</li><!-- end ngRepeat: group in groups --><li ng-repeat="group in groups" ng-click="$parent.selectedId=group.groupId;anchorTo(group.groupId);" ng-hide="(!group.groupId &amp;&amp; !group.children.length )|| !hasGroup" ng-class="{check:$parent.selectedId==group.groupId}" class="ng-binding ng-scope">选择</li><!-- end ngRepeat: group in groups --><li ng-repeat="group in groups" ng-click="$parent.selectedId=group.groupId;anchorTo(group.groupId);" ng-hide="(!group.groupId &amp;&amp; !group.children.length )|| !hasGroup" ng-class="{check:$parent.selectedId==group.groupId}" class="ng-binding ng-scope">填空</li><!-- end ngRepeat: group in groups --><li ng-repeat="group in groups" ng-click="$parent.selectedId=group.groupId;anchorTo(group.groupId);" ng-hide="(!group.groupId &amp;&amp; !group.children.length )|| !hasGroup" ng-class="{check:$parent.selectedId==group.groupId}" class="ng-binding ng-scope">解答</li><!-- end ngRepeat: group in groups -->
+              <li class="ng-binding ng-scope ng-hide">未分组</li>
           </ul>
       </div>
-    </div>
+    </div> -->
 
     <div class="preview_right">
       <div class="preview_fixed">
           <div class="preview_btn clearfix">
-              <a href="" ng-click="version=1;selectedId=-1;anchorTo();" ng-class="{check:version==1}" class="">学生版</a>
-              <a href="" ng-click="version=2;selectedId=-1;anchorTo();" ng-class="{check:version==2}" class="check">教师版</a>
-              <a href="" ng-click="version=3;selectedId=-1;anchorTo();" ng-class="{check:version==3}">答案版</a>
+              <a id="question" href="javascript:void(0)" class="check">学生版</a>
+              <a id="analyze" href="javascript:void(0)">教师版</a>
           </div>
           <div class="preview_btn2">
-              <a href="" ng-click="print()" ng-show="version!=2" class="btn_common ng-hide">打印</a>
-
-              <a href="" ng-click="edit()" class="btn_common" ng-show="version!=3">编辑</a>
+            <a id="print" href="javascript:void();" class="btn_common">打印</a>
           </div>
       </div>
 
@@ -45,8 +44,22 @@
                     <div class="question_content clearfix">
                       <%= exam_paper_element.question.content&.html_safe %>
                     </div>
+                    <!-- 题目选项 -->
+                    <% if exam_paper_element.question.answer_option_list %>
+                      <%= chapter_answer_options_list(exam_paper_element.question) %>
+                    <% end %>
+
+                    <!-- 答案 -->
+                    <% if exam_paper_element.question.answer.present? && exam_paper_element.question.answer["content"].present? %>
+                      <%= chapter_answer_html(exam_paper_element.question.answer) %>
+                    <% end %>
+
+                    <!-- 解析 -->
+                    <% if exam_paper_element.question.analysis.present? %>
+                      <%= chapter_analysis_html(exam_paper_element.question) %>
+                    <% end %>
+                    <!-- 子题目 -->
                     <% exam_paper_element.question.childList.each_with_index do |sub_question, idx| %>
-                      <!-- 子题目 -->
                       <div class="opt_complex">
                         <div class="complex_module">
                           <div class="complex_child clearfix">
@@ -57,6 +70,15 @@
                               </p>
                             </div>
                           </div>
+                          <!-- 答案 -->
+                          <% if sub_question.answer.present? && sub_question.answer["content"].present? %>
+                            <%= chapter_answer_html(sub_question.answer) %>
+                          <% end %>
+
+                          <!-- 解析 -->
+                          <% if sub_question.analysis.present? %>
+                            <%= chapter_analysis_html(sub_question) %>
+                          <% end %>
                         </div>
                       </div>
                     <% end %>
@@ -74,3 +96,21 @@
 
   </div>
 </div>
+
+<script type="text/javascript">
+$(function(){
+  $(document).on("click", "#question", function(){
+    $(".answer").hide()
+    $(this).addClass("active")
+    $("#analyze").removeClass("active")
+  })
+  $(document).on("click", "#analyze", function(){
+    $(".answer").show()
+    $(this).addClass("active")
+    $("#question").removeClass("active")
+  })
+  $(document).on("click", "#print", function(){
+    window.print()
+  })
+})
+</script>

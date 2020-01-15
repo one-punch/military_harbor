@@ -9,7 +9,7 @@ class ChaptersController < ApplicationController
 
   def edit
     @exam = Paper.where(type_name: 'exam', proto_id: "345b2aafffa677c398de2867c517f8e8").take
-    @exam_paper_elements = @exam.exam_paper_elements.preload(:question).order("CAST(number AS UNSIGNED)")
+    @exam_paper_elements = @exam.exam_paper_elements.preload(question: :childList).order("CAST(number AS UNSIGNED)")
   end
 
 end

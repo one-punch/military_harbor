@@ -1049,6 +1049,7 @@ a.btn_common:hover {
     padding: 20px 15px 10px;
     border-radius: 5px;
     margin-top:10px;
+    display: none;
 }
 
 .preview_main .breviary_module .answer_list {
@@ -1206,6 +1207,16 @@ a.btn_common:hover {
         text-shadow: none!important;
         background: transparent!important;
         box-shadow: none!important
+    }
+    .preview_main .preview_right {
+        width: 820px;
+        margin-left: 100px;
+    }
+    .preview_main .preview_fixed {
+        display: none;
+    }
+    .no-print {
+        display: none;
     }
 }
 

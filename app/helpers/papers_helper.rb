@@ -182,4 +182,57 @@ module PapersHelper
     titles[start..-1].index{|t| t.is_h1? }
   end
 
+  def chapter_answer_options_list(question)
+    #  题目选项
+    return unless question.answer_option_list
+      list = question.answer_option_list.map do |option|
+        %Q{<ul class="clearfix">
+          <li class="clearfix">
+            <span class="opt_num">#{option["aoVal"]}.</span>
+            <div class="opt_cont clearfix">
+              #{option["content"]}
+            </div>
+          </li>
+        </ul>}
+      end
+    %Q{<div>
+      <div>
+        #{list.join}
+      </div>
+    </div>}.html_safe
+  end
+
+
+  def chapter_answer_html(answer)
+    # 答案
+    return unless answer.present? && answer["content"].present?
+    %Q{<div>
+      <div class="answer answer_child">
+        <div class="answer_list">
+          <span class="answer_titlle">答 案</span>
+          <div class="answer_box daan">
+            <div>
+              #{answer["content"]}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>}.html_safe
+  end
+
+
+  def chapter_analysis_html(question)
+    return unless question.analysis
+    %Q{<div>
+        <div class="answer answer_child">
+          <div class="answer_list">
+            <span class="answer_titlle">解 析</span>
+            <div class="answer_box">
+              #{question.analysis}
+            </div>
+          </div>
+      </div>
+    </div>}.html_safe
+  end
+
 end

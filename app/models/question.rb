@@ -17,7 +17,7 @@ class Question < ApplicationRecord
   serialize :option_exam_option_list, JSON
   serialize :que_source, JSON
 
-
+  # 只有一般的试卷可以使用
   def answer_options
     @_answer_options ||= answer_option_list.map do |answer_options|
       answer_options.map do |option|
