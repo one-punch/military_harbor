@@ -21,7 +21,7 @@ class ExamPaperElement < ApplicationRecord
   end
 
   def is_question?
-    contentTypeCode == "QUESTION"
+    contentTypeCode.include?("QUESTION")
   end
 
   def is_h1?
@@ -30,6 +30,10 @@ class ExamPaperElement < ApplicationRecord
 
   def is_h2?
     contentTypeCode == "TITLE@H2"
+  end
+
+  def is_description?
+    contentTypeCode == "DESCRIPTION"
   end
 
   def question_man

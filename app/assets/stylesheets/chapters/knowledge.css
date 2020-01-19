@@ -83,7 +83,10 @@ div.doc-container-head div.custom-btn-group-right{margin-left:425px !important;}
 .row{display:table-row;}
 .cell{display:table-cell;}
 
-.questionsAnswerContainer.table{margin-bottom:0px;}
+.questionsAnswerContainer.table{
+  margin-bottom:0px;
+  display: none;
+}
 
 .preview-new .ckeCustomFillContext,.preview-new  .ckeCustomTranslation{padding-left:1em;padding-right:1em;}
 .preview-new .ckeCustomWrap,.preview-new .ckeCustomFillContext,.preview-new .ckeCustomTranslation{

@@ -20,21 +20,21 @@
 
         <div class="doc-container-head no-print">
           <h1 class="doc-title ng-binding"><%= @knowledge.name %></h1>
-          <!-- <div class="btn-group custom-btn-group">
-              <span class="btn custom-btn "">教师版</span>
-              <span class="btn custom-btn  active">学生版</span>
+          <div class="btn-group custom-btn-group">
+              <span id="teacher" class="btn custom-btn">教师版</span>
+              <span id="student" class="btn custom-btn  active">学生版</span>
           </div>
           <div class="btn-group custom-btn-group custom-btn-group-right">
               <a class="btn custom-btn">打印</a>
-          </div> -->
+          </div>
         </div>
         <div class="doc-container-body">
-          <% title_index = 0%>
+          <% title_index = 0; question_count = 0; %>
           <% @exam_paper_elements.each do |exam_paper_element| %>
             <section class="section">
               <div>
                 <% if exam_paper_element.is_h1? %>
-                  <% title_index = 0%>
+                  <% title_index = 0; question_count = 0; %>
                   <div id="<%= exam_paper_element.proto_id %>" class="section-title">
                     <h1>
                         <span class="title-ico"></span>
@@ -43,7 +43,7 @@
                     </h1>
                   </div>
                 <% elsif exam_paper_element.is_h2? %>
-                  <% title_index = title_index + 1 %>
+                  <% title_index = title_index + 1; question_count = 0; %>
                   <div id="<%= exam_paper_element.proto_id %>" class="section-title">
                     <h2>
                         <span class="title-ico"></span>
@@ -51,10 +51,36 @@
                         <span class="title-tail"></span>
                     </h2>
                   </div>
-                <% else %>
+                <% elsif exam_paper_element.is_description? %>
                   <div class="section-description">
                     <div class="content">
                       <%=  exam_paper_element.question.content&.html_safe %>
+                    </div>
+                  </div>
+                <% elsif exam_paper_element.is_question? %>
+                  <% question_count = question_count + 1; %>
+                  <div class="section-questions">
+                    <span class="title-index"><%= question_count %></span>
+                    <div class="content">
+                      <%= exam_paper_element.question.content&.html_safe %>
+                    </div>
+                    <div class="questionsAnswerContainer table">
+                      <% if exam_paper_element.question.answer.present? %>
+                        <div class="row">
+                          <div class="cell th"><%= t("chapters.answer") %></div>
+                          <div class="cell">
+                            <%= exam_paper_element.question.answer&.html_safe %>
+                          </div>
+                        </div>
+                      <% end %>
+                      <% if exam_paper_element.question.analysis.present? %>
+                        <div class="row">
+                          <div class="cell th"><%= t("chapters.analysis") %></div>
+                          <div class="cell">
+                            <%= exam_paper_element.question.analysis&.html_safe %>
+                          </div>
+                        </div>
+                      <% end %>
                     </div>
                   </div>
                 <% end %>
@@ -68,3 +94,22 @@
     </div>
   </div>
 </div>
+
+
+<script type="text/javascript">
+$(function(){
+  $(document).on("click", "#student", function(){
+    $(".questionsAnswerContainer").hide()
+    $(this).addClass("active")
+    $("#teacher").removeClass("active")
+  })
+  $(document).on("click", "#teacher", function(){
+    $(".questionsAnswerContainer").show()
+    $(this).addClass("active")
+    $("#student").removeClass("active")
+  })
+  $(document).on("click", "#print", function(){
+    window.print()
+  })
+})
+</script>

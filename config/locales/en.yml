@@ -57,6 +57,9 @@ en:
   paper:
     student: 学生版
     teacher: 教师版
+  chapters:
+    answer: "【答案】"
+    analysis: "【解析】"
 
 
 
