@@ -2,8 +2,6 @@ class Paper < ApplicationRecord
   belongs_to :material, primary_key: "proto_id", foreign_key: "proto_material_id"
   has_many   :exam_paper_elements, primary_key: "proto_id", foreign_key: "proto_paper_id"
 
-  serialize :content, JSON
-
   scope :kno_ins, -> { where(type_name: "knoIns") }
   scope :chapter_exam, -> { where(type_name: "chapter_exam") }
 
