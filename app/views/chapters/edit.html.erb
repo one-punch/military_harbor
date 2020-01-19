@@ -50,7 +50,7 @@
                     <% end %>
 
                     <!-- 答案 -->
-                    <% if exam_paper_element.question.answer.present? && exam_paper_element.question.answer["content"].present? %>
+                    <% if exam_paper_element.question.answer.present? %>
                       <%= chapter_answer_html(exam_paper_element.question.answer) %>
                     <% end %>
 
@@ -71,7 +71,7 @@
                             </div>
                           </div>
                           <!-- 答案 -->
-                          <% if sub_question.answer.present? && sub_question.answer["content"].present? %>
+                          <% if sub_question.answer.present? %>
                             <%= chapter_answer_html(sub_question.answer) %>
                           <% end %>
 

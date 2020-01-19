@@ -207,14 +207,20 @@ module PapersHelper
 
   def chapter_answer_html(answer)
     # 答案
-    return unless answer.present? && answer["content"].present?
+    return unless answer.present?
+    content = if answer.is_a?(Array)
+      answer.flatten.try(:[], 0)
+    elsif answer.is_a?(Hash) && answer["content"].present?
+      answer["content"]
+    end
+    return unless content.present?
     %Q{<div>
       <div class="answer answer_child">
         <div class="answer_list">
           <span class="answer_titlle">答 案</span>
           <div class="answer_box daan">
             <div>
-              #{answer["content"]}
+              #{content}
             </div>
           </div>
         </div>
