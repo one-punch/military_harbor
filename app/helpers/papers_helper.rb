@@ -184,7 +184,7 @@ module PapersHelper
 
   def chapter_answer_options_list(question)
     #  题目选项
-    return unless question.answer_option_list
+    return unless question.answer_option_list.present?
       list = question.answer_options.map do |options|
         options.map do |option|
           %Q{<ul class="clearfix">
