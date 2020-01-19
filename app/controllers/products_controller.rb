@@ -4,9 +4,9 @@ class ProductsController < ApplicationController
   def index
     if params[:category_id]
       @category = Category.find(params[:category_id])
-      @products = PrimeryProduct.where(active: true, parent_id: nil, category_id: [@category.subtree_ids])
+      @products = PrimaryProduct.where(active: true, parent_id: nil, category_id: [@category.subtree_ids])
     else
-      @products = PrimeryProduct.where(active: true)
+      @products = PrimaryProduct.where(active: true)
     end
     if params[:q]
       if params[:q].include?(",")
@@ -66,7 +66,7 @@ class ProductsController < ApplicationController
   private
 
   def find
-    @product = PrimeryProduct.find params[:id]
+    @product = PrimaryProduct.find params[:id]
     @product = \
     if @product.is_virtual?
       @product.becomes(VirtualProduct)

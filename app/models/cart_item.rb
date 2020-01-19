@@ -1,6 +1,6 @@
 class CartItem < ApplicationRecord
   belongs_to :cart
-  belongs_to :product, class_name: 'PrimeryProduct', foreign_key: 'product_id'
+  belongs_to :product, class_name: 'PrimaryProduct', foreign_key: 'product_id'
 
   def subtotal
     product.price * quantity

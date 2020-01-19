@@ -1,5 +1,5 @@
 require 'csv'
-class Product < PrimeryProduct
+class Product < PrimaryProduct
 
   default_scope {where("products.parent_id IS NULL")}
 

@@ -41,7 +41,7 @@ class CartItemsController < ApplicationController
   end
 
   def info
-    @product = PrimeryProduct.find params[:id]
+    @product = PrimaryProduct.find params[:id]
     if @product.is_virtual?
       @product = @product.becomes(VirtualProduct)
     elsif  @product.is_master?

@@ -13,7 +13,7 @@ class OrderService
   def processing
     return unless order.paid?
     products = order_items.map(&:product)
-    products.map do |sku| # PrimeryProduct
+    products.map do |sku| # PrimaryProduct
       if sku.is_virtual?
         process_virtual(sku.becomes(VirtualProduct))
         virtual_product.properties
@@ -26,7 +26,7 @@ class OrderService
 
   def cancel
     products = order_items.map(&:product)
-    products.map do |sku| # PrimeryProduct
+    products.map do |sku| # PrimaryProduct
       if sku.is_virtual?
         cancel_virtual(sku.becomes(VirtualProduct))
         virtual_product.properties

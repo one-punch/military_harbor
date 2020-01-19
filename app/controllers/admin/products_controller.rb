@@ -29,7 +29,7 @@ class Admin::ProductsController < Admin::ApplicationController
   end
 
   def edit
-    @product = PrimeryProduct.find params[:id]
+    @product = PrimaryProduct.find params[:id]
     @product = @product.is_master? ? @product.becomes(Product) : @product.becomes(Variant)
   end
 
@@ -109,12 +109,12 @@ class Admin::ProductsController < Admin::ApplicationController
   end
 
   def images
-    @product = PrimeryProduct.find params[:product_id]
+    @product = PrimaryProduct.find params[:product_id]
     @product = @product.is_master? ? @product.becomes(Product) : @product.becomes(Variant)
   end
 
   def upload
-    _product = PrimeryProduct.find params[:product_id]
+    _product = PrimaryProduct.find params[:product_id]
     @product = _product.is_master? ? Product.find(params[:product_id]) : Variant.find(params[:product_id])
     @errors = []
     params[:product][:images].each do |img_file|
@@ -127,7 +127,7 @@ class Admin::ProductsController < Admin::ApplicationController
   end
 
   def images_delete
-    @product = PrimeryProduct.find params[:id]
+    @product = PrimaryProduct.find params[:id]
     @errors = []
     @image = @product.images.find params[:image_id]
     if @image.destroy

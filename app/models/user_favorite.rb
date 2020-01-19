@@ -9,7 +9,7 @@ class UserFavorite < ApplicationRecord
   end
 
   def is_product?
-    [VirtualProduct, Variant, Product, PrimeryProduct].map(&:name).include?(item_type)
+    [VirtualProduct, Variant, Product, PrimaryProduct].map(&:name).include?(item_type)
   end
 
 end

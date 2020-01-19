@@ -1,4 +1,4 @@
-class Variant < PrimeryProduct
+class Variant < PrimaryProduct
 
   default_scope {where("products.parent_id IS NOT NULL").where("products.is_virtual" => false)}
 

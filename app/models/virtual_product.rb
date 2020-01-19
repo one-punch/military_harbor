@@ -1,4 +1,4 @@
-class VirtualProduct < PrimeryProduct
+class VirtualProduct < PrimaryProduct
 
   default_scope {where("products.is_virtual = ? ", true)}
 

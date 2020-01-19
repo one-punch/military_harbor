@@ -1,4 +1,4 @@
-class PrimeryProduct < ApplicationRecord
+class PrimaryProduct < ApplicationRecord
 
   self.table_name = :products
 

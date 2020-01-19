@@ -18,7 +18,7 @@ class Admin::OrdersController < Admin::ApplicationController
   end
 
   def create
-    @product = PrimeryProduct.find params[:product_id]
+    @product = PrimaryProduct.find params[:product_id]
     @user = User.find order_params[:user_id]
     if @product.is_virtual || @product.is_sku?
       cart = Cart.create
