@@ -155,4 +155,7 @@ div.doc-container-head div.custom-btn-group-right{margin-left:425px !important;}
     width: 100%;
     margin-left: 0px;
   }
+  .no-print {
+      display: none;
+  }
 }

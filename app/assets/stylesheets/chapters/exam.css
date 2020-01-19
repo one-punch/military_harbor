@@ -1218,6 +1218,10 @@ a.btn_common:hover {
     .no-print {
         display: none;
     }
+    .preview_main .breviary_module .exam_box:hover {
+        border: 0px ;
+        border-radius: 0px;
+    }
 }
 
 .preview_main .waterMark {

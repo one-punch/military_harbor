@@ -5,6 +5,7 @@ class Paper < ApplicationRecord
   serialize :content, JSON
 
   scope :kno_ins, -> { where(type_name: "knoIns") }
+  scope :chapter_exam, -> { where(type_name: "chapter_exam") }
 
   # type_name ['explain', 'work', 'courseware', 'exam']
   def student_version
@@ -17,6 +18,14 @@ class Paper < ApplicationRecord
 
   def is_exam?
     type_name == "exam"
+  end
+
+  def is_knowledge?
+    type_name == "knoIns"
+  end
+
+  def is_chapter_exam?
+    type_name == "chapter_exam"
   end
 
 end

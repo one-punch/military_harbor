@@ -21,7 +21,7 @@
               <a id="analyze" href="javascript:void(0)">教师版</a>
           </div>
           <div class="preview_btn2">
-            <a id="print" href="javascript:void();" class="btn_common">打印</a>
+            <!-- <a id="print" href="javascript:void(0)" class="btn_common">打印</a> -->
           </div>
       </div>
 
@@ -101,13 +101,13 @@
 $(function(){
   $(document).on("click", "#question", function(){
     $(".answer").hide()
-    $(this).addClass("active")
-    $("#analyze").removeClass("active")
+    $(this).addClass("check")
+    $("#analyze").removeClass("check")
   })
   $(document).on("click", "#analyze", function(){
     $(".answer").show()
-    $(this).addClass("active")
-    $("#question").removeClass("active")
+    $(this).addClass("check")
+    $("#question").removeClass("check")
   })
   $(document).on("click", "#print", function(){
     window.print()

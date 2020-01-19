@@ -17,15 +17,16 @@
         <div class="doc-menu-foot"></div>
       </div>
      <div class="doc-container print">
-        <div class="doc-container-head">
+
+        <div class="doc-container-head no-print">
           <h1 class="doc-title ng-binding"><%= @knowledge.name %></h1>
-          <div class="btn-group custom-btn-group">
-              <span class="btn custom-btn " ng-click="viewfor('Teacher');version=2">教师版</span>
-              <span class="btn custom-btn  active" ng-click="viewfor('Student');version=1">学生版</span>
+          <!-- <div class="btn-group custom-btn-group">
+              <span class="btn custom-btn "">教师版</span>
+              <span class="btn custom-btn  active">学生版</span>
           </div>
-          <div class="btn-group custom-btn-group custom-btn-group-right" ng-show="version==1">
-              <a class="btn custom-btn" ng-click="print()">打印</a>
-          </div>
+          <div class="btn-group custom-btn-group custom-btn-group-right">
+              <a class="btn custom-btn">打印</a>
+          </div> -->
         </div>
         <div class="doc-container-body">
           <% title_index = 0%>
@@ -61,6 +62,7 @@
             </section>
           <% end %>
         </div>
+
       </div>
 
     </div>

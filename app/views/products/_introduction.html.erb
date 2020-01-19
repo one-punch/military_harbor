@@ -1,37 +1,54 @@
 <div class="row">
-  <% if product.paper&.student&.present? %>
-    <div class="col-lg-6">
-      <%= product.paper_student_version %>
-      <% if can_read?(@product) %>
-        <%= link_to t("product.view"), student_viewer_path(id: product.id, name: product.sku), class: "pull-right btn btn-success", target: :_blank %>
-      <% end %>
-    </div>
-  <% end %>
-  <% if product.paper&.teacher&.present? %>
-    <div class="col-lg-6">
-      <%= product.paper_teacher_version %>
-      <% if can_read?(@product) %>
-        <%= link_to t("product.view"), teacher_viewer_path(id: product.id, name: product.sku), class: "pull-right btn btn-success", target: :_blank %>
-      <% end %>
-    </div>
-  <% end %>
-
   <% if product.paper&.is_exam? %>
+    <!-- 习题 -->
     <div class="col-lg-6">
       <%= product.paper_student_version %>
       <% if can_read?(@product) %>
         <%= link_to t("product.view"), student_exam_path(id: product.id, name: product.sku), class: "pull-right btn btn-success", target: :_blank %>
       <% end %>
     </div>
-  <% end %>
 
-  <% if product.paper&.is_exam? %>
     <div class="col-lg-6">
       <%= product.paper_teacher_version %>
       <% if can_read?(@product) %>
         <%= link_to t("product.view"), teacher_exam_path(id: product.id, name: product.sku), class: "pull-right btn btn-success", target: :_blank %>
       <% end %>
     </div>
+  <% elsif product.paper&.is_knowledge? %>
+    <!-- 章节资料 -->
+    <div class="col-lg-6">
+      <%= product.paper_name %>
+      <% if can_read?(@product) %>
+        <%= link_to t("product.view"), knowledge_path(id: product.id, name: product.sku), class: "pull-right btn btn-success", target: :_blank %>
+      <% end %>
+    </div>
+  <% elsif product.paper&.is_chapter_exam? %>
+    <!-- 章节习题 -->
+    <div class="col-lg-6">
+      <%= product.paper_name %>
+      <% if can_read?(@product) %>
+        <%= link_to t("product.view"), chapters_exam_path(id: product.id, name: product.sku), class: "pull-right btn btn-success", target: :_blank %>
+      <% end %>
+    </div>
+  <% else %>
+    <!-- 教案 -->
+    <% if product.paper&.student&.present? %>
+      <div class="col-lg-6">
+        <%= product.paper_student_version %>
+        <% if can_read?(@product) %>
+          <%= link_to t("product.view"), student_viewer_path(id: product.id, name: product.sku), class: "pull-right btn btn-success", target: :_blank %>
+        <% end %>
+      </div>
+    <% end %>
+    <% if product.paper&.teacher&.present? %>
+      <div class="col-lg-6">
+        <%= product.paper_teacher_version %>
+        <% if can_read?(@product) %>
+          <%= link_to t("product.view"), teacher_viewer_path(id: product.id, name: product.sku), class: "pull-right btn btn-success", target: :_blank %>
+        <% end %>
+      </div>
+    <% end %>
+    <!-- 教案 -->
   <% end %>
 
 </div>

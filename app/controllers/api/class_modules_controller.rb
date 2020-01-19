@@ -93,7 +93,7 @@ class Api::ClassModulesController < Api::ApplicationController
       name: data_params[:name],
       proto_material_id: data_params[:materialsId],
       number: data_params[:number],
-      type_name: "exam",
+      type_name: "chapter_exam",
     )
     if exam_params # queId 为nil的是左边题型的分组
       paper.content = exam_params.select{|e| !e[:queId].present?}.map{|e| {groupId: e[:groupId], groupName: e[:groupName]}}

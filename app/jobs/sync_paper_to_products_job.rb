@@ -10,26 +10,30 @@ class SyncPaperToProductsJob < ApplicationJob
       LEFT JOIN products ON papers.id = products.paper_id
       WHERE products.id IS NULL AND papers.name IS NOT NULL
     }
-    mats = {}
-    cours = {}
+    @mats = {}
+    @cours = {}
 
     @papers.each do |paper|
-      if mats[paper.proto_material_id].present?
-        mat = mats[paper.proto_material_id]
+      ancestry_depth = 1
+      if @mats[paper.proto_material_id].present?
+        mat = @mats[paper.proto_material_id]
       else
         mat = paper.material
-        mats[paper.proto_material_id] = mat
+        @mats[paper.proto_material_id] = mat
       end
 
-      if cours[mat.proto_course_id].present?
-        cour = cours[mat.proto_course_id]
+      if @cours[mat.proto_course_id].present?
+        cour = @cours[mat.proto_course_id]
       else
         cour = mat.course
-        cours[mat.proto_course_id] = cour
+        @cours[mat.proto_course_id] = cour
       end
-      subject = Category.where(ancestry: cour.grade.id, ancestry_depth: 1, name: cour.subject.name).take
-      course = subject.children.where(name: cour.name).first_or_create(ancestry_depth: 2, is_leaf: false)
-      material = course.children.where(name: mat.name).first_or_create(ancestry_depth: 3, position: mat.number, is_leaf: true)
+
+      ancestry_depth = 1
+      subject = Category.where(ancestry: cour.grade.id, ancestry_depth: ancestry_depth, name: cour.subject.name).take
+      course = course_to_category(subject, cour)
+      material = material_to_category(course, mat)
+      material.update_attributes(is_leaf: true)
 
       product = init_product(paper, material)
       init_variant(paper, material, product)
@@ -38,6 +42,36 @@ class SyncPaperToProductsJob < ApplicationJob
         @logger.error(product.errors.full_messages.join("; "))
       end
     end
+  end
+
+  def course_to_category(parent, cour)
+    if cour.proto_parent_id.present?
+      if @cours[cour.proto_parent_id].present?
+        cour_parent = @cours[cour.proto_parent_id]
+      else
+        cour_parent = cour.parent
+        @cours[cour.proto_parent_id] = cour_parent
+      end
+      _parent = course_to_category(parent, cour_parent)
+    else
+      _parent = parent
+    end
+    _parent.children.where(name: cour.name).first_or_create(ancestry_depth: _parent.ancestry_depth + 1, is_leaf: false)
+  end
+
+  def material_to_category(parent, mat)
+    if mat.parent.present?
+      if @mats[mat.proto_parent_id].present?
+        mat_parent = @mats[mat.proto_parent_id]
+      else
+        mat_parent = mat.parent
+        @mats[mat.proto_parent_id] = mat_parent
+      end
+      _parent = material_to_category(parent, mat_parent)
+    else
+      _parent = parent
+    end
+    _parent.children.where(name: mat.name).first_or_create(ancestry_depth: _parent.ancestry_depth + 1, position: mat.number, is_leaf: false)
   end
 
 
