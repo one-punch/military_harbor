@@ -20,8 +20,12 @@ class Question < ApplicationRecord
   # 只有一般的试卷可以使用
   def answer_options
     @_answer_options ||= answer_option_list.map do |answer_options|
-      answer_options.map do |option|
-        Hashie::Mash.new option
+      if answer_options.is_a?(Array)
+        answer_options.map do |option|
+          Hashie::Mash.new option
+        end
+      elsif answer_options.is_a?(Hash)
+        [Hashie::Mash.new(answer_options)]
       end
     end if answer_option_list.present?
   end

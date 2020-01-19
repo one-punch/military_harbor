@@ -185,15 +185,17 @@ module PapersHelper
   def chapter_answer_options_list(question)
     #  题目选项
     return unless question.answer_option_list
-      list = question.answer_option_list.map do |option|
-        %Q{<ul class="clearfix">
-          <li class="clearfix">
-            <span class="opt_num">#{option["aoVal"]}.</span>
-            <div class="opt_cont clearfix">
-              #{option["content"]}
-            </div>
-          </li>
-        </ul>}
+      list = question.answer_options.map do |options|
+        options.map do |option|
+          %Q{<ul class="clearfix">
+            <li class="clearfix">
+              <span class="opt_num">#{option.aoVal}.</span>
+              <div class="opt_cont clearfix">
+                #{option.content}
+              </div>
+            </li>
+          </ul>}
+        end.join
       end
     %Q{<div>
       <div>
