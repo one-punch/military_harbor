@@ -95,9 +95,9 @@ class Api::ClassModulesController < Api::ApplicationController
       number: data_params[:number],
       type_name: "chapter_exam",
     )
-    if exam_params # queId 为nil的是左边题型的分组
-      paper.content = exam_params.select{|e| !e[:queId].present?}.map{|e| {groupId: e[:groupId], groupName: e[:groupName]}}
-    end
+    # if exam_params # queId 为nil的是左边题型的分组
+    #   paper.content = exam_params.select{|e| !e[:queId].present?}.map{|e| {groupId: e[:groupId], groupName: e[:groupName]}}
+    # end
     unless paper.save
       return render :json => {code: 1, message: paper.errors.full_messages.join(";")}.to_json, :callback => params['callback']
     end
