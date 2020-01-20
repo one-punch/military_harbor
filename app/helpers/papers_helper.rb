@@ -159,10 +159,12 @@ module PapersHelper
   def chapter_menu(sections)
     titles = sections.select{|e| e.is_h1? || e.is_h2?}
     html = []
+    h1_index = 0
     titles.each_with_index do |title, idx|
       if title.is_h1?
+        h1_index += 1
         html << "<li title='#{title.question_man_content}'>"
-        html <<   "<h3>#{title.remark}、#{title.question_man_content}</h3>"
+        html <<   "<h3>#{title.remark || h1_index}、#{title.question_man_content}</h3>"
             end_index = find_next_h1(titles, idx + 1)
             if end_index.to_i <= idx + 1
               html << "</li>"
