@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <%= stylesheet_link_tag  'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= yield(:head) %>
     <%= content_for :render_async %>
     <script type=text/x-mathjax-config>
       MathJax.Hub.Register.StartupHook("TeX Jax Ready", function() {

@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <%= stylesheet_link_tag  'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= yield(:head) %>
     <script type=text/x-mathjax-config>
       MathJax.Hub.Register.StartupHook("TeX Jax Ready", function() {
         MathJax.InputJax.TeX.prefilterHooks.Add(function(data) {
@@ -42,6 +43,7 @@
       });
     </script>
     <script src="MathJax-2.7.4/MathJax.js" type="text/javascript"></script>
+
     <%= render 'layouts/shim' %>
 </head>
 
