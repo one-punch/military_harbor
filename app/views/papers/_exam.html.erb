@@ -4,9 +4,9 @@
 <% end %>
 <div class="row no-print" style="position: fixed">
   <% if can_download?(@product) %>
-    <!-- <div class="col-md-2">
-      <button id="print" type="button" class="btn btn-success"><%= t("print") %></button>
-    </div> -->
+    <div class="col-md-2">
+      <button id="print" type="button" class="print-pdf btn btn-success"><%= t("print") %></button>
+    </div>
   <% end %>
 
   <div id="question" class="col-md-offset-6 col-md-2" style="display: none;">
