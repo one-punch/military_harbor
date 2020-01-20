@@ -156,7 +156,8 @@ div.doc-container-head div.custom-btn-group-right{margin-left:425px !important;}
 
   .doc-container {
     width: 820px;
-    margin-left: 0px;
+    margin-left: 10px;
+    margin-right: 10px;
   }
   .no-print {
       display: none;

@@ -1209,7 +1209,8 @@ a.btn_common:hover {
     }
     .preview_main .preview_right {
         width: 820px;
-        margin-left: 0px;
+        margin-left: 10px;
+        margin-right: 10px;
     }
     .preview_main .preview_fixed {
         display: none;
