@@ -459,13 +459,11 @@
     padding: 0!important
   }
   .print-body {
-    visibility: hidden!important;
+    visibility: visible!important;
     -webkit-box-shadow: none!important;
     box-shadow: none!important
   }
-  .print-body.is-show {
-    visibility: visible!important
-  }
+
   #MathJax_Message,
   .print-break-page,
   .print-head,
@@ -485,5 +483,11 @@
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex
+  }
+  #footer {
+    display: none;
+  }
+  .no-print {
+      display: none;
   }
 }

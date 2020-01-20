@@ -1,5 +1,5 @@
 class ChaptersController < ApplicationController
-  layout 'chapter'
+  layout 'pure'
 
   def show
     @product = Variant.preload(paper: :exam_paper_elements).find params[:id]
