@@ -18,11 +18,13 @@ class Admin::OrdersController < Admin::ApplicationController
   end
 
   def create
-    @product = PrimaryProduct.find params[:product_id]
+    @products = PrimaryProduct.where(id: params[:product_ids])
     @user = User.find order_params[:user_id]
-    if @product.is_virtual || @product.is_sku?
+    if @products.all{|product| product.is_virtual || product.is_sku?}
       cart = Cart.create
-      cart.add_item({product_id: @product.id, quantity: 1})
+      @products.each do |product|
+        cart.add_item({product_id: product.id, quantity: 1})
+      end
       cart.save
       @order = Order.generate(order_params.merge(email: @user.email), cart)
       if !@order.new_record?

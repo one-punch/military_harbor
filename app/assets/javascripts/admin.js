@@ -73,38 +73,45 @@ $(function(){
     Console.alert("warning", val)
   };
 
-  $('.select2').select2({
-    placeholder: 'Search for a repository',
-    minimumInputLength: 2,
-    allowClear: true,
-    templateResult: formatRepo,
-    templateSelection: formatRepoSelection,
-    ajax: {
-      delay: 250,
-      url: function (params) {
-        return $(this).data("path")
-      },
-      dataType: 'json',
-      data: function (params) {
-        var query = {
-          q: params.term,
-          page: params.page || 1
-        }
+  $('.select2').each((i, e) => {
+    var config = {
+      placeholder: 'Search for a repository',
+      minimumInputLength: 2,
+      allowClear: true,
+      templateResult: formatRepo,
+      templateSelection: formatRepoSelection,
+      closeOnSelect: true,
+      ajax: {
+        delay: 250,
+        url: function (params) {
+          return $(this).data("path")
+        },
+        dataType: 'json',
+        data: function (params) {
+          var query = {
+            q: params.term,
+            page: params.page || 1
+          }
 
-        return query;
-      },
-      processResults: function (data, params) {
-        params.page = params.page || 1;
+          return query;
+        },
+        processResults: function (data, params) {
+          params.page = params.page || 1;
 
-        return {
-            results: data.results,
-            pagination: {
-                more: data.more
-            }
-        };
-      },
-      cache: true
+          return {
+              results: data.results,
+              pagination: {
+                  more: data.more
+              }
+          };
+        },
+        cache: true
+      }
     }
-  });
+    Object.assign(config, {
+      closeOnSelect: $(e).data("closeonselect") !== undefined ? $(e).data("closeonselect") : true
+    })
+    $(e).select2(config);
+  })
 
 })

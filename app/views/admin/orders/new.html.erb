@@ -13,9 +13,8 @@
     </div>
     <div class="col-lg-6 col-sm-12">
       <div class="form-group">
-        <label for="product_id">课程套餐</label>
-        <%= f.label :product_id, "课程套餐" %>
-        <%= select_tag :product_id, options_for_select([], params[:product_id]), include_blank: false, data: {path: product_admin_ajax_select_index_path}, class: "form-control select2" %>
+        <%= f.label :product_ids, "课程套餐" %>
+        <%= select_tag "product_ids[]", options_for_select([], params[:product_ids]), include_blank: false, data: {path: product_admin_ajax_select_index_path, closeonselect: false}, class: "form-control select2", multiple: "multiple"%>
       </div>
     </div>
   </div>
