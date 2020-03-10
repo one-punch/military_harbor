@@ -107,10 +107,10 @@ $(function(){
         },
         cache: true
       }
-    }
+    };
     Object.assign(config, {
       closeOnSelect: $(e).data("closeonselect") !== undefined ? $(e).data("closeonselect") : true
-    })
+    });
     $(e).select2(config);
   })
 
