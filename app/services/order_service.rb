@@ -39,6 +39,8 @@ class OrderService
   protected
 
   def process_virtual(virtual_product)
+    days = 0
+    allow_download = false
     virtual_product.properties.each do |property|
       allow_download = true if property.allow_download?
       days = property.days if property.days
@@ -79,6 +81,8 @@ class OrderService
   end
 
   def proccess_normal(variant)
+    days = 0
+    allow_download = false
     variant.properties.each do |property|
       allow_download = true if property.allow_download?
       days = property.days if property.days
