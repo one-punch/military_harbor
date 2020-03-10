@@ -73,7 +73,7 @@ $(function(){
     Console.alert("warning", val)
   };
 
-  $('.select2').each((i, e) => {
+  $('.select2').each(function(i, e){
     var config = {
       placeholder: 'Search for a repository',
       minimumInputLength: 2,
