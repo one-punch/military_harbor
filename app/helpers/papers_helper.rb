@@ -15,7 +15,7 @@ module PapersHelper
 
   def can_download?(product)
     if product.paper_id
-      current_user.admin? || UserPaperRecord.where(user_id: current_user.id, paper_id: paper_id).last&.allow_download?
+      current_user.admin? || UserPaperRecord.where(user_id: current_user.id, paper_id: product.paper_id).last&.allow_download?
     else
       false
     end
