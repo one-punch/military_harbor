@@ -43,7 +43,7 @@ gem 'jquery-ui-rails'
 
 gem 'ancestry'
 
-gem 'kaminari', '~> 1.0.1'
+gem 'kaminari', '~> 1.2.1'
 
 gem 'carrierwave', '~> 1.1'
 gem 'mini_magick', '~> 3.8.1'
