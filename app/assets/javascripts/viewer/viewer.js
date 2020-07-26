@@ -13343,7 +13343,7 @@ function () {
           source: self
         });
       });
-      if (items.download)
+      if (items.download) {
         items.download.addEventListener('click', function () {
           eventBus.dispatch('download', {
             source: self
