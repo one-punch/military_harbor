@@ -13343,11 +13343,13 @@ function () {
           source: self
         });
       });
-      items.download.addEventListener('click', function () {
-        eventBus.dispatch('download', {
-          source: self
+      if (items.download)
+        items.download.addEventListener('click', function () {
+          eventBus.dispatch('download', {
+            source: self
+          });
         });
-      });
+      }
       items.scaleSelect.oncontextmenu = _ui_utils.noContextMenuHandler;
       eventBus.on('localized', function () {
         _this._localized();
