@@ -30,6 +30,11 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
+  new_user: 新用户
+  sign_up_now: 现在注册
+  log_in: 登 录
+  sign_up: 注 册
+  create_my_account: 创建账号
   hello: Hello world
   full_title: 壹品书吧
   home: 主页
@@ -60,6 +65,10 @@ en:
   chapters:
     answer: "【答案】"
     analysis: "【解析】"
+  validate_geetest_fail: 人机验证失败
+  missing_params: 缺少必要参数
+  sign_up_success: 注册成功，请登录
+  please_login: 请先登录
 
 
 

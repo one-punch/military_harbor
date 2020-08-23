@@ -1,6 +1,7 @@
 <% provide(:title, 'Log in') %>
 
-<h1>Log in</h1>
+<%= render "shared/geetest" %>
+<h1><%= t("log_in") %></h1>
 
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
@@ -12,10 +13,10 @@
       <%= f.label :password %>
       <%= link_to "(forgot password)", new_password_reset_path %>
       <%= f.password_field :password, class: 'form-control' %>
-
-      <%= f.submit "Log in", class: "btn btn-primary" %>
+      <%= yield :geetest_loading %>
+      <%= f.submit t("log_in"), id: "submit", class: "btn btn-primary" %>
     <% end %>
 
-    <p>New user? <%= link_to "Sign up now!", signup_path %></p>
+    <p><%= t("new_user") %> <%= link_to t("sign_up_now"), signup_path %></p>
   </div>
 </div>

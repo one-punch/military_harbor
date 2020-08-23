@@ -1,7 +1,9 @@
 class UsersController < ApplicationController
+  before_action :validate_geetest, only: [:create]
   before_action :find_user, only: [:show, :edit, :update]
   before_action :logged_in_user, only: [:edit, :update, :profile, :settings]
   before_action :correct_user, only: [:edit, :update]
+
 
   def new
     @user = User.new
@@ -9,10 +11,11 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
+    @user.activated = true
     if @user.save
       @user.send_activation_email
-      flash[:success] = "Please check your email to activate your account."
-      redirect_to root_url
+      flash[:success] = t("sign_up_success")
+      redirect_to login_url
     else
       render 'new'
     end

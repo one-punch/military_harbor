@@ -18,6 +18,7 @@
 //= require cable
 //= require jquery.toaster/jquery.toaster.js
 //= require choices/choices.min
+//= require geetest/gt
 
 $(function(){
   _Console = function(){

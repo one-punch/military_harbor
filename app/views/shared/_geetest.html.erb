@@ -1,0 +1,54 @@
+<% content_for :geetest_loading do %>
+<div class="form-group">
+    <div id="captcha">
+        <p id="wait" class="text-center">正在加载验证码......</p>
+    </div>
+</div>
+<% end %>
+
+
+<script>
+    var login = function (captchaObj) {
+        $("#submit").click(function (e) {
+            var result = captchaObj.getValidate();
+            console.log("== result: " + result);
+            if (!result) {
+                Console.alertWarning("请进行人机验证!")
+                e.preventDefault();
+            }
+        });
+        // 将验证码加到id为captcha的元素里，同时会有三个input的值用于表单提交
+        captchaObj.appendTo("#captcha");
+        captchaObj.onReady(function () {
+            $("#wait").hide();
+        });
+        // 更多接口参考：http://www.geetest.com/install/sections/idx-client-sdk.html
+    };
+    $.ajax({
+        url: "/geetest_register?t=" + (new Date()).getTime(), // 加随机数防止缓存
+        type: "POST",
+        dataType: "json"
+    }).done(function (res) {
+        if(res.code == 0 && res.data) {
+          // 调用 initGeetest 初始化参数
+          // 参数1：配置参数
+          // 参数2：回调，回调的第一个参数验证码对象，之后可以使用它调用相应的接口
+          var data = res.data
+          initGeetest({
+              gt: data.gt,
+              challenge: data.challenge,
+              new_captcha: data.new_captcha, // 用于宕机时表示是新验证码的宕机
+              offline: !data.success, // 表示用户后台检测极验服务器是否宕机，一般不需要关注
+              product: "float", // 产品形式，包括：float，popup
+              width: "100%"
+              // 更多配置参数请参见：http://www.geetest.com/install/sections/idx-client-sdk.html#config
+          }, login);
+        } else if(res.message){
+          Console.alertError(res.message)
+        } else {
+          Console.alertError("无法加载验证码")
+        }
+    }).fail(function(err) {
+      Console.alertError("网络错误，请稍后重试！")
+    });
+</script>

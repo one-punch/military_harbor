@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   get '/login',    to: 'sessions#new'
   post '/login',   to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'
+  post "/geetest_register", to: "sessions#geetest_register"
 
   get 'p-:id-:name' => 'products#show', :id => /\d+/, as: :product, :format => :html
 
@@ -114,4 +115,5 @@ Rails.application.routes.draw do
     resources :class_papers
     resources :class_modules
   end
+
 end
