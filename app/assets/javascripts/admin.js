@@ -27,6 +27,20 @@ function remove_fields(link) {
   $(link).closest(".fields").hide();
 }
 
+function initChoices(){
+  if ($("#search-keys").length != 1){return};
+  new Choices(
+    document.getElementById('search-keys'),
+    {
+      delimiter: ',',
+      editItems: true,
+      maxItemCount: 5,
+      removeItemButton: true,
+      duplicateItemsAllowed: false
+    }
+  );
+}
+
 
 function formatRepo (repo) {
   if (repo.loading) {
@@ -113,5 +127,8 @@ $(function(){
     });
     $(e).select2(config);
   });
+
+  initChoices();
+
 
 })

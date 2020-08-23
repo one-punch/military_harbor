@@ -56,15 +56,17 @@
 
 <script type="text/javascript">
 $(function(){
-  new Choices(
-    document.getElementById('search-keys'),
-    {
-      delimiter: ',',
-      editItems: true,
-      maxItemCount: 5,
-      removeItemButton: true,
-      duplicateItemsAllowed: false
-    }
-  );
+  if ($("#search-keys").length >= 1){
+    new Choices(
+      document.getElementById('search-keys'),
+      {
+        delimiter: ',',
+        editItems: true,
+        maxItemCount: 5,
+        removeItemButton: true,
+        duplicateItemsAllowed: false
+      }
+    );
+  }
 })
 </script>
