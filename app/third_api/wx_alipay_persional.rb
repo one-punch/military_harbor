@@ -52,7 +52,6 @@ class WxAlipayPersional
                        interval_randomness: 0.5, backoff_factor: 2,
                        exceptions: Faraday::ConnectionFailed
                     faraday.headers['Content-Type'] = 'application/json;charset=UTF-8'
-                    faraday.headers['Authorization'] = 'Basic ZHJlYW1lcjoxMjM0NTY=' unless Rails.env.production?
                     faraday.response :logger, Rails.logger, bodies: true
                     faraday.adapter  Faraday.default_adapter
                   end
@@ -74,7 +73,7 @@ class WxAlipayPersional
     end
 
     def success?
-      !@response[:code].present?
+      @response[:code].present? && @response[:code] == 1
     end
 
     def error_message

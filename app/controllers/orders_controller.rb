@@ -15,36 +15,12 @@ class OrdersController < ApplicationController
   end
 
   def create
-    @order = current_user.orders.new(order_params)
-    order_saved = false
-    ActiveRecord::Base.transaction do
-      begin
-        @order.status = :wait_payment
-        @order.subtotal = current_cart.subtotal
-        @order.shipping_total = current_cart.shipping_total
-        @order.total = current_cart.total
-        @order.weight = current_cart.weight_total
-        @order.save!
-        cart_items.each do |cart_item|
-          @order.order_items.create!(product_id: cart_item.product_id, price: cart_item.product.price, quantity: cart_item.quantity)
-        end
-
-        current_cart.destroy!
-
-        order_saved = true
-      rescue Exception => e
-        order_saved = false
-        flash[:error] = e
-        raise ActiveRecord::Rollback
-      end
-    end
-
-    if order_saved
-      @order.thank_buy_email
-      flash[:success] = "The order was successful"
+    @order = Order.generate(order_params.merge(user_id: current_user.id, email: current_user.email), current_cart)
+    if @order && !@order.new_record?
+      flash[:success] = t("order_success")
       redirect_to @order
     else
-      render 'new'
+      render :new
     end
   end
 

@@ -19,6 +19,20 @@
 //= require jquery.toaster/jquery.toaster.js
 //= require choices/choices.min
 //= require geetest/gt
+//= require qrcode/qrcode.min.js
+//= require jquery.simple.timer/jquery.simple.timer.js
+
+
+function makeQrcode(el, options, elText) {
+  var qrcode = new QRCode(el, options);
+  qrcode.makeCode(elText);
+}
+
+function timer(selector, callback){
+  $(selector).startTimer({
+      onComplete: callback
+  });
+}
 
 $(function(){
   _Console = function(){
@@ -41,6 +55,15 @@ $(function(){
   _Console.prototype.alertWarning = function(val){
     Console.alert("warning", val)
   };
+
+  _Console.prototype.makeQrcode = function(el, options, elText){
+    makeQrcode(el, options, elText)
+  }
+
+  _Console.prototype.startTimer = function(selector, callback){
+    timer(selector, callback)
+  }
+
   $(document).on("click", ".print-pdf", function(){
     window.print()
   })

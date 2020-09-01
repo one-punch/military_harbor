@@ -30,13 +30,13 @@
                         <h4 class="media-heading">
                           <%= link_to item.product.name, product_path(item.product.id, item.product.name) %>
                         </h4>
-                        <h5 class="media-heading">
+                        <!-- <h5 class="media-heading">
                           sku <%= item.product.sku %>
-                        </h5>
-                        <span>Status: </span>
+                        </h5> -->
+                        <!-- <span>Status: </span>
                         <span class="text-success">
                           <strong>In Stock</strong>
-                        </span>
+                        </span> -->
                       </div>
                     </div>
                   </td>
@@ -51,20 +51,20 @@
                   </td>
                 </tr>
               <% end %>
-              <tr>
+<!--               <tr>
                 <td></td>
                 <td></td>
                 <td><h5>Subtotal</h5></td>
                 <td class="text-right">
-                  <h5><strong><%= number_to_currency current_cart.subtotal %></strong></h5>
+                  <h5><strong><%#= number_to_currency current_cart.subtotal %></strong></h5>
                 </td>
               </tr>
               <tr>
                 <td></td>
                 <td></td>
                 <td><h5>Estimated shipping</h5></td>
-                <td class="text-right"><h5><strong><%= number_to_currency current_cart.shipping_total %></strong></h5></td>
-              </tr>
+                <td class="text-right"><h5><strong><%#= number_to_currency current_cart.shipping_total %></strong></h5></td>
+              </tr> -->
               <tr>
                 <td></td>
                 <td></td>

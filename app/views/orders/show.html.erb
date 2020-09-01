@@ -9,22 +9,7 @@
 
     <% if @order.wait_payment?%>
       <div class="alert alert-info" role="alert">
-        <% if @order.paypal? %>
-          <p>Please note: we will send the payment request to your paypal email address: <%= @order.user.email %></p>
-          <p>Or, you can also send the payment to our paypal: <%= ENV["MH_MAIL"] %><p>
-          <p>Then, after you paid, we will change your order status to: Paid. Before that, the status will be 'Wait payment'. Thanks for understand.</p>
-
-          <p>* because of time equation, maybe we need some hours to check it.</p>
-        <% else %>
-          This is our Western Union account information:
-          <ul class="list-unstyled">
-            <li>First name: <strong>QU</strong></li>
-            <li>Last name: <strong>YUAN</strong></li>
-            <li>City: <strong>Shanghai</strong></li>
-            <li>Country: <strong>China</strong></li>
-          </ul>
-          Please upload your Western Union sheet at ride side after you send the money. Make sure that sheet contain: Your name, MTCN number, transfer code and the final value. Thanks. When we pick up the money, will send out your parcel soon.
-        <% end %>
+        付款后自动到账 如果付款出现2.00 2.01 2.02 请按显示金额支付 支付未到账请联系微信客服
       </div>
     <% end %>
     <div class="panel panel-default">
@@ -40,27 +25,16 @@
 
       <div class="panel-body">
         <div class="row">
-          <div class="col-md-6">
-            <address>
-              <strong><%= @order.full_name %></strong><br>
-              <%= @order.country %><br>
-              <%= @order.street %><br>
-              <%= @order.zip %><br>
-              Phone: <%= @order.phone %><br>
-              Email: <a href="mailto:#"><%= @order.email %></a>
-            </address>
+          <div class="col-md-12">
+            <div id="orderQrcode"></div>
           </div>
-          <div class="col-md-6">
-            <% if @order.shipper %>
-              <dl>
-                <dt>Payment</dt>
-                <dd><%= @order.pay.humanize %></dd>
-                <dt>Shipper</dt>
-                <dd><%= @order.shipper.name %></dd>
-                <dt>Shipping Number</dt>
-                <dd><%= @order.shipping_number %></dd>
-              </dl>
-            <% end %>
+        </div>
+        <div class="row">
+          <div class="col-md-offset-3 col-md-6">
+            <div class="time-item" id="msg1">
+                <h5>二维码过期时间</h5>
+                <div class="timer" data-seconds-left='<%= 5 %>'></div>
+            </div>
           </div>
         </div>
       </div>
@@ -96,20 +70,20 @@
             </td>
           </tr>
         <% end %>
-        <tr>
+<!--         <tr>
           <td></td>
           <td></td>
           <td><h5>Subtotal</h5></td>
           <td class="text-right">
-            <h5><strong><%= number_to_currency @order.subtotal %></strong></h5>
+            <h5><strong><%#= number_to_currency @order.subtotal %></strong></h5>
           </td>
         </tr>
         <tr>
           <td></td>
           <td></td>
           <td><h5>Shipping total</h5></td>
-          <td class="text-right"><h5><strong><%= number_to_currency @order.shipping_total %></strong></h5></td>
-        </tr>
+          <td class="text-right"><h5><strong><%#= number_to_currency @order.shipping_total %></strong></h5></td>
+        </tr> -->
         <tr>
           <td></td>
           <td></td>
@@ -120,3 +94,24 @@
     </div>
   </div>
 </div>
+
+<script type="text/javascript">
+  $(function(){
+    Console.makeQrcode(
+      $("#orderQrcode").get(0),
+      {
+        width : 150,
+        height : 150,
+        colorDark : "#000",
+        colorLight : "#fff",
+      },
+      "https://stao8.cn/register?reference_id=13"
+    )
+    Console.startTimer(".timer", function(element){
+      $("#orderQrcode img").attr("src", "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iMTQwIiBoZWlnaHQ9IjE0MCIgdmlld0JveD0iMCAwIDE0MCAxNDAiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiPjwhLS0KU291cmNlIFVSTDogaG9sZGVyLmpzLzE0MHgxNDAKQ3JlYXRlZCB3aXRoIEhvbGRlci5qcyAyLjYuMC4KTGVhcm4gbW9yZSBhdCBodHRwOi8vaG9sZGVyanMuY29tCihjKSAyMDEyLTIwMTUgSXZhbiBNYWxvcGluc2t5IC0gaHR0cDovL2ltc2t5LmNvCi0tPjxkZWZzPjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+PCFbQ0RBVEFbI2hvbGRlcl8xNzQ0OWJhZDcyMSB0ZXh0IHsgZmlsbDojQUFBQUFBO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1mYW1pbHk6QXJpYWwsIEhlbHZldGljYSwgT3BlbiBTYW5zLCBzYW5zLXNlcmlmLCBtb25vc3BhY2U7Zm9udC1zaXplOjEwcHQgfSBdXT48L3N0eWxlPjwvZGVmcz48ZyBpZD0iaG9sZGVyXzE3NDQ5YmFkNzIxIj48cmVjdCB3aWR0aD0iMTQwIiBoZWlnaHQ9IjE0MCIgZmlsbD0iI0VFRUVFRSIvPjxnPjx0ZXh0IHg9IjQ0LjA0Njg3NSIgeT0iNzQuNSI+MTQweDE0MDwvdGV4dD48L2c+PC9nPjwvc3ZnPg==");
+      element.addClass('is-complete');
+    })
+  })
+</script>
+
+

@@ -28,3 +28,39 @@ div#slider-thumbs ul {
   scroll-behavior: smooth;
 }
 
+#orderQrcode {
+  text-align: center;
+}
+#orderQrcode img {
+  width: 150px;
+  height: 150px;
+  background-color: #fff;
+  margin: 0 auto;
+}
+
+.time-item {
+  text-align: center;
+}
+
+.timer, .timer-done, .timer-loop {
+    font-size: 30px;
+    color: black;
+    font-weight: bold;
+    padding: 10px;
+    display: inline-block;
+}
+.jst-hours {
+       float: left;
+   }
+.jst-minutes {
+    float: left;
+}
+.jst-seconds {
+    float: left;
+}
+.jst-clearDiv {
+    clear: both;
+}
+.jst-timeout {
+    color: red;
+}

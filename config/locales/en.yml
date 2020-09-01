@@ -69,6 +69,9 @@ en:
   missing_params: 缺少必要参数
   sign_up_success: 注册成功，请登录
   please_login: 请先登录
+  order_success: 创建订单成功
+  create_payment_fail: 创建支付失败
+  create_payment_success: 创建支付成功
 
 
 
