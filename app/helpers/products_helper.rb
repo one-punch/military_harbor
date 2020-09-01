@@ -1,6 +1,6 @@
 module ProductsHelper
   def varirant_property_name variant
-    variant.properties.map {|property| "#{property.key}:#{property.value}"}.join(' ')
+    variant.properties.map {|property| "#{Property::KEY_DISPLAY[property.key.to_sym]}"}.join(' ')
   end
 
   def varirants_selector product

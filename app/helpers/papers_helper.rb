@@ -1,8 +1,11 @@
 module PapersHelper
 
+  def paper_record(paper_id)
+    UserPaperRecord.where(user_id: current_user.id, paper_id: paper_id).last
+  end
 
   def can_view?(paper_id)
-    current_user.admin? || UserPaperRecord.where(user_id: current_user.id, paper_id: paper_id).last&.not_expired?
+    current_user.admin? || paper_record(paper_id)&.not_expired?
   end
 
   def can_read?(product)

@@ -50,6 +50,7 @@ class CartItemsController < ApplicationController
       @product = @product.becomes(Variant)
     end
     @had = can_read?(@product)
+    @record = paper_record(@product.paper_id) if @product.paper_id
     @exists = current_cart.cart_items.where("cart_items.product_id" => @product.id).exists?
     render partial: "info"
   end
