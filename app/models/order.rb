@@ -61,4 +61,20 @@ class Order < ApplicationRecord
     @order
   end
 
+  def qrcode_available?
+    qrcode_url.present? && !qrcode_expired?
+  end
+
+  def qrcode_expired?
+    expired_at && expired_at < Time.zone.now
+  end
+
+  def can_pay?
+    wait_payment? && qrcode_available?
+  end
+
+  def qrcode_left_time_in_seconds
+    qrcode_expired? ? 0 : (expired_at.to_i - Time.zone.now.to_i)
+  end
+
 end

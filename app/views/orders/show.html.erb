@@ -24,19 +24,23 @@
       </div>
 
       <div class="panel-body">
-        <div class="row">
-          <div class="col-md-12">
-            <div id="orderQrcode"></div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-offset-3 col-md-6">
-            <div class="time-item" id="msg1">
-                <h5>二维码过期时间</h5>
-                <div class="timer" data-seconds-left='<%= 5 %>'></div>
+        <% if @order.can_pay? %>
+          <div class="row">
+            <div class="col-md-12">
+              <div id="orderQrcode" data-url="<%= @order.qrcode_url.html_safe %>"></div>
             </div>
           </div>
-        </div>
+          <div class="row">
+            <div class="col-md-offset-3 col-md-6">
+              <div class="time-item" id="msg1">
+                  <h5>二维码过期时间</h5>
+                  <div class="timer" id="order-left-time" data-seconds-left='<%= @order.qrcode_left_time_in_seconds %>'></div>
+              </div>
+            </div>
+          </div>
+        <% elsif @order.wait_payment? && @order.qrcode_expired? %>
+          <!-- 支付二维码过期了 -->
+        <% end %>
       </div>
 
       <table class="table">
@@ -96,6 +100,54 @@
 </div>
 
 <script type="text/javascript">
+  function checkOrder(){
+    var secondsLeft = $("#order-left-time").data("seconds-left");
+    var syncOrder = function(timerId){
+      var state = Console.syncOrderPayment(<%= @order.id %>, function(res){
+        if (res && res.code == 0 ){
+          if (res.data && res.data.confirmed){
+            return 1;
+          } else if (res.data && res.data.qrcode_expired) {
+            return 2;
+          } else {
+            return 0;
+          }
+        } else if (res && res.code == 404) {
+          console.error(res.message)
+          return 404;
+        } else {
+          return -1;
+        }
+      });
+      switch(state) {
+        case 0:
+          timerId = setTimeout(function() {
+            syncOrder(timerId);
+          }, 2000);
+          break;
+        case 1:
+          Console.alertSuccess("支付成功!")
+          setTimeout(function() {
+            window.location.reload()
+          }, 2 * 1000);
+          return;
+        case 2:
+          Console.alertError("二维码过期了")
+          setTimeout(function() {
+            window.location.reload()
+          }, 2 * 1000);
+          return;
+        default:
+          Console.alertError("遇到错误，请刷新页面再尝试")
+          return;
+      }
+    }
+    if (secondsLeft && secondsLeft > 0) {
+      var timerId = setTimeout(function() {
+        syncOrder(timerId);
+      }, 2000);
+    }
+  }
   $(function(){
     Console.makeQrcode(
       $("#orderQrcode").get(0),
@@ -105,12 +157,13 @@
         colorDark : "#000",
         colorLight : "#fff",
       },
-      "https://stao8.cn/register?reference_id=13"
+      $("#orderQrcode").data("url")
     )
     Console.startTimer(".timer", function(element){
       $("#orderQrcode img").attr("src", "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iMTQwIiBoZWlnaHQ9IjE0MCIgdmlld0JveD0iMCAwIDE0MCAxNDAiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiPjwhLS0KU291cmNlIFVSTDogaG9sZGVyLmpzLzE0MHgxNDAKQ3JlYXRlZCB3aXRoIEhvbGRlci5qcyAyLjYuMC4KTGVhcm4gbW9yZSBhdCBodHRwOi8vaG9sZGVyanMuY29tCihjKSAyMDEyLTIwMTUgSXZhbiBNYWxvcGluc2t5IC0gaHR0cDovL2ltc2t5LmNvCi0tPjxkZWZzPjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+PCFbQ0RBVEFbI2hvbGRlcl8xNzQ0OWJhZDcyMSB0ZXh0IHsgZmlsbDojQUFBQUFBO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1mYW1pbHk6QXJpYWwsIEhlbHZldGljYSwgT3BlbiBTYW5zLCBzYW5zLXNlcmlmLCBtb25vc3BhY2U7Zm9udC1zaXplOjEwcHQgfSBdXT48L3N0eWxlPjwvZGVmcz48ZyBpZD0iaG9sZGVyXzE3NDQ5YmFkNzIxIj48cmVjdCB3aWR0aD0iMTQwIiBoZWlnaHQ9IjE0MCIgZmlsbD0iI0VFRUVFRSIvPjxnPjx0ZXh0IHg9IjQ0LjA0Njg3NSIgeT0iNzQuNSI+MTQweDE0MDwvdGV4dD48L2c+PC9nPjwvc3ZnPg==");
       element.addClass('is-complete');
     })
+    checkOrder()
   })
 </script>
 

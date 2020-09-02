@@ -46,7 +46,15 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :orders
+  resources :orders do
+    collection do
+      get '/payment/callback', to: 'orders#payment_callback'
+    end
+
+    member do
+      post 'payment', to: 'orders#payment'
+    end
+  end
 
   resources :products, only: [:index]
 

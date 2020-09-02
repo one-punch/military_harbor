@@ -24,14 +24,30 @@
 
 
 function makeQrcode(el, options, elText) {
-  var qrcode = new QRCode(el, options);
-  qrcode.makeCode(elText);
+  if (el) {
+    var qrcode = new QRCode(el, options);
+    qrcode.makeCode(elText);
+  }
 }
 
 function timer(selector, callback){
   $(selector).startTimer({
       onComplete: callback
   });
+}
+
+function syncOrderPayment(id, callback){
+  var result = -1
+  $.ajax({
+    async: false,
+    method: "POST",
+    url: `/orders/${id}/payment`,
+  }).success(function(res){
+    result = callback(res)
+  }).fail(function(e){
+    console.error(e)
+  })
+  return result;
 }
 
 $(function(){
@@ -62,6 +78,15 @@ $(function(){
 
   _Console.prototype.startTimer = function(selector, callback){
     timer(selector, callback)
+  }
+
+  _Console.prototype.syncOrderPayment = function(id, callback){
+    return syncOrderPayment(id, callback)
+  }
+
+  _Console.prototype.sleep = function(delay){
+    var start = new Date().getTime();
+    while (new Date().getTime() < start + delay*1000);
   }
 
   $(document).on("click", ".print-pdf", function(){

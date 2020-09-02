@@ -17,6 +17,12 @@ class OrderService
       if sku.is_virtual?
         process_virtual(sku.becomes(VirtualProduct))
         virtual_product.properties
+      elsif sku.is_master?
+        Rails.logger.warn("product id: #{sku.id}, spu will only use not allow_download sku to process")
+        target = sku.becomes(Product).variants.preload(:properties).find do |v|
+          v.properties.find {|p| !p.allow_download? }.present?
+        end
+        proccess_normal(target)
       else
         proccess_normal(sku.becomes(Variant))
       end

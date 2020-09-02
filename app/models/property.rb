@@ -4,7 +4,7 @@ class Property < ApplicationRecord
   enum key: [:subscribe, :download]
 
   KEY_DISPLAY = {
-    subscribe: "查看",
+    subscribe: "仅查看",
     download: "查看与下载"
   }
 
@@ -15,6 +15,10 @@ class Property < ApplicationRecord
     if subscribe? && value.to_i > 0
       Time.now.beginning_of_day + value.to_i.days #单位 day
     end
+  end
+
+  def key_for_display
+    KEY_DISPLAY[key.to_sym]
   end
 
   def allow_download?

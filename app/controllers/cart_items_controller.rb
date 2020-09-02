@@ -31,7 +31,33 @@ class CartItemsController < ApplicationController
   end
 
   def toggle
-    if (item = current_cart.cart_items.where("cart_items.product_id" => item_params[:product_id]).last)
+    primary_product = PrimaryProduct.find_by(id: item_params[:product_id])
+    unless primary_product.present?
+      @error = I18n.t("product_not_found")
+      return
+    end
+    if primary_product.is_virtual?
+      @error = I18n.t("not_support_virtual")
+      return
+    elsif primary_product.is_master?
+      primary_product = primary_product.becomes(Product)
+      target = primary_product.variants.preload(:properties).find do |v|
+        v.properties.find {|p| p.allow_download? }.present?
+      end
+      unless target
+        target = primary_product.variants.find do |v|
+          v.properties.find {|p| !p.allow_download? }.present?
+        end
+      end
+      unless target
+        @error = I18n.t("product_not_found")
+        return
+      end
+    else
+      target = primary_product.becomes(Variant)
+    end
+
+    if (item = current_cart.cart_items.where("cart_items.product_id" => target.id).last)
       @destroy = item.destroy
     else
       @cart = current_cart

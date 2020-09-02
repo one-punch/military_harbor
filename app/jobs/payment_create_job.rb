@@ -4,10 +4,10 @@ class PaymentCreateJob < ApplicationJob
   def perform(order_id)
     order = Order.find_by(id: order_id)
     return unless order
-    pay = PaymentService.new(order)
+    pay = PaymentService.new(order, SecureRandom.hex)
     if pay.exec
       qr_url = pay.qr_url
-      order.update_attributes(qrcode_url: qr_url, expired_at: Time.zone.now + YAML_CONFIG[:wx_alipay][:expire].minutes)
+      order.update_attributes(qrcode_url: qr_url, expired_at: Time.zone.now + YAML_CONFIG[:wx_alipay][:expire].minutes, extension: pay.extension)
     end
   end
 

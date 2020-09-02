@@ -21,7 +21,7 @@ class Variant < PrimaryProduct
   end
 
   def property_info
-    properties.map { |property| "#{property.key}: #{property.value}" }.join(' ')
+    properties.map { |property| "#{property.key_for_display}: #{property.value}" }.join(' ')
   end
 
   def property_mapping
