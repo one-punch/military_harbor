@@ -1,4 +1,4 @@
-:/*
+/*
 * jQuery-Simple-Timer
 *
 * Creates a countdown timer.
@@ -59,11 +59,11 @@
 
     var classNames = opts.classNames || {};
 
-    timer._options.classNameSeconds       = classNames.seconds  || 'jst-seconds'
-      , timer._options.classNameMinutes   = classNames.minutes  || 'jst-minutes'
-      , timer._options.classNameHours     = classNames.hours    || 'jst-hours'
-      , timer._options.classNameClearDiv  = classNames.clearDiv || 'jst-clearDiv'
-      , timer._options.classNameTimeout   = classNames.timeout || 'jst-timeout';
+    timer._options.classNameSeconds       = classNames.seconds  || 'jst-seconds';
+    timer._options.classNameMinutes   = classNames.minutes  || 'jst-minutes';
+    timer._options.classNameHours     = classNames.hours    || 'jst-hours';
+    timer._options.classNameClearDiv  = classNames.clearDiv || 'jst-clearDiv';
+    timer._options.classNameTimeout   = classNames.timeout || 'jst-timeout';
   }
 
   Timer.prototype.start = function(options) {
