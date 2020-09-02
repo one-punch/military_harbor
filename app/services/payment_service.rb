@@ -30,4 +30,8 @@ class PaymentService
     @res.success? ? res.result.data.qr_url : nil
   end
 
+  def order_price
+    @res.success? ? res.result.data.order_price.to_f : nil
+  end
+
 end

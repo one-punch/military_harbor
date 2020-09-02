@@ -77,5 +77,10 @@ en:
   sign_miss_match: 签名不匹配
   not_support_virtual: 不支持虚拟产品，请选择具体产品
   product_not_found: 找不到产品
-
+  days: 天
+  orders: 订单
+  settings: 设置
+  profile: 账户信息
+  account: 账户
+  log_out: 登出
 

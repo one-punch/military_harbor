@@ -58,8 +58,8 @@
                     <%= link_to item.product.name, product_path(item.product.id, item.product.name) %>
                   </h5>
                   <h5 class="media-heading">
-                    sku <%= item.product.sku %>
-                </h5>
+                    <%= item.product.becomes(Variant).property_info %>
+                  </h5>
                 </div>
               </div>
             </td>

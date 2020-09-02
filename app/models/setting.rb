@@ -2,6 +2,7 @@ class Setting < ApplicationRecord
 
   GEETEST_ID = "geetest_id".freeze
   GEETEST_KEY = "geetest_key".freeze
+  DEFAULT_EXPIRED_DAYS = "default_expired_days".freeze
 
   class << self
 
