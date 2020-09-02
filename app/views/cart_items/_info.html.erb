@@ -1,4 +1,4 @@
-<% unless @had %>
+<% if !@had %>
   <%= hidden_field_tag('cart_item[product_id]', @product.id) %>
   <% id = SecureRandom.hex %>
   <%= hidden_field_tag('element_id', id) %>
@@ -10,4 +10,6 @@
     <%= t("pre_buy") %>
   <% end %>
   </button>
+<% elsif @record %>
+  有效期至 <%= @record.expired_at.strftime("%Y-%m-%d") %>
 <% end %>

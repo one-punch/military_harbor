@@ -40,13 +40,13 @@ class Order < ApplicationRecord
 
   def self.generate(order_params, cart)
     @order = Order.new(order_params)
+    @order.status = :wait_payment
+    @order.subtotal = cart.subtotal
+    @order.shipping_total = cart.shipping_total
+    @order.total = cart.total
+    @order.weight = cart.weight_total
     ActiveRecord::Base.transaction do
       begin
-        @order.status = :wait_payment
-        @order.subtotal = cart.subtotal
-        @order.shipping_total = cart.shipping_total
-        @order.total = cart.total
-        @order.weight = cart.weight_total
         @order.save!
         cart.cart_items.each do |cart_item|
           @order.order_items.create!(product_id: cart_item.product_id, price: cart_item.product.price, quantity: cart_item.quantity)
@@ -59,6 +59,22 @@ class Order < ApplicationRecord
       end
     end
     @order
+  end
+
+  def qrcode_available?
+    qrcode_url.present? && !qrcode_expired?
+  end
+
+  def qrcode_expired?
+    expired_at && expired_at < Time.zone.now
+  end
+
+  def can_pay?
+    wait_payment? && qrcode_available?
+  end
+
+  def qrcode_left_time_in_seconds
+    qrcode_expired? ? 0 : (expired_at.to_i - Time.zone.now.to_i)
   end
 
 end

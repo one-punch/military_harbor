@@ -1,12 +1,12 @@
 # 根据订单创建用户记录
 class OrderService
 
-  attr_accessor :order, :days, :allow_download
+  attr_accessor :order, :allow_download, :default_days
   delegate :order_items, to: :@order, prefix: false, allow_nil: true
 
   def initialize(order)
     @order = order
-    @days = 0
+    @default_days = (Setting.find_by(key: Setting::DEFAULT_EXPIRED_DAYS)&.value || 100).to_i
     @allow_download = false
   end
 
@@ -17,6 +17,12 @@ class OrderService
       if sku.is_virtual?
         process_virtual(sku.becomes(VirtualProduct))
         virtual_product.properties
+      elsif sku.is_master?
+        Rails.logger.warn("product id: #{sku.id}, spu will only use not allow_download sku to process")
+        target = sku.becomes(Product).variants.preload(:properties).find do |v|
+          v.properties.find {|p| !p.allow_download? }.present?
+        end
+        proccess_normal(target)
       else
         proccess_normal(sku.becomes(Variant))
       end
@@ -39,11 +45,11 @@ class OrderService
   protected
 
   def process_virtual(virtual_product)
-    days = 0
+    days = default_days
     allow_download = false
     virtual_product.properties.each do |property|
       allow_download = true if property.allow_download?
-      days = property.days if property.days
+      days = property.days if property.days.to_i > 0
     end
 
     paper_ids = virtual_product.actual_products.map do |product|
@@ -60,12 +66,10 @@ class OrderService
           variant = product.variants.first
           record = records["#{order.user_id}-#{variant.paper_id}"]
           if record.present?
-            if days > 0
-              if record.expired?
-                record.reset_expired_at_from_now(days)
-              else
-                record.stretch(days)
-              end
+            if record.expired?
+              record.reset_expired_at_from_now(days)
+            else
+              record.stretch(days)
             end
             record.allow_download = allow_download
           else
@@ -81,11 +85,11 @@ class OrderService
   end
 
   def proccess_normal(variant)
-    days = 0
+    days = default_days
     allow_download = false
     variant.properties.each do |property|
       allow_download = true if property.allow_download?
-      days = property.days if property.days
+      days = property.days if property.days.to_i > 0
     end
     begin
       generate_record!(variant.paper, days, allow_download)
@@ -97,12 +101,10 @@ class OrderService
   def generate_record!(paper, days, allow_download)
     record = UserPaperRecord.where(user_id: order.user_id, paper_id: paper.id).take
     if record.present?
-      if days > 0
-        if record.expired?
-          record.reset_expired_at_from_now(days)
-        else
-          record.stretch(days)
-        end
+      if record.expired?
+        record.reset_expired_at_from_now(days)
+      else
+        record.stretch(days)
       end
       record.allow_download = allow_download
     else

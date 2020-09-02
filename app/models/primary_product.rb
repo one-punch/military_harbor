@@ -51,6 +51,7 @@ class PrimaryProduct < ApplicationRecord
   end
 
   def product_images(format=:thumb)
+    return default_images(format)
     if is_sku?
       default_images(format).any? ? default_images(format) : Product.find(parent_id).default_images
     else

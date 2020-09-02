@@ -3,6 +3,11 @@ class Property < ApplicationRecord
 
   enum key: [:subscribe, :download]
 
+  KEY_DISPLAY = {
+    subscribe: "仅查看",
+    download: "查看与下载"
+  }
+
   validates :key, presence: true, uniqueness: { scope: :variant_id }
   validates :value, presence: true, uniqueness: { scope: :variant_id }
 
@@ -10,6 +15,10 @@ class Property < ApplicationRecord
     if subscribe? && value.to_i > 0
       Time.now.beginning_of_day + value.to_i.days #单位 day
     end
+  end
+
+  def key_for_display
+    KEY_DISPLAY[key.to_sym]
   end
 
   def allow_download?

@@ -31,12 +31,8 @@
                           <%= link_to item.product.name, product_path(item.product.id, item.product.name) %>
                         </h4>
                         <h5 class="media-heading">
-                          sku <%= item.product.sku %>
+                          <%= item.product.becomes(Variant).property_info %>
                         </h5>
-                        <span>Status: </span>
-                        <span class="text-success">
-                          <strong>In Stock</strong>
-                        </span>
                       </div>
                     </div>
                   </td>
@@ -51,20 +47,20 @@
                   </td>
                 </tr>
               <% end %>
-              <tr>
+<!--               <tr>
                 <td></td>
                 <td></td>
                 <td><h5>Subtotal</h5></td>
                 <td class="text-right">
-                  <h5><strong><%= number_to_currency current_cart.subtotal %></strong></h5>
+                  <h5><strong><%#= number_to_currency current_cart.subtotal %></strong></h5>
                 </td>
               </tr>
               <tr>
                 <td></td>
                 <td></td>
                 <td><h5>Estimated shipping</h5></td>
-                <td class="text-right"><h5><strong><%= number_to_currency current_cart.shipping_total %></strong></h5></td>
-              </tr>
+                <td class="text-right"><h5><strong><%#= number_to_currency current_cart.shipping_total %></strong></h5></td>
+              </tr> -->
               <tr>
                 <td></td>
                 <td></td>
@@ -84,9 +80,9 @@
             </div>
           </div>
         </div>
-        <h3>Ship my order to</h3>
-        <div class="list-group">
-          <!-- <div class="list-group-item">
+<!--         <h3>Ship my order to</h3>
+         <div class="list-group">
+          <div class="list-group-item">
             <div class="list-group-item-heading">
               <div class="row radio">
                 <div class="col-xs-3">
@@ -105,80 +101,80 @@
                 </div>
               </div>
             </div>
-          </div> -->
+          </div>
           <div class="list-group-item">
             <div class="list-group-item-heading">
               <div class="row">
                 <div class="col-xs-3">
                   <div class="radio">
-                    <%= label_tag :address do %>
-                      <%= radio_button_tag 'order[address]', 1, checked: true %>
+                    <%#= label_tag :address do %>
+                      <%#= radio_button_tag 'order[address]', 1, checked: true %>
                       New address
-                    <% end %>
+                    <%# end %>
                   </div>
                 </div>
                 <div class="col-xs-9">
                   <div class="form-group">
-                    <%= f.label :first_name %>
-                    <%= f.text_field :first_name, class: 'form-control form-control-large',
+                    <%#= f.label :first_name %>
+                    <%#= f.text_field :first_name, class: 'form-control form-control-large',
                       placeholder: 'Enter first name' %>
                   </div>
 
                   <div class="form-group">
-                    <%= f.label :last_name %>
-                    <%= f.text_field :last_name, class: 'form-control form-control-large',
+                    <%#= f.label :last_name %>
+                    <%#= f.text_field :last_name, class: 'form-control form-control-large',
                       placeholder: 'Enter last name' %>
                   </div>
 
                   <div class="form-group">
-                    <%= f.label :email %>
-                    <%= f.text_field :email, class: 'form-control form-control-large',
+                    <%#= f.label :email %>
+                    <%#= f.text_field :email, class: 'form-control form-control-large',
                       placeholder: 'Enter email' %>
                   </div>
 
                   <div class="form-group">
-                    <%= f.label :phone %>
-                    <%= f.text_field :phone, class: 'form-control form-control-large',
+                    <%#= f.label :phone %>
+                    <%#= f.text_field :phone, class: 'form-control form-control-large',
                       placeholder: 'Enter phone number' %>
                   </div>
 
                   <div class="row">
                     <div class="col-xs-3">
                       <div class="form-group">
-                        <%= f.label :country, 'Country or Region' %>
-                        <%= f.text_field :country, class: 'form-control form-control-large',
+                        <%#= f.label :country, 'Country or Region' %>
+                        <%#= f.text_field :country, class: 'form-control form-control-large',
                             placeholder: 'Enter country or region' %>
                       </div>
                     </div>
 
                     <div class="col-xs-3">
                       <div class="form-group">
-                        <%= f.label :province, 'State' %>
-                        <%= f.text_field :province, class: 'form-control form-control-large',
+                        <%#= f.label :province, 'State' %>
+                        <%#= f.text_field :province, class: 'form-control form-control-large',
                             placeholder: 'Enter state or province' %>
                       </div>
                     </div>
 
                     <div class="col-xs-3">
                       <div class="form-group">
-                        <%= f.label :city %>
-                        <%= f.text_field :city, class: 'form-control form-control-large',
+                        <%#= f.label :city %>
+                        <%#= f.text_field :city, class: 'form-control form-control-large',
                             placeholder: 'Enter city' %>
                       </div>
                     </div>
 
                     <div class="col-xs-3">
                       <div class="form-group">
-                        <%= f.label :zip, 'ZIP' %>
-                        <%= f.text_field :zip, class: 'form-control form-control-large',
+                        <%#= f.label :zip, 'ZIP' %>
+                        <%#= f.text_field :zip, class: 'form-control form-control-large',
                             placeholder: 'Enter zip' %>
                       </div>
                     </div>
                   </div>
 
                   <div class="form-group">
-                    <%= f.label :street %>
-                    <%= f.text_field :street, class: 'form-control form-control-large',
+                    <%#= f.label :street %>
+                    <%#= f.text_field :street, class: 'form-control form-control-large',
                       placeholder: 'Enter address' %>
                   </div>
                 </div>
@@ -198,7 +194,7 @@
         </div>
         <h3>I'll pay with</h3>
         <div class="list-group">
-<!--           <div class="list-group-item">
+           <div class="list-group-item">
             <div class="list-group-item-heading">
                 <div class="row radio">
                   <div class="col-xs-3">
@@ -233,20 +229,20 @@
                   </div>
                 </div>
             </div>
-          </div> -->
+          </div>
           <div class="list-group-item">
             <div class="list-group-item-heading">
                 <div class="row radio">
                   <div class="col-xs-3">
-                    <%= f.label :pay do %>
-                      <%= f.radio_button :pay, :paypal, checked: true %>
+                    <%#= f.label :pay do %>
+                      <%#= f.radio_button :pay, :paypal, checked: true %>
                       Paypal
-                    <% end %>
+                    <%# end %>
                   </div>
                   <div class="col-xs-9">
                     <div class="media">
                       <div class="media-body">
-                        <%= f.text_field :pay_number, class: 'form-control form-control-large',
+                        <%#= f.text_field :pay_number, class: 'form-control form-control-large',
                           placeholder: 'Enter Paypal address' %>
                       </div>
                     </div>
@@ -258,10 +254,10 @@
             <div class="list-group-item-heading">
                 <div class="row radio">
                   <div class="col-xs-3">
-                    <%= f.label :pay do %>
-                      <%= f.radio_button :pay, :western_nion %>
+                    <%#= f.label :pay do %>
+                      <%#= f.radio_button :pay, :western_nion %>
                       Western Union
-                    <% end %>
+                    <%# end %>
                   </div>
                   <div class="col-xs-9">
                     <div class="media">
@@ -273,7 +269,7 @@
                 </div>
             </div>
           </div>
-        </div>
+        </div> -->
         <div class="well">
           <%= f.submit 'Place Order', class: 'btn btn-primary btn-lg btn-block' %>
         </div>

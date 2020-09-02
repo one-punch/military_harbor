@@ -54,14 +54,14 @@
         <td></td>
         <td><h5>Subtotal</h5></td>
         <td class="text-right">
-          <h5><strong><%= number_to_currency current_cart.subtotal %></strong></h5>
+          <h5><strong><%#= number_to_currency current_cart.subtotal %></strong></h5>
         </td>
       </tr>
       <tr>
         <td></td>
         <td></td>
         <td><h5>Estimated shipping</h5></td>
-        <td class="text-right"><h5><strong><%= number_to_currency current_cart.shipping_total %></strong></h5></td>
+        <td class="text-right"><h5><strong><%#= number_to_currency current_cart.shipping_total %></strong></h5></td>
       </tr> -->
       <tr>
         <td></td>
@@ -78,9 +78,9 @@
           <% end %>
         </td>
         <td>
-          <%#= link_to checkout_path, class: 'btn btn-success' do %>
-            <!-- Checkout <span class="glyphicon glyphicon-play"></span> -->
-          <%# end %>
+          <%= link_to checkout_path, class: 'btn btn-success' do %>
+            Checkout <span class="glyphicon glyphicon-play"></span>
+          <% end %>
         </td>
       </tr>
     </tbody>

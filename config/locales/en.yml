@@ -69,6 +69,18 @@ en:
   missing_params: 缺少必要参数
   sign_up_success: 注册成功，请登录
   please_login: 请先登录
-
-
+  order_success: 创建订单成功
+  create_payment_fail: 创建支付失败
+  create_payment_success: 创建支付成功
+  order_not_found: 找不到订单
+  success: 成功
+  sign_miss_match: 签名不匹配
+  not_support_virtual: 不支持虚拟产品，请选择具体产品
+  product_not_found: 找不到产品
+  days: 天
+  orders: 订单
+  settings: 设置
+  profile: 账户信息
+  account: 账户
+  log_out: 登出
 

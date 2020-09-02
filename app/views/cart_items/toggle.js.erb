@@ -1,7 +1,11 @@
-<% if @add_item %>
-  $("#<%= params[:element_id] %>").html("<%= t('canncel') %>")
-<% elsif @destroy %>
-  $("#<%= params[:element_id] %>").html("<%= t('pre_buy') %>")
+<% if @error %>
+  Console.alertError("<%= @error %>")
+<% else %>
+  <% if @add_item %>
+    $("#<%= params[:element_id] %>").html("<%= t('canncel') %>")
+  <% elsif @destroy %>
+    $("#<%= params[:element_id] %>").html("<%= t('pre_buy') %>")
+  <% end %>
+  $("#shopping-cart").html("<%= escape_javascript(render('layouts/cart_nav')) %>")
+  Console.alertSuccess("<%= t('admin.success') %>")
 <% end %>
-$("#shopping-cart").html("<%= escape_javascript(render('layouts/cart_nav')) %>")
-Console.alertSuccess("<%= t('admin.success') %>")
