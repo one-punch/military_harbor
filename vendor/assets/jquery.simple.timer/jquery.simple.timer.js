@@ -1,4 +1,4 @@
-/*
+:/*
 * jQuery-Simple-Timer
 *
 * Creates a countdown timer.
@@ -122,7 +122,7 @@
         timerBoxElement.paused = false;
         const secondsLeft = timerBoxElement.data('timeLeft');
         const onComplete = timerBoxElement.onComplete;
-        that.startCountdown(timerBoxElement, { secondsLeft, onComplete });
+        that.startCountdown(timerBoxElement, { secondsLeft: secondsLeft, onComplete: onComplete });
       });
 
       createSubElements(timerBoxElement);
