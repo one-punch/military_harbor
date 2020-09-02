@@ -41,7 +41,7 @@ function syncOrderPayment(id, callback){
   $.ajax({
     async: false,
     method: "POST",
-    url: "/orders/" + id + "/payment",
+    url: "/orders/" + id + "/payment"
   }).success(function(res){
     result = callback(res)
   }).fail(function(e){
