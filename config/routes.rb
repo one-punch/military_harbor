@@ -53,6 +53,7 @@ Rails.application.routes.draw do
 
     member do
       post 'payment', to: 'orders#payment'
+      post 'qrcode/refresh', to: 'orders#qrcode_refresh'
     end
   end
 

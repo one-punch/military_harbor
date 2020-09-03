@@ -83,4 +83,7 @@ en:
   profile: 账户信息
   account: 账户
   log_out: 登出
+  qrcode_expired: 二维码过期了，点击刷新
+  qrcode_create_fail: 二维码创建失败，5分钟后重试，点击刷新
+  qrcode_not_expired: 二维码仍在有效期内
 

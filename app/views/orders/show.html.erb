@@ -9,7 +9,7 @@
 
     <% if @order.wait_payment?%>
       <div class="alert alert-info" role="alert">
-        付款后自动到账 如果付款出现2.00 2.01 2.02 请按显示金额支付 支付未到账请联系微信客服
+        付款后自动到账 如果付款出现比总价多出0.01到0.09时，请按显示金额支付 支付未到账请联系微信客服
       </div>
     <% end %>
     <div class="panel panel-default">
@@ -38,8 +38,22 @@
               </div>
             </div>
           </div>
-        <% elsif @order.wait_payment? && @order.qrcode_expired? %>
+        <% elsif @order.wait_payment? && (@order.qrcode_url.blank? || @order.qrcode_expired? )%>
           <!-- 支付二维码过期了 -->
+          <div class="row">
+            <div class="col-md-offset-3 col-md-6 time-item">
+              <a id="refreshQrcode" href="javascript:void(0);">
+                <h5>
+                  <% if @order.qrcode_url.blank? %>
+                    <%= t("qrcode_create_fail") %>
+                  <% else %>
+                    <%= t("qrcode_expired") %>
+                  <% end %>
+                  <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
+                </h5>
+              </a>
+            </div>
+          </div>
         <% end %>
       </div>
 
@@ -152,8 +166,8 @@
     Console.makeQrcode(
       $("#orderQrcode").get(0),
       {
-        width : 150,
-        height : 150,
+        width : 200,
+        height : 200,
         colorDark : "#000",
         colorLight : "#fff",
       },
@@ -164,6 +178,24 @@
       element.addClass('is-complete');
     })
     checkOrder()
+    $(document).on("click", "#refreshQrcode", function(){
+      $.ajax({
+        method: "POST",
+        url: "<%= qrcode_refresh_order_path(@order.id) %>",
+      }).success(function(res) {
+        if (res && res.code == 0) {
+          setTimeout(function() {
+            window.location.reload()
+          }, 2 * 1000)
+          Console.alertSuccess("二维码刷新成功")
+        } else {
+          Console.alertError(res.message)
+        }
+      }).fail(function(e) {
+        console.error(e)
+        Console.alertError("遇到错误，请稍后再尝试。")
+      })
+    })
   })
 </script>
 

@@ -18,7 +18,7 @@ class OrdersController < ApplicationController
   def create
     @order = Order.generate({user_id: current_user.id, email: current_user.email}, current_cart)
     if @order && !@order.new_record?
-      PaymentCreateJob.new.perform(@order.id)
+      PaymentCreateJob.new.perform(@order)
       CancelOrderJob.set(wait: 30.minutes).perform_later
       flash[:success] = t("order_success")
       redirect_to @order
@@ -83,6 +83,47 @@ class OrdersController < ApplicationController
         message: I18n.t("sign_miss_match"),
         data: nil
       })
+    end
+  end
+
+  def qrcode_refresh
+    @order = current_user.orders.find_by(id: params[:id], status: :wait_payment)
+    unless @order
+      return render json: {
+        code: 404,
+        message: I18n.t("order_not_found"),
+        data: nil
+      }
+    end
+    if @order.qrcode_expired? || @order.qrcode_url.blank?
+      PaymentCreateJob.new.perform(@order)
+      if @order.qrcode_available?
+        return render json: {
+          code: 0,
+          message: I18n.t("success"),
+          data: {
+            id: @order.id,
+            qrcode_url: @order.qrcode_url,
+            qrcode_expired: @order.qrcode_expired?
+          }
+        }
+      else
+        return render json: {
+          code: 2002,
+          message: I18n.t("qrcode_create_fail"),
+          data: {
+            id: @order.id,
+            qrcode_url: nil,
+            qrcode_expired: true
+          }
+        }
+      end
+    else
+      return render json: {
+        code: 2001,
+        message: I18n.t("qrcode_not_expired"),
+        data: nil
+      }
     end
   end
 

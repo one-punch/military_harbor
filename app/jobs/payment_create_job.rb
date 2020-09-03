@@ -1,8 +1,8 @@
 class PaymentCreateJob < ApplicationJob
   queue_as :order
 
-  def perform(order_id)
-    order = Order.find_by(id: order_id)
+  def perform(order)
+    # order = Order.find_by(id: order_id)
     return unless order
     pay = PaymentService.new(order, SecureRandom.hex)
     if pay.exec
