@@ -61,7 +61,7 @@ class CartItemsController < ApplicationController
       @destroy = item.destroy
     else
       @cart = current_cart
-      cart_item = @cart.add_item {product_id: target.id, quantity: item_params[:quantity].to_i}
+      cart_item = @cart.add_item({product_id: target.id, quantity: item_params[:quantity].to_i})
       @add_item = cart_item.save
     end
   end
