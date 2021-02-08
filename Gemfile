@@ -45,7 +45,7 @@ gem 'ancestry'
 
 gem 'kaminari', '~> 1.0.1'
 
-gem 'carrierwave', '~> 1.1'
+gem 'carrierwave', '~> 1.3'
 gem 'mini_magick', '~> 3.8.1'
 
 
